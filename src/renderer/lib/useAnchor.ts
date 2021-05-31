@@ -1,14 +1,14 @@
-import { Keypair } from "@solana/web3.js";
+import * as anchor from "@project-serum/anchor";
 import { useEffect, useState } from "react";
 import { check } from "tcp-port-used";
 
 const useAnchor = () => {
-  const [user, setUser] = useState<Keypair>();
+  const [user, setUser] = useState<anchor.web3.Keypair>();
   const [solanaRunningLocally, setSolanaRunningLocally] = useState(false);
 
   useEffect(() => {
     setUser(
-      Keypair.fromSecretKey(
+      anchor.web3.Keypair.fromSecretKey(
         Buffer.from(
           JSON.parse(
             require("fs").readFileSync(
