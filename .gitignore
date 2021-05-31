@@ -2,3 +2,4 @@
 /dist
 .pnpm-debug.log
 .pnpm-error.log
+/test-ledger

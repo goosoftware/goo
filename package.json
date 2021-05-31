@@ -61,5 +61,8 @@
       "buildResources": "resources"
     },
     "publish": null
+  },
+  "dependencies": {
+    "tcp-port-used": "^1.0.2"
   }
 }
