@@ -18,7 +18,7 @@ async function createWindow() {
       contextIsolation: false,
     },
     show: false,
-    // titleBarStyle: "hiddenInset",
+    titleBarStyle: "hidden",
   });
 
   const isDev = is.development;
