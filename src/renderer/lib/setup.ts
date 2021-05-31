@@ -1,185 +1,123 @@
 import * as anchor from "@project-serum/anchor";
+import camelCase from "camelcase";
+import glob from "glob";
 import { LGraphNode, LiteGraph } from "litegraph.js";
+import "./defaultNodes";
 
-LiteGraph.clearRegisteredTypes();
+const parseWorkspace = (workspace: string) => {
+  console.log({ found: workspace });
 
-process.env.PROJECT_ROOT =
-  "/Users/john/Code/johnrees/anchor/examples/tutorial/basic-2";
+  const program = anchor.workspace[workspace];
+  console.log({ program });
+  const idl = program._idl as anchor.Idl;
+  console.log({ idl });
 
-const provider = anchor.Provider.local();
-const workspace = "Basic2";
-const program = anchor.workspace[workspace];
-const idl = program._idl as anchor.Idl;
-
-console.log({ program, idl });
-
-class SolanaNode extends LGraphNode {
-  static title_color = "#905ea9";
-}
-
-class WorkspaceNode extends LGraphNode {
-  static title_color = "#0eaf9b";
-}
-
-class UtilNode extends LGraphNode {
-  static title_color = "#000";
-}
-
-class ProviderWallet extends SolanaNode {
-  title = "solana / provider wallet";
-  constructor() {
-    super();
-    this.addOutput("wallet", 0 as any);
-    this.addOutput("publicKey", 0 as any);
+  class WorkspaceNode extends LGraphNode {
+    static title_color = "#0eaf9b";
   }
-  onExecute() {
-    this.setOutputData(0, provider.wallet);
-    this.setOutputData(0, provider.wallet.publicKey);
-  }
-}
-LiteGraph.registerNodeType(`solana/providerWallet`, ProviderWallet);
 
-class Logger extends UtilNode {
-  title = "utils / logger";
-  constructor() {
-    super();
-    this.addInput("data", 0 as any);
-  }
-  onExecute() {
-    console.log(this.getInputData(0));
-  }
-}
-LiteGraph.registerNodeType(`utils/logger`, Logger);
+  idl.accounts?.forEach((account) => {
+    class Account extends WorkspaceNode {
+      title = `${workspace}.${account.name}`;
+      constructor() {
+        super();
+        this.addInput("publicKey", 0 as any);
 
-class GenerateKeypair extends SolanaNode {
-  title = "solana / generate keypair";
-  private keypair = anchor.web3.Keypair.generate();
-  constructor() {
-    super();
-    this.addOutput("keypair", 0 as any);
-    this.addOutput("publicKey", 0 as any);
-    this.addOutput("secretKey", 0 as any);
-  }
-  onExecute() {
-    this.setOutputData(0, this.keypair);
-    this.setOutputData(1, this.keypair.publicKey);
-    this.setOutputData(2, this.keypair.secretKey);
-  }
-}
-LiteGraph.registerNodeType(`anchor/generateKeypair`, GenerateKeypair);
-
-class SYSVARS extends SolanaNode {
-  title = "solana / SYSVARS";
-  constructor() {
-    super();
-    this.addOutput("CLOCK", "publicKey");
-    this.addOutput("INSTRUCTIONS", "publicKey");
-    this.addOutput("RECENT_BLOCKHASHES", "publicKey");
-    this.addOutput("RENT", "publicKey");
-    this.addOutput("REWARDS", "publicKey");
-    this.addOutput("STAKE_HISTORY", "publicKey");
-  }
-  onExecute() {
-    this.setOutputData(0, anchor.web3.SYSVAR_CLOCK_PUBKEY);
-    this.setOutputData(1, anchor.web3.SYSVAR_INSTRUCTIONS_PUBKEY);
-    this.setOutputData(2, anchor.web3.SYSVAR_RECENT_BLOCKHASHES_PUBKEY);
-    this.setOutputData(3, anchor.web3.SYSVAR_RENT_PUBKEY);
-    this.setOutputData(4, anchor.web3.SYSVAR_REWARDS_PUBKEY);
-    this.setOutputData(5, anchor.web3.SYSVAR_STAKE_HISTORY_PUBKEY);
-  }
-}
-LiteGraph.registerNodeType(`solana/SYSVARS`, SYSVARS);
-
-idl.accounts?.forEach((account) => {
-  class Account extends WorkspaceNode {
-    title = `${workspace}.${account.name}`;
-    constructor() {
-      super();
-      this.addInput("publicKey", 0 as any);
-
-      account.type.fields.forEach((field) => {
-        this.addOutput(field.name, 0 as any);
-      });
+        account.type.fields.forEach((field) => {
+          this.addOutput(field.name, 0 as any);
+        });
+      }
+      onExecute() {}
     }
-    onExecute() {}
-  }
-  LiteGraph.registerNodeType(account.name, Account);
+    LiteGraph.registerNodeType(account.name, Account);
 
-  class CreateInstruction extends WorkspaceNode {
-    title = `${workspace}.${account.name}.createInstruction`;
-    constructor() {
-      super();
-      this.addInput("signer", 0 as any);
-      this.addInput("sizeOverride", 0 as any);
+    class CreateInstruction extends WorkspaceNode {
+      title = `${workspace}.${account.name}.createInstruction`;
+      constructor() {
+        super();
+        this.addInput("signer", 0 as any);
+        this.addInput("sizeOverride", 0 as any);
 
-      this.addOutput("instruction", 0 as any);
+        this.addOutput("instruction", 0 as any);
+      }
+      onExecute() {}
     }
-    onExecute() {}
-  }
-  LiteGraph.registerNodeType(
-    [account.name, "createInstruction"].join("/"),
-    CreateInstruction
-  );
-});
+    LiteGraph.registerNodeType(
+      [account.name, "createInstruction"].join("/"),
+      CreateInstruction
+    );
+  });
 
-idl.instructions.forEach((instruction) => {
-  class InstructionNode extends WorkspaceNode {
-    title = [workspace, instruction.name].join(".");
+  const instructionOrMethodNodeFactory = (instruction) => {
+    class InstructionNode extends WorkspaceNode {
+      title = [workspace, instruction.name].join(".");
 
-    constructor() {
-      super();
-      instruction.args.forEach((arg) => {
-        this.addInput(arg.name, 0 as any);
-      });
-      instruction.accounts.forEach((acc) => {
-        this.addInput(acc.name, 0 as any, { shape: LiteGraph.ARROW_SHAPE });
-      });
-      this.addInput("signers", 0 as any);
-      this.addInput("instructions", 0 as any);
+      constructor() {
+        super();
+        instruction.args.forEach((arg) => {
+          this.addInput(arg.name, 0 as any);
+        });
+        instruction.accounts.forEach((acc) => {
+          this.addInput(acc.name, 0 as any, { shape: LiteGraph.ARROW_SHAPE });
+        });
+        this.addInput("signers", 0 as any);
+        this.addInput("instructions", 0 as any);
+      }
+
+      onExecute() {
+        console.log(
+          this.inputs.map((input, i) => {
+            return i;
+          })
+        );
+      }
     }
+    LiteGraph.registerNodeType(
+      `anchor/${workspace}/${instruction.name}`,
+      InstructionNode
+    );
+  };
 
-    onExecute() {
-      console.log(
-        this.inputs.map((input, i) => {
-          return i;
-        })
-      );
+  idl.instructions.forEach(instructionOrMethodNodeFactory);
+  idl.state?.methods.forEach(instructionOrMethodNodeFactory);
+};
+
+// from anchor.workspace, TODO: use that code instead
+
+const findWorkspaces = () => {
+  // const find = require("find"); // not working?
+  const fs = require("fs");
+  const process = require("process");
+  const path = require("path");
+
+  let projectRoot = process.env.PROJECT_ROOT ?? process.cwd();
+
+  while (!fs.existsSync(path.join(projectRoot, "Anchor.toml"))) {
+    const parentDir = path.dirname(projectRoot);
+    if (parentDir === projectRoot) {
+      projectRoot = undefined;
     }
+    projectRoot = parentDir;
   }
-  LiteGraph.registerNodeType(
-    `anchor/${workspace}/${instruction.name}`,
-    InstructionNode
-  );
-});
 
-// const counter = anchor.web3.Keypair.generate();
-// async function doStuff() {
-//   await program.rpc.create(provider.wallet.publicKey, {
-//     accounts: {
-//       counter: counter.publicKey,
-//       rent: anchor.web3.SYSVAR_RENT_PUBKEY,
-//     },
-//     signers: [counter],
-//     instructions: [await program.account.counter.createInstruction(counter)],
-//   });
+  if (projectRoot === undefined) {
+    throw new Error("Could not find workspace root.");
+  }
 
-//   let counterAccount = await program.account.counter(counter.publicKey);
+  glob(`${projectRoot}/target/idl/*.json`, function (er, files) {
+    files.forEach((path) => {
+      const idlStr = fs.readFileSync(path);
+      console.log(path);
+      const idl = JSON.parse(idlStr);
+      const name = camelCase(idl.name, { pascalCase: true });
+      if (idl.metadata && idl.metadata.address) {
+        parseWorkspace(name);
+      }
+    });
+  });
+};
 
-//   assert.ok(counterAccount.authority.equals(provider.wallet.publicKey));
-//   assert.ok(counterAccount.count.toNumber() === 0);
-
-//   // increment
-
-//   await program.rpc.increment({
-//     accounts: {
-//       counter: counter.publicKey,
-//       authority: provider.wallet.publicKey,
-//     },
-//   });
-
-//   counterAccount = await program.account.counter(counter.publicKey);
-
-//   assert.ok(counterAccount.authority.equals(provider.wallet.publicKey));
-//   assert.ok(counterAccount.count.toNumber() == 1);
-// }
-// doStuff();
+export const openProject = (dir: string) => {
+  process.env.PROJECT_ROOT = dir;
+  findWorkspaces();
+};

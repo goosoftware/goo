@@ -63,6 +63,8 @@
     "publish": null
   },
   "dependencies": {
+    "camelcase": "^6.2.0",
+    "glob": "^7.1.7",
     "litegraph.js": "^0.7.9",
     "lodash": "^4.17.21",
     "tcp-port-used": "^1.0.2"
