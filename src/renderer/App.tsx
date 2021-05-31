@@ -5,6 +5,8 @@ import ClusterSelector from "./components/ClusterSelector";
 import Editor from "./Editor";
 import useAnchor from "./lib/useAnchor";
 
+LiteGraph.clearRegisteredTypes();
+
 process.env.PROJECT_ROOT =
   "/Users/john/Code/johnrees/anchor/examples/tutorial/basic-2";
 
