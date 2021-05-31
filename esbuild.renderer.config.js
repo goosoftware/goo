@@ -1,14 +1,14 @@
-const path = require('path')
+const path = require("path");
 
 /** @var {Partial<import('esbuild').BuildOptions>} */
 module.exports = {
-  platform: 'browser',
-  entryPoints: [path.resolve('src/renderer/index.tsx')],
+  platform: "browser",
+  entryPoints: [path.resolve("src/renderer/index.tsx")],
   bundle: true,
-  target: 'chrome89', // electron version target
+  target: "chrome89", // electron version target
   loader: {
-    '.ts': 'ts',
-    '.tsx': 'tsx',
-    '.css': 'css',
-  }
-}
+    ".ts": "ts",
+    ".tsx": "tsx",
+    ".css": "css",
+  },
+};

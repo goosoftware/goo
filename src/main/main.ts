@@ -1,9 +1,9 @@
-import path from 'path'
-import { format } from 'url'
-import { app, BrowserWindow } from 'electron'
-import { is } from 'electron-util'
+import { app, BrowserWindow } from "electron";
+import { is } from "electron-util";
+import path from "path";
+import { format } from "url";
 
-let win: BrowserWindow | null = null
+let win: BrowserWindow | null = null;
 
 async function createWindow() {
   win = new BrowserWindow({
@@ -18,46 +18,46 @@ async function createWindow() {
       contextIsolation: false,
     },
     show: false,
-  })
+  });
 
-  const isDev = is.development
+  const isDev = is.development;
 
   if (isDev) {
-    win.loadURL('http://localhost:9080')
+    win.loadURL("http://localhost:9080");
   } else {
     win.loadURL(
       format({
-        pathname: path.join(__dirname, 'index.html'),
-        protocol: 'file',
+        pathname: path.join(__dirname, "index.html"),
+        protocol: "file",
         slashes: true,
-      }),
-    )
+      })
+    );
   }
 
-  win.on('closed', () => {
-    win = null
-  })
+  win.on("closed", () => {
+    win = null;
+  });
 
-  win.webContents.on('devtools-opened', () => {
-    win!.focus()
-  })
+  win.webContents.on("devtools-opened", () => {
+    win!.focus();
+  });
 
-  win.on('ready-to-show', () => {
-    win!.show()
-    win!.focus()
-  })
+  win.on("ready-to-show", () => {
+    win!.show();
+    win!.focus();
+  });
 }
 
-app.on('ready', createWindow)
+app.on("ready", createWindow);
 
-app.on('window-all-closed', () => {
+app.on("window-all-closed", () => {
   if (!is.macos) {
-    app.quit()
+    app.quit();
   }
-})
+});
 
-app.on('activate', () => {
+app.on("activate", () => {
   if (win === null && app.isReady()) {
-    createWindow()
+    createWindow();
   }
-})
+});
