@@ -13,10 +13,6 @@ const idl = program._idl as anchor.Idl;
 
 console.log({ program, idl });
 
-console.log(program.account.counter.createInstruction);
-
-type RPC = [string, (...args: any) => Promise<any>];
-
 class SolanaNode extends LGraphNode {
   static title_color = "#905ea9";
 }
@@ -94,25 +90,7 @@ class SYSVARS extends SolanaNode {
 }
 LiteGraph.registerNodeType(`solana/SYSVARS`, SYSVARS);
 
-// Object.entries(program.rpc).forEach(([key, fn]: RPC) => {
-//   class RPCNode extends WorkspaceNode {
-//     title = [workspace, "rpc", key].join(".");
-//     constructor() {
-//       super();
-//       this.addInput("args", 0 as any);
-//     }
-//     onExecute() {
-//       try {
-//         fn(...this.getInputData(0))
-//           .then(console.log)
-//           .catch(console.error);
-//       } catch (err) {}
-//     }
-//   }
-//   LiteGraph.registerNodeType(`anchor/${workspace}/rpc/${key}`, RPCNode);
-// });
-
-idl.accounts.forEach((account) => {
+idl.accounts?.forEach((account) => {
   class Account extends WorkspaceNode {
     title = `${workspace}.${account.name}`;
     constructor() {
