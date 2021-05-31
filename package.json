@@ -63,6 +63,7 @@
     "publish": null
   },
   "dependencies": {
+    "litegraph.js": "^0.7.9",
     "tcp-port-used": "^1.0.2"
   }
 }

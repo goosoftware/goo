@@ -1,12 +1,21 @@
+* {
+  font-family: Menlo;
+  box-sizing: border-box;
+}
+
 html {
   font-size: 16px;
 }
 
 body {
+  padding: 0;
   margin: 0;
+  min-height: 100%;
   font-family: -apple-system, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   background: #ddd;
+  color: white;
+  overflow: hidden;
 }
 
 h1 {
@@ -26,4 +35,12 @@ header {
   text-align: right;
   -webkit-app-region: drag;
   user-select: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+#root {
+  height: 100vh;
 }

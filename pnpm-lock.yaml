@@ -10,12 +10,14 @@ specifiers:
   electron-esbuild: ^1.4.1
   electron-util: ~0.16.0
   esbuild: ^0.10.2
+  litegraph.js: ^0.7.9
   react: ~17.0.2
   react-dom: ~17.0.2
   tcp-port-used: ^1.0.2
   typescript: ^4.3.2
 
 dependencies:
+  litegraph.js: 0.7.9
   tcp-port-used: 1.0.2
 
 devDependencies:
@@ -2233,6 +2235,10 @@ packages:
   /lines-and-columns/1.1.6:
     resolution: {integrity: sha1-HADHQ7QzzQpOgHWPe2SldEDZ/wA=}
     dev: true
+
+  /litegraph.js/0.7.9:
+    resolution: {integrity: sha512-AT2CtIreILraD3nl3ninHScKqUt38f4HjhujGuu/o8L3W7svoGxhDtCPiR3m6TQGgz9ShlbIMqddh4wRPXfiXg==}
+    dev: false
 
   /livereload-js/3.3.2:
     resolution: {integrity: sha512-w677WnINxFkuixAoUEXOStewzLYGI76XVag+0JWMMEyjJQKs0ibWZMxkTlB96Lm3EjZ7IeOxVziBEbtxVQqQZA==}
