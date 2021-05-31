@@ -1,22 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import useAnchor from "./lib/useAnchor";
 
 export function App() {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCount((c) => c + 1);
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, []);
+  const { user } = useAnchor();
 
   return (
     <div className="padding">
-      <h1>Count {count}</h1>
-
-      <div>This is it</div>
-      <div>Fast full page reload from esbuild</div>
+      <h2>{user?.publicKey.toString()}</h2>
     </div>
   );
 }

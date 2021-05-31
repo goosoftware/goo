@@ -8,6 +8,7 @@
     "package": "electron-builder"
   },
   "devDependencies": {
+    "@solana/web3.js": "^1.15.0",
     "@types/node": "~15.6.1",
     "@types/react": "~17.0.8",
     "@types/react-dom": "~17.0.5",
@@ -22,9 +23,9 @@
   },
   "build": {
     "appId": "io.comp.myapp",
-    "productName": "My App",
+    "productName": "Graph Editor",
     "extraMetadata": {
-      "name": "My App",
+      "name": "Graph Editor",
       "main": "main.js"
     },
     "files": [
