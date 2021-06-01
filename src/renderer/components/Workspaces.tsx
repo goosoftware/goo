@@ -7,7 +7,7 @@ const Workspaces = () => {
     <div id="workspaces">
       <h1>Workspaces</h1>
       <ul>
-        {app.workspaces.map((workspace) => (
+        {app.anchorWorkspaces.map((workspace) => (
           <li>{workspace.name}</li>
         ))}
       </ul>
