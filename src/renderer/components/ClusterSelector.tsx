@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import useAnchor from "../lib/useAnchor";
 import useSolana from "../lib/useSolana";
 
 const Clusters = {
@@ -13,6 +14,7 @@ const ClusterSelector = ({
 }: {
   cluster?: keyof typeof Clusters;
 }) => {
+  const { deploy } = useAnchor();
   const { stopValidator, startValidator, connected } = useSolana();
   const [_cluster, setCluster] = useState(cluster);
 
@@ -27,6 +29,8 @@ const ClusterSelector = ({
         <option value="testnet">testnet</option>
         <option value="localnet">localnet</option>
       </select>
+
+      <button onClick={deploy}>deploy</button>
 
       {_cluster === "localnet" &&
         (connected ? (
