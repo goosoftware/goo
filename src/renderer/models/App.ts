@@ -1,5 +1,5 @@
 import * as anchor from "@project-serum/anchor";
-import { types } from "mobx-state-tree";
+import { onSnapshot, types } from "mobx-state-tree";
 import AnchorWorkspace from "./AnchorWorkspace";
 
 export const App = types
@@ -9,7 +9,6 @@ export const App = types
   .actions((self) => ({
     addWorkspace(workspace: string) {
       const program = anchor.workspace[workspace];
-      console.log({ adding: program });
       self.anchorWorkspaces.put({ id: workspace, name: workspace });
     },
     removeWorkspace(workspace) {
@@ -17,6 +16,20 @@ export const App = types
     },
   }));
 
-export const app = App.create({
-  anchorWorkspaces: {},
+const getData = () => {
+  try {
+    if (!localStorage.getItem("snapshot")) throw "no snapshot";
+    return JSON.parse(localStorage.getItem("snapshot"));
+  } catch (err) {
+    console.error(err);
+    return {
+      anchorWorkspaces: {},
+    };
+  }
+};
+
+export const app = App.create(getData());
+
+onSnapshot(app, (snapshot) => {
+  localStorage.setItem("snapshot", JSON.stringify(snapshot));
 });

@@ -1,7 +1,7 @@
 import * as anchor from "@project-serum/anchor";
 import { LGraphNode, LiteGraph } from "litegraph.js";
 
-LiteGraph.clearRegisteredTypes();
+// LiteGraph.clearRegisteredTypes();
 
 const provider = anchor.Provider.local();
 
@@ -50,12 +50,16 @@ LiteGraph.registerNodeType(`utils/logger`, Logger);
 class GenerateKeypair extends SolanaNode {
   title = "solana / generate keypair";
   private keypair = anchor.web3.Keypair.generate();
+
   constructor() {
     super();
+    // this.addInput("keypair", 0 as any);
+
     this.addOutput("keypair", 0 as any);
     this.addOutput("publicKey", 0 as any);
     this.addOutput("secretKey", 0 as any);
   }
+
   onExecute() {
     this.setOutputData(0, this.keypair);
     this.setOutputData(1, this.keypair.publicKey);
