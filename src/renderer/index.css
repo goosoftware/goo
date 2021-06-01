@@ -13,9 +13,9 @@ body {
   min-height: 100%;
   font-family: -apple-system, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
-  background: #ddd;
   color: white;
   overflow: hidden;
+  background: #222;
 }
 
 h1 {
@@ -39,8 +39,18 @@ header {
   top: 0;
   left: 0;
   right: 0;
+  z-index: 2;
 }
 
 #root {
   height: 100vh;
+}
+
+#workspaces {
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: black;
+  padding: 90px 20px 20px;
 }

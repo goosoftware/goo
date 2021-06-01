@@ -1,5 +1,6 @@
 import React from "react";
 import ClusterSelector from "./components/ClusterSelector";
+import Workspaces from "./components/Workspaces";
 import Editor from "./Editor";
 import "./lib/setup";
 import useAnchor from "./lib/useAnchor";
@@ -16,6 +17,7 @@ export function App() {
       <div>
         <Editor />
       </div>
+      <Workspaces />
     </div>
   );
 }
