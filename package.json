@@ -8,6 +8,8 @@
     "package": "electron-builder"
   },
   "dependencies": {
+    "@project-serum/common": "^0.0.1-beta.3",
+    "@solana/spl-token": "^0.1.5",
     "camelcase": "^6.2.0",
     "glob": "^7.1.7",
     "litegraph.js": "^0.7.9",
@@ -17,7 +19,8 @@
     "mobx-state-tree": "^5.0.1",
     "react": "~17.0.2",
     "react-dom": "~17.0.2",
-    "tcp-port-used": "^1.0.2"
+    "tcp-port-used": "^1.0.2",
+    "tweetnacl-util": "^0.15.1"
   },
   "devDependencies": {
     "@types/node": "~15.6.1",

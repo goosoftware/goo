@@ -15,14 +15,14 @@ export const App = types
     },
   }));
 
+const LOCAL_KEY = "snapshot4";
+
 const getData = () => {
   try {
-    if (localStorage.getItem("snapshot2")) {
-      return JSON.parse(localStorage.getItem("snapshot2"));
-    }
-  } catch (err) {
-    console.error(err);
-  }
+    const data = JSON.parse(localStorage.getItem(LOCAL_KEY));
+    if (data?.anchorWorkspaces) return data;
+  } catch (err) {}
+
   return {
     anchorWorkspaces: {},
   };
@@ -31,5 +31,5 @@ const getData = () => {
 export const app = App.create(getData());
 
 onSnapshot(app, (snapshot) => {
-  localStorage.setItem("snapshot2", JSON.stringify(snapshot));
+  localStorage.setItem(LOCAL_KEY, JSON.stringify(snapshot));
 });

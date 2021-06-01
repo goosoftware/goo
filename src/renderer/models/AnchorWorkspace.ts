@@ -1,5 +1,6 @@
 import * as anchor from "@project-serum/anchor";
 import { IdlInstruction } from "@project-serum/anchor/dist/idl";
+import camelCase from "camelcase";
 import { LiteGraph } from "litegraph.js";
 import { getParent, types } from "mobx-state-tree";
 import { WorkspaceNode } from "../lib/defaultNodes";
@@ -147,7 +148,8 @@ const AnchorWorkspace = types
                 this.ee?.removeListener("change", this.handleChange);
 
                 console.log("subscribing");
-                this.ee = workspace.account.counter.subscribe(pk);
+                this.ee =
+                  workspace.account[camelCase(account.name)].subscribe(pk);
                 this.ee.on("change", this.handleChange);
               }
             }
@@ -200,7 +202,7 @@ const AnchorWorkspace = types
               try {
                 this.bgcolor = "";
 
-                workspace.account.counter
+                workspace.account[camelCase(account.name)]
                   .createInstruction(this.inputData)
                   .then((data) => {
                     this.setOutputData(0, data);
