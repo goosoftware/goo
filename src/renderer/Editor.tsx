@@ -27,13 +27,10 @@ function Editor() {
   useEffect(() => {
     if (!canvasRef.current) return;
 
-    console.log("initializing");
-
     var graph = new Graph();
     window.graph = graph;
 
     const handleResize = () => {
-      console.log("resize");
       canvas.resize();
     };
 
@@ -88,7 +85,6 @@ function Editor() {
     document.removeEventListener("keyup", keyCallback, true);
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      console.log(e.code);
       if (e.code === "MetaRight") {
         return render();
       } else {
