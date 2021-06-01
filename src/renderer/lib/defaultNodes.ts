@@ -8,12 +8,17 @@ const provider = anchor.Provider.local();
 class SolanaNode extends LGraphNode {
   static title_color = "#905ea9";
 }
+
 class UtilNode extends LGraphNode {
   static title_color = "#000";
 }
 
-class ProviderWallet extends SolanaNode {
-  title = "solana / provider wallet";
+class AnchorNode extends LGraphNode {
+  static title_color = "#3694E0";
+}
+
+class ProviderWallet extends AnchorNode {
+  title = "anchor / provider wallet";
   constructor() {
     super();
     this.addOutput("wallet", 0 as any);
@@ -24,7 +29,7 @@ class ProviderWallet extends SolanaNode {
     this.setOutputData(0, provider.wallet.publicKey);
   }
 }
-LiteGraph.registerNodeType(`solana/providerWallet`, ProviderWallet);
+LiteGraph.registerNodeType(`anchor/providerWallet`, ProviderWallet);
 
 class Logger extends UtilNode {
   title = "utils / logger";
@@ -53,7 +58,7 @@ class GenerateKeypair extends SolanaNode {
     this.setOutputData(2, this.keypair.secretKey);
   }
 }
-LiteGraph.registerNodeType(`anchor/generateKeypair`, GenerateKeypair);
+LiteGraph.registerNodeType(`solana/generateKeypair`, GenerateKeypair);
 
 class SYSVARS extends SolanaNode {
   title = "solana / SYSVARS";
