@@ -11,7 +11,7 @@ declare global {
 }
 
 const RENDER_LOOP = true;
-const EXECUTION_LOOP = false;
+const EXECUTION_LOOP = true;
 class Graph extends LGraph {
   // onNodeAdded(node: LGraphNode) {
   //   console.log("added", node);
@@ -69,8 +69,10 @@ function Editor() {
     // console.log((canvas as any)._key_callback)
 
     try {
-      const data = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)!);
-      graph.configure(data);
+      if (localStorage.getItem(LOCAL_STORAGE_KEY)) {
+        const data = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+        graph.configure(data);
+      }
     } catch (err) {}
 
     if (!RENDER_LOOP) canvas.stopRendering();
@@ -85,7 +87,7 @@ function Editor() {
     document.removeEventListener("keyup", keyCallback, true);
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.code === "MetaRight") {
+      if (e.code === "MetaRight" && !EXECUTION_LOOP) {
         return render();
       } else {
         return keyCallback(e);
