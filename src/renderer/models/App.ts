@@ -1,5 +1,4 @@
 import * as anchor from "@project-serum/anchor";
-import { LiteGraph } from "litegraph.js";
 import { types } from "mobx-state-tree";
 import AnchorWorkspace from "./AnchorWorkspace";
 
@@ -14,8 +13,6 @@ export const App = types
       self.anchorWorkspaces.put({ id: workspace, name: workspace });
     },
     removeWorkspace(workspace) {
-      console.log(LiteGraph.getNodeTypesCategories());
-      console.log(LiteGraph.getNodeTypesInCategory("Chat", undefined));
       self.anchorWorkspaces.delete(workspace.id);
     },
   }));

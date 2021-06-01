@@ -5,6 +5,10 @@ LiteGraph.clearRegisteredTypes();
 
 const provider = anchor.Provider.local();
 
+export class WorkspaceNode extends LGraphNode {
+  static title_color = "#0eaf9b";
+}
+
 class SolanaNode extends LGraphNode {
   static title_color = "#905ea9";
 }
