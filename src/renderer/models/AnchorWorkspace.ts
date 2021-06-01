@@ -92,7 +92,7 @@ const instructionOrMethodNodeFactory =
       }
 
       private handleSuccess(data) {
-        console.log(data);
+        // console.log(data);
         this.bgcolor = "green";
       }
     }
@@ -122,29 +122,54 @@ const AnchorWorkspace = types
         idl.accounts?.forEach((account) => {
           class Account extends WorkspaceNode {
             title = `${self.name}.${account.name}`;
+            publicKey: string;
+            subscription: string;
+            ee: any;
+
             constructor() {
               super();
               this.addInput("publicKey", 0 as any);
-              this.addInput("trigger", LiteGraph.ACTION);
+              // this.addInput("trigger", LiteGraph.ACTION);
+
+              this.handleChange = this.handleChange.bind(this);
 
               account.type.fields.forEach((field) => {
                 this.addOutput(field.name, 0 as any);
               });
             }
+
+            onExecute() {
+              const pk = this.getInputData(0);
+
+              if (pk && this.publicKey !== pk.toString()) {
+                this.publicKey = pk.toString();
+
+                this.ee?.removeListener("change", this.handleChange);
+
+                console.log("subscribing");
+                this.ee = workspace.account.counter.subscribe(pk);
+                this.ee.on("change", this.handleChange);
+              }
+            }
+
+            private handleChange(data) {
+              Object.entries(data).forEach(([k, v]) => {
+                const i = this.outputs.findIndex((o) => o.name === k);
+                if (i >= 0) {
+                  this.setOutputData(i, v);
+                } else {
+                  console.log(`output not found: ${k}`);
+                }
+              });
+
+              this.bgcolor = "green";
+            }
+
             onAction() {
               workspace.account
                 .counter(this.getInputData(0))
                 .then((data) => {
-                  Object.entries(data).forEach(([k, v]) => {
-                    const i = this.outputs.findIndex((o) => o.name === k);
-                    if (i >= 0) {
-                      this.setOutputData(i, v);
-                    } else {
-                      console.log(`output not found: ${k}`);
-                    }
-                  });
-
-                  this.bgcolor = "green";
+                  this.handleChange(data);
                 })
                 .catch((err) => {
                   this.bgcolor = "red";
@@ -159,6 +184,7 @@ const AnchorWorkspace = types
 
           class CreateInstruction extends WorkspaceNode {
             title = `${self.name}.${account.name}.createInstruction`;
+            private inputData: any;
 
             constructor() {
               super();
@@ -168,11 +194,14 @@ const AnchorWorkspace = types
               this.addOutput("", 0 as any);
             }
             onExecute() {
+              if (this.getInputData(0) === this.inputData) return;
+              this.inputData = this.getInputData(0);
+
               try {
                 this.bgcolor = "";
 
                 workspace.account.counter
-                  .createInstruction(this.getInputData(0))
+                  .createInstruction(this.inputData)
                   .then((data) => {
                     this.setOutputData(0, data);
                     this.bgcolor = "green";
@@ -187,6 +216,7 @@ const AnchorWorkspace = types
               }
             }
           }
+
           LiteGraph.registerNodeType(
             `${self.name}/${account.name}/createInstruction`,
             CreateInstruction
