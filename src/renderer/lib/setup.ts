@@ -2,6 +2,7 @@ import * as anchor from "@project-serum/anchor";
 import camelCase from "camelcase";
 import glob from "glob";
 import { LGraphNode, LiteGraph } from "litegraph.js";
+import { app } from "../models/App";
 import "./defaultNodes";
 
 const parseWorkspace = (workspace: string) => {
@@ -11,6 +12,8 @@ const parseWorkspace = (workspace: string) => {
   console.log({ program });
   const idl = program._idl as anchor.Idl;
   console.log({ idl });
+
+  app.addWorkspace(workspace);
 
   class WorkspaceNode extends LGraphNode {
     static title_color = "#0eaf9b";
@@ -29,7 +32,7 @@ const parseWorkspace = (workspace: string) => {
       }
       onExecute() {}
     }
-    LiteGraph.registerNodeType(account.name, Account);
+    LiteGraph.registerNodeType(`${workspace}/${account.name}`, Account);
 
     class CreateInstruction extends WorkspaceNode {
       title = `${workspace}.${account.name}.createInstruction`;
@@ -43,7 +46,7 @@ const parseWorkspace = (workspace: string) => {
       onExecute() {}
     }
     LiteGraph.registerNodeType(
-      [account.name, "createInstruction"].join("/"),
+      `${workspace}/${account.name}/createInstruction`,
       CreateInstruction
     );
   });
@@ -73,7 +76,7 @@ const parseWorkspace = (workspace: string) => {
       }
     }
     LiteGraph.registerNodeType(
-      `anchor/${workspace}/${instruction.name}`,
+      `${workspace}/${instruction.name}`,
       InstructionNode
     );
   };
