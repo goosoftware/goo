@@ -1,8 +1,11 @@
 import { observer } from "mobx-react-lite";
 import React from "react";
+import useAnchor from "../lib/useAnchor";
 import { app } from "../models/App";
+import Link from "./Link";
 
 const Workspaces = () => {
+  const { deploy } = useAnchor();
   return (
     <div id="workspaces">
       <h1>Workspaces</h1>
@@ -10,8 +13,20 @@ const Workspaces = () => {
         {[...app.anchorWorkspaces.values()].map((workspace) => (
           <li key={workspace.id}>
             <h3>
-              {workspace.name} <button onClick={workspace.remove}>x</button>
+              {workspace.address ? (
+                <Link
+                  href={`https://explorer.solana.com/address/${workspace.address}?cluster=custom&customUrl=http://localhost:8899`}
+                >
+                  {workspace.name}
+                </Link>
+              ) : (
+                workspace.name
+              )}
+
+              <button onClick={workspace.remove}>x</button>
+              <button onClick={deploy}>deploy</button>
             </h3>
+
             <ul>
               {workspace.nodes.map((node) => (
                 <li key={node}>{node}</li>
