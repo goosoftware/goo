@@ -1,6 +1,6 @@
 {
-  "name": "react-typescript",
-  "version": "1.0.0",
+  "name": "goo",
+  "version": "0.0.1",
   "license": "MIT",
   "scripts": {
     "dev": "electron-esbuild dev",
