@@ -107,6 +107,7 @@ const AnchorWorkspace = types
     id: types.identifier,
     name: types.string,
     nodes: types.optional(types.array(types.string), []),
+    address: types.maybeNull(types.string),
   })
   .actions((self) => {
     const workspace = anchor.workspace[self.name];
@@ -117,6 +118,8 @@ const AnchorWorkspace = types
       },
 
       afterAttach() {
+        self.address = workspace._idl?.metadata?.address;
+
         const idl = workspace._idl as anchor.Idl;
         const isNew = self.nodes.length === 0;
 
