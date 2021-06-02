@@ -31,6 +31,7 @@ specifiers:
   tcp-port-used: ^1.0.2
   tweetnacl-util: ^0.15.1
   typescript: ^4.3.2
+  xstate: ^4.20.0
 
 dependencies:
   '@headlessui/react': 1.2.0_react@17.0.2
@@ -50,6 +51,7 @@ dependencies:
   react-toastify: 7.0.4_react-dom@17.0.2+react@17.0.2
   tcp-port-used: 1.0.2
   tweetnacl-util: 0.15.1
+  xstate: 4.20.0
 
 devDependencies:
   '@types/node': 15.6.2
@@ -5040,6 +5042,10 @@ packages:
     engines: {node: '>=10.0.0'}
     dev: true
     optional: true
+
+  /xstate/4.20.0:
+    resolution: {integrity: sha512-u5Ou1CMo/oWApasmv1TYTHgj38k69DJdTqQdBBwt+/ooNhPJQiSIKTB3Y3HvX0h5tulwfSo6xAwZgBgjRsK3LA==}
+    dev: false
 
   /xtend/4.0.2:
     resolution: {integrity: sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==}
