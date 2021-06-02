@@ -2,6 +2,7 @@ import * as anchor from "@project-serum/anchor";
 import React from "react";
 import { render } from "react-dom";
 import { App } from "./App";
+import "./base.css";
 import "./index.css";
 import { openProject } from "./lib/setup";
 

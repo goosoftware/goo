@@ -1,6 +1,7 @@
 import { LGraph, LGraphCanvas, LiteGraph } from "litegraph.js";
-import "litegraph.js/css/litegraph.css";
 import React, { useEffect, useRef } from "react";
+// import "litegraph.js/css/litegraph.css";
+import "./litegraph.css";
 
 declare global {
   interface Window {

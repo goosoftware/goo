@@ -8,7 +8,7 @@ const Workspaces = () => {
   const { deploy } = useAnchor();
   return (
     <div id="workspaces">
-      <h1>Workspaces</h1>
+      <h1 className="text-base md:text-lg font-black">Workspaces</h1>
       <ul>
         {[...app.anchorWorkspaces.values()].map((workspace) => (
           <li key={workspace.id}>
