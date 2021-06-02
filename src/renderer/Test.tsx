@@ -1,19 +1,3 @@
-/*
-  This example requires Tailwind CSS v2.0+
-
-  This example requires some changes to your config:
-
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ]
-  }
-  ```
-*/
 import { Dialog, Menu, Transition } from "@headlessui/react";
 import {
   BellIcon,
@@ -28,6 +12,7 @@ import {
 } from "@heroicons/react/outline";
 import { SearchIcon } from "@heroicons/react/solid";
 import React, { Fragment, useState } from "react";
+import NewWorkspace from "./components/NewWorkspace";
 import Editor from "./Editor";
 
 const navigation = [
@@ -50,9 +35,13 @@ function classNames(...classes) {
 
 export default function Example() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [clicked, setClicked] = useState(false);
 
   return (
-    <div className="h-screen flex overflow-hidden bg-gray-100">
+    <div
+      className="h-screen flex overflow-hidden bg-gray-100"
+      onClick={() => setClicked(true)}
+    >
       <Transition.Root show={sidebarOpen} as={Fragment}>
         <Dialog
           as="div"
@@ -288,6 +277,7 @@ export default function Example() {
           {/* </div> */}
         </main>
       </div>
+      {clicked && <NewWorkspace />}
     </div>
   );
 }

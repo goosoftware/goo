@@ -3,7 +3,9 @@ import { IdlInstruction } from "@project-serum/anchor/dist/idl";
 import camelCase from "camelcase";
 import { LiteGraph } from "litegraph.js";
 import { getParent, types } from "mobx-state-tree";
+import { interpret } from "xstate";
 import { WorkspaceNode } from "../lib/defaultNodes";
+import workspaceMachine from "../machines/workspace";
 
 const instructionOrMethodNodeFactory =
   (workspace, name, addNode) => (instruction: IdlInstruction) => {
@@ -109,10 +111,19 @@ const AnchorWorkspace = types
     nodes: types.optional(types.array(types.string), []),
     address: types.maybeNull(types.string),
   })
+  .volatile(() => ({
+    // state: interpret(workspaceMachine).start(),
+    state: workspaceMachine.initialState,
+    service: interpret(workspaceMachine).onTransition((current) =>
+      (self as any).changeState(current)
+    ),
+  }))
   .actions((self) => {
     const workspace = anchor.workspace[self.name];
-
     return {
+      changeState(newState) {
+        self.state = newState.value;
+      },
       remove() {
         (getParent(self, 2) as any).removeWorkspace(self);
       },
