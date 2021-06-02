@@ -45,15 +45,27 @@ function Editor() {
     };
 
     const canvas = new LGraphCanvas(canvasRef.current, graph);
-    canvas.title_text_font = `${LiteGraph.NODE_TEXT_SIZE}px Menlo`;
+
+    // https://github.com/IBM/plex/tree/master/IBM-Plex-Sans-Condensed
+    // https://rubjo.github.io/victor-mono/
+    // https://www.programmingfonts.org/
+
+    // canvas.title_text_font = `${LiteGraph.NODE_TEXT_SIZE}px JetBrains Mono`;
+    canvas.title_text_font = `${
+      LiteGraph.NODE_TEXT_SIZE + 1
+    }px IBMPlexSansCond-Medm`;
+
     canvas.node_title_color = "white";
-    canvas.inner_text_font = `${LiteGraph.NODE_SUBTEXT_SIZE}px Menlo`;
+    canvas.inner_text_font = `${LiteGraph.NODE_SUBTEXT_SIZE}px JetBrains Mono`;
+
+    // canvas.inner_text_font = `${LiteGraph.NODE_SUBTEXT_SIZE}px JetBrains Mono`;
+    // canvas.inner_text_font = `${LiteGraph.NODE_SUBTEXT_SIZE}px IBMPlexSansCond`;
     canvas.zoom_modify_alpha = false;
     canvas.render_canvas_border = false;
     canvas.render_connection_arrows = false;
     canvas.render_shadows = false;
     canvas.always_render_background = false;
-    canvas.ds.max_scale = 1;
+    canvas.ds.max_scale = 2;
     canvas.ds.min_scale = 0.15;
     // canvas.onNodeSelected = () => canvas.canvas.focus();
 
