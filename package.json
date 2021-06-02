@@ -8,8 +8,11 @@
     "package": "electron-builder"
   },
   "dependencies": {
+    "@headlessui/react": "^1.2.0",
+    "@heroicons/react": "^1.0.1",
     "@project-serum/common": "^0.0.1-beta.3",
     "@solana/spl-token": "^0.1.5",
+    "@tailwindcss/forms": "^0.3.2",
     "camelcase": "^6.2.0",
     "glob": "^7.1.7",
     "litegraph.js": "^0.7.9",
