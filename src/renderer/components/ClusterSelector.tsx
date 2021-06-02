@@ -30,8 +30,6 @@ const ClusterSelector = ({
         <option value="localnet">localnet</option>
       </select>
 
-      <button onClick={deploy}>deploy</button>
-
       {_cluster === "localnet" &&
         (connected ? (
           <>
