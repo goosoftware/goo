@@ -11,9 +11,11 @@ const Store = types
     addFile: flow(function* (file: File) {
       if (file.type !== "") return;
       const workspaces = yield findWorkspaces(file.path);
-      workspaces.forEach((workspace) => {
+      workspaces.forEach(([id, address]) => {
         self.anchorWorkspaces.put({
-          id: workspace,
+          id,
+          address,
+          path: file.path,
         });
       });
     }),

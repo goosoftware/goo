@@ -7,6 +7,8 @@ import path from "path";
 
 const AnchorWorkspace = types.model({
   id: types.identifier,
+  address: types.maybeNull(types.string),
+  path: types.string,
 });
 
 export default AnchorWorkspace;
@@ -19,7 +21,7 @@ export default AnchorWorkspace;
 // const workspace = AnchorWorkspace.create({});
 // console.log(workspace);
 
-const read = (path: string): Promise<string> =>
+const read = (path: string): Promise<[string, string?]> =>
   new Promise((res, rej) => {
     fs.readFile(path, (err, file) => {
       if (err) rej(err);
@@ -27,7 +29,9 @@ const read = (path: string): Promise<string> =>
       const name = camelCase(idl.name, { pascalCase: true });
       if (idl.metadata && idl.metadata.address) {
         // app.addWorkspace(name);
-        res(name);
+        res([name, idl.metadata.address]);
+      } else {
+        res([name]);
       }
     });
   });
