@@ -1,17 +1,16 @@
 import camelCase from "camelcase";
 import glob from "glob";
-import { app } from "../models/App";
 import "./defaultNodes";
 
 // from anchor.workspace, TODO: use that code instead
 
-const findWorkspaces = () => {
+const findWorkspaces = (projectRoot: string) => {
   // const find = require("find"); // not working?
   const fs = require("fs");
-  const process = require("process");
   const path = require("path");
+  // const process = require("process");
 
-  let projectRoot = process.env.PROJECT_ROOT ?? process.cwd();
+  // let projectRoot = process.env.PROJECT_ROOT ?? process.cwd();
 
   while (!fs.existsSync(path.join(projectRoot, "Anchor.toml"))) {
     const parentDir = path.dirname(projectRoot);
@@ -32,13 +31,9 @@ const findWorkspaces = () => {
       const idl = JSON.parse(idlStr);
       const name = camelCase(idl.name, { pascalCase: true });
       if (idl.metadata && idl.metadata.address) {
-        app.addWorkspace(name);
+        // app.addWorkspace(name);
+        console.log(name);
       }
     });
   });
-};
-
-export const openProject = (dir: string) => {
-  process.env.PROJECT_ROOT = dir;
-  findWorkspaces();
 };

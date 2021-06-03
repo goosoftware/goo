@@ -1,0 +1,22 @@
+import { observer } from "mobx-react-lite";
+import React from "react";
+import { State } from "../models/Connection";
+import { store } from "../models/Store";
+
+const ConnectionButton = observer(() => {
+  if (store.connection.state === State.connected) {
+    return <button onClick={store.connection.disconnect}>disconnect</button>;
+  } else if (store.connection.state === State.disconnected) {
+    return <button onClick={store.connection.connect}>connect</button>;
+  } else {
+    return <button disabled>{store.connection.state}</button>;
+  }
+});
+
+const Header = observer(() => (
+  <header style={{ color: store.connection.color }}>
+    {store.connection.cluster} <ConnectionButton />
+  </header>
+));
+
+export default Header;
