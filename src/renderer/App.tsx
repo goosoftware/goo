@@ -26,10 +26,6 @@ export function App() {
         closeOnClick
         pauseOnFocusLoss
         pauseOnHover
-        // hideProgressBar={false}
-        // newestOnTop={false}
-        // rtl={false}
-        // draggable
       />
     </div>
   );
