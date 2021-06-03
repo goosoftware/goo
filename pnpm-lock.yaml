@@ -23,6 +23,7 @@ specifiers:
   mobx: ^6.3.2
   mobx-react-lite: ^3.2.0
   mobx-state-tree: ^5.0.1
+  natsort: ^2.0.2
   nightwind: ^1.1.11
   postcss: ^8.3.0
   react: ~17.0.2
@@ -48,6 +49,7 @@ dependencies:
   mobx: 6.3.2
   mobx-react-lite: 3.2.0_7e8915efb8617305a7bfbed08f2cda09
   mobx-state-tree: 5.0.1_mobx@6.3.2
+  natsort: 2.0.2
   nightwind: 1.1.11_6daa0ece57b4377652e73c9c66c3b94c
   react: 17.0.2
   react-dom: 17.0.2_react@17.0.2
@@ -3352,6 +3354,10 @@ packages:
     resolution: {integrity: sha512-FiB0kzdP0FFVGDKlRLEQ1BgDzU87dy5NnzjeW9YZNt+/c3+q82EQDUwniSAUxp/F0gFNI1ZhKU1FqYsMuqZVnw==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
+
+  /natsort/2.0.2:
+    resolution: {integrity: sha512-McY0uA4rDU7GkkoQ1oU8bH9P13onCIrPWxpOjlt792ccFZFkenFm29AHyRCdhbbbfhPfTsjTDagBqjpphD3R7Q==}
+    dev: false
 
   /needle/2.6.0:
     resolution: {integrity: sha512-KKYdza4heMsEfSWD7VPUIz3zX2XDwOyX2d+geb4vrERZMT5RMU6ujjaD+I5Yr54uZxQ2w6XRTAhHBbSCyovZBg==}

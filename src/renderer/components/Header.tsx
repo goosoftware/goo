@@ -13,9 +13,15 @@ const ConnectionButton = observer(() => {
   }
 });
 
+const reset = () => {
+  localStorage.clear();
+  window.location.reload();
+};
+
 const Header = observer(() => (
   <header style={{ color: store.connection.color }}>
     {store.connection.cluster} <ConnectionButton />
+    <button onClick={reset}>reset</button>
   </header>
 ));
 
