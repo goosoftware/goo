@@ -1,29 +1,30 @@
 import { exec, spawn } from "child_process";
 import { flow, types } from "mobx-state-tree";
 
+export enum State {
+  checking,
+  connecting,
+  connected,
+  disconnected,
+  error,
+}
+
 const Connection = types
   .model({
     cluster: "localnet",
-    pid: types.maybeNull(types.number),
-    state: types.optional(
-      types.enumeration([
-        "checking",
-        "connecting",
-        "connected",
-        "disconnected",
-        "error",
-      ]),
-      "checking"
-    ),
   })
+  .volatile((self) => ({
+    pid: undefined,
+    state: State.checking,
+  }))
   .views((self) => ({
     get color(): string {
       switch (self.state) {
-        case "connected":
+        case State.connected:
           return "green";
-        case "connecting":
+        case State.connecting:
           return "orange";
-        case "disconnected":
+        case State.disconnected:
           return "red";
         default:
           return "white";
@@ -32,39 +33,39 @@ const Connection = types
   }))
   .actions((self) => ({
     afterCreate: flow(function* () {
-      if (self.state === "checking") {
+      if (self.state === State.checking) {
         try {
           const pid = yield checkIfConnected();
           self.pid = pid;
-          self.state = "connected";
+          self.state = State.connected;
         } catch (err) {
-          self.state = "disconnected";
+          self.state = State.disconnected;
         }
       }
     }),
 
     connect: flow(function* () {
-      if (self.state !== "disconnected") throw "not disconnected";
+      if (self.state !== State.disconnected) throw "not disconnected";
 
-      self.state = "connecting";
+      self.state = State.connecting;
       try {
         const pid = yield connect(self);
         self.pid = pid;
-        self.state = "connected";
+        self.state = State.connected;
       } catch (err) {
-        self.state = "error";
+        self.state = State.error;
       }
     }),
 
     disconnect: flow(function* () {
-      if (self.state !== "connected") throw "not connected";
+      if (self.state !== State.connected) throw "not connected";
       try {
         yield disconnect(self.pid);
-        self.pid = undefined;
-        self.state = "disconnected";
+        self.state = State.disconnected;
       } catch (err) {
-        self.state = "error";
+        self.state = State.error;
       }
+      self.pid = undefined;
     }),
   }));
 
@@ -94,35 +95,39 @@ function disconnect(pid: number) {
 
 function connect(connection): Promise<number> {
   return new Promise((res, rej) => {
-    const child = spawn("solana-test-validator");
-
-    child.stdout.on("data", (data) => {
-      console.log(`stdout:\n${data}`);
-      res(child.pid);
+    const child = spawn("solana-test-validator", {
+      // detached: true,
     });
+    // child.unref();
+    res(child.pid);
 
-    child.stderr.on("data", (data) => {
-      console.error(`stderr: ${data}`);
-    });
-
-    // child.on("spawn", (data) => {
-    //   console.log("spawn");
+    // child.stdout.on("data", (data) => {
+    //   console.log(`stdout:\n${data}`);
     //   res(child.pid);
     // });
 
-    child.on("error", (error) => {
-      console.error(error.message);
-      rej(error.message);
-    });
+    // child.stderr.on("data", (data) => {
+    //   console.error(`stderr: ${data}`);
+    // });
 
-    child.on("close", (code) => {
-      console.error(`child process exited with code ${code}`);
-      connection.disconnect();
-    });
+    // // child.on("spawn", (data) => {
+    // //   console.log("spawn");
+    // //   res(child.pid);
+    // // });
 
-    child.on("disconnect", () => {
-      // console.log("disconnect");
-    });
+    // child.on("error", (error) => {
+    //   console.error(error.message);
+    //   rej(error.message);
+    // });
+
+    // child.on("close", (code) => {
+    //   console.error(`child process exited with code ${code}`);
+    //   connection.disconnect();
+    // });
+
+    // child.on("disconnect", () => {
+    //   // console.log("disconnect");
+    // });
   });
 }
 
