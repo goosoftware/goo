@@ -9,8 +9,17 @@ const useAnchor = () => {
   const [solanaRunningLocally, setSolanaRunningLocally] = useState(false);
 
   const deploy = () => {
-    const child = spawn(`cd '${process.env.PROJECT_ROOT}' && anchor deploy`, {
+    // const child = spawn(`cd '${process.env.PROJECT_ROOT}' && anchor deploy`, {
+    //   shell: true,
+    // });
+
+    // https://www.freecodecamp.org/news/node-js-child-processes-everything-you-need-to-know-e69498fe970a/
+    const child = spawn(`anchor deploy`, {
+      cwd: process.env.PROJECT_ROOT,
       shell: true,
+      // stdio: "inherit",
+      // env: { PROJECT_ROOT: process.env.PROJECT_ROOT },
+      // detached: true
     });
 
     child.stdout.on("data", (data) => {

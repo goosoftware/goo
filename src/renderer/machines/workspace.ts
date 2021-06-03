@@ -1,10 +1,15 @@
 import { Machine } from "xstate";
 
-export default Machine({
+const workspaceMachine = Machine({
   id: "workspace",
   initial: "imported",
   states: {
     imported: {
+      on: {
+        CHECK: "checking",
+      },
+    },
+    checking: {
       on: {
         IS_UNBUILT: "unbuilt",
         IS_BUILT: "built",
@@ -14,12 +19,13 @@ export default Machine({
     unbuilt: {
       on: {
         BUILD: "built",
-        FAIL: "failure",
+        FAIL: "failure.build",
       },
     },
     built: {
       on: {
         DEPLOY: "deployed",
+        FAIL: "failure.deploy",
         CHANGE: "unbuilt",
       },
     },
@@ -29,6 +35,17 @@ export default Machine({
         CHANGE: "unbuilt",
       },
     },
-    failure: {},
+    failure: {
+      states: {
+        build: {
+          meta: { message: "build failure" },
+        },
+        deploy: {
+          meta: { message: "deploy failure" },
+        },
+      },
+    },
   },
 });
+
+export default workspaceMachine;

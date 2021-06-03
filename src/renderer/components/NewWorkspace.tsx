@@ -4,7 +4,6 @@ import React, { Fragment, useRef, useState } from "react";
 
 export default function NewWorkspace() {
   const [open, setOpen] = useState(true);
-
   const cancelButtonRef = useRef(null);
 
   return (
@@ -13,7 +12,7 @@ export default function NewWorkspace() {
         as="div"
         static
         className="fixed z-10 inset-0 overflow-y-auto"
-        initialFocus={cancelButtonRef}
+        // initialFocus={cancelButtonRef}
         open={open}
         onClose={setOpen}
       >

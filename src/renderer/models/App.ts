@@ -15,7 +15,7 @@ export const App = types
     },
   }));
 
-const LOCAL_KEY = "snapshot8";
+const LOCAL_KEY = "snapshot9";
 
 const getData = () => {
   try {
