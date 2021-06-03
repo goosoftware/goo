@@ -1,6 +1,14 @@
 import { observer } from "mobx-react-lite";
 import React from "react";
 import { render } from "react-dom";
+import {
+  HashRouter as Router,
+  Link,
+  Redirect,
+  Route,
+  Switch,
+  useParams,
+} from "react-router-dom";
 import Header from "./components/Header";
 import { store } from "./models/Store";
 
@@ -29,16 +37,48 @@ document.addEventListener("dragleave", (event) => {
 const AnchorWorkspaces = observer(() => (
   <ul>
     {[...store.anchorWorkspaces.values()].map((ws) => (
-      <li key={ws.id}>{ws.id}</li>
+      <li key={ws.id}>
+        <Link to={`/workspaces/${ws.id}`}>{ws.id}</Link>
+      </li>
     ))}
   </ul>
 ));
 
 const App = () => (
-  <div>
-    <Header />
-    <AnchorWorkspaces />
-  </div>
+  <Router>
+    <div>
+      <Header />
+      <AnchorWorkspaces />
+    </div>
+    <Link to="/">home</Link>
+    <Link to="/foo">foo</Link>
+    <Switch>
+      <Route exact path="/">
+        <h1>hello</h1>
+      </Route>
+      <Route exact path="/foo">
+        <h1>foo</h1>
+      </Route>
+      <Route exact path="/workspaces/:id">
+        <Workspace />
+      </Route>
+    </Switch>
+  </Router>
 );
+
+const Workspace = observer(() => {
+  let { id } = useParams<{ id: string }>();
+
+  const workspace = store.anchorWorkspaces.get(id);
+
+  if (!workspace) return <Redirect to="/" />;
+
+  return (
+    <div>
+      <h3>ID: {id}</h3>
+      <pre>{JSON.stringify(workspace.toJSON(), null, 2)}</pre>
+    </div>
+  );
+});
 
 render(<App />, document.getElementById("root"));

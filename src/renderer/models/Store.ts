@@ -23,20 +23,16 @@ const Store = types
 
 const KEY = "cache";
 
-const initialData = (() => {
+export const store = (() => {
   try {
     const data = JSON.parse(localStorage.getItem(KEY));
-    if (Object.keys(data).length > 0) return data;
-  } catch (err) {
-  } finally {
-    return {
-      connection: {},
-      anchorWorkspaces: {},
-    };
-  }
+    if (Object.keys(data).length > 0) return Store.create(data);
+  } catch (err) {}
+  return Store.create({
+    connection: {},
+    anchorWorkspaces: {},
+  });
 })();
-
-export const store = Store.create(initialData);
 
 onSnapshot(store, (snapshot) => {
   localStorage.setItem(KEY, JSON.stringify(snapshot));

@@ -7,7 +7,7 @@ import path from "path";
 
 const AnchorWorkspace = types.model({
   id: types.identifier,
-  address: types.maybeNull(types.string),
+  address: types.maybe(types.string),
   path: types.string,
 });
 
