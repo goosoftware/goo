@@ -12,7 +12,7 @@
     "@heroicons/react": "^1.0.1",
     "@project-serum/common": "^0.0.1-beta.3",
     "@solana/spl-token": "^0.1.5",
-    "@tailwindcss/forms": "^0.3.2",
+    "@tailwindcss/forms": "^0.3.3",
     "camelcase": "^6.2.0",
     "glob": "^7.1.7",
     "litegraph.js": "^0.7.9",
@@ -25,15 +25,14 @@
     "react-dom": "~17.0.2",
     "react-toastify": "^7.0.4",
     "tcp-port-used": "^1.0.2",
-    "tweetnacl-util": "^0.15.1",
-    "xstate": "^4.20.0"
+    "tweetnacl-util": "^0.15.1"
   },
   "devDependencies": {
     "@types/node": "~15.6.2",
     "@types/react": "~17.0.9",
     "@types/react-dom": "~17.0.6",
     "autoprefixer": "^10.2.6",
-    "electron": "^13.0.1",
+    "electron": "^13.1.0",
     "electron-builder": "^22.10.5",
     "electron-esbuild": "^1.5.0",
     "electron-util": "~0.16.0",
