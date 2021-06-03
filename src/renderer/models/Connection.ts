@@ -3,6 +3,7 @@ import { flow, types } from "mobx-state-tree";
 
 const Connection = types
   .model({
+    cluster: "localnet",
     pid: types.maybeNull(types.number),
     state: types.optional(
       types.enumeration([
@@ -16,14 +17,16 @@ const Connection = types
     ),
   })
   .views((self) => ({
-    get action(): string {
+    get color(): string {
       switch (self.state) {
         case "connected":
-          return "disconnect";
+          return "green";
+        case "connecting":
+          return "orange";
         case "disconnected":
-          return "connect";
+          return "red";
         default:
-          return "[connection]";
+          return "white";
       }
     },
   }))
