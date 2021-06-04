@@ -4,7 +4,7 @@ import { LGraphNode, LiteGraph } from "litegraph.js";
 import get from "lodash/get";
 import util from "tweetnacl-util";
 
-// LiteGraph.clearRegisteredTypes();
+LiteGraph.clearRegisteredTypes();
 
 const provider = anchor.Provider.local();
 
