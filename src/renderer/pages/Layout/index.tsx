@@ -8,6 +8,7 @@ import {
 import React, { Fragment, useState } from "react";
 import { BiAnchor as Anchor } from "react-icons/bi";
 import { SiEthereum, SiNodeRed } from "react-icons/si";
+import { Link } from "react-router-dom";
 import Editor from "src/renderer/components/Editor";
 import { AkashIcon, ArweaveIcon, SolanaIcon } from "./CustomIcons";
 
@@ -19,10 +20,10 @@ const user = {
 const navigation = [
   // { name: "Dashboard", href: "#", icon: HomeIcon, current: false },
   // { name: "Editor", href: "#", icon: PuzzleIcon, current: true },
-  { name: "Flow Editor", href: "#", icon: SiNodeRed, current: true }, // ViewGridAddIcon
+  { name: "Flow Editor", href: "/", icon: SiNodeRed, current: true }, // ViewGridAddIcon
   {
     name: "Anchor Workspaces",
-    href: "#",
+    href: "/workspaces",
     icon: Anchor,
   },
 
@@ -243,9 +244,9 @@ export default function Layout() {
                 <nav aria-label="Sidebar" className="mt-5">
                   <div className="px-2 space-y-1">
                     {navigation.map((item) => (
-                      <a
+                      <Link
                         key={item.name}
-                        href={item.href}
+                        to={item.href}
                         className={classNames(
                           item.current
                             ? "bg-gray-100 text-gray-900"
@@ -264,7 +265,7 @@ export default function Layout() {
                           aria-hidden="true"
                         />
                         {item.name}
-                      </a>
+                      </Link>
                     ))}
                   </div>
                   <hr
@@ -333,16 +334,16 @@ export default function Layout() {
               <nav className="mt-5 flex-1" aria-label="Sidebar">
                 <div className="px-2 space-y-1">
                   {navigation.map((item) => (
-                    <a
+                    <Link
                       key={item.name}
-                      href={item.href}
+                      to={item.href}
                       className={classNames(
                         item.current
                           ? "bg-gray-200 text-gray-900"
                           : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
                         "group flex items-center px-2 py-2 text-sm font-medium rounded-md"
                       )}
-                      aria-current={item.current ? "page" : undefined}
+                      // aria-current={item.current ? "page" : undefined}
                     >
                       <item.icon
                         className={classNames(
@@ -354,7 +355,7 @@ export default function Layout() {
                         aria-hidden="true"
                       />
                       {item.name}
-                    </a>
+                    </Link>
                   ))}
                 </div>
                 <hr
