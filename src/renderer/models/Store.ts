@@ -1,4 +1,3 @@
-import jazzicon from "@metamask/jazzicon";
 import { web3 } from "@project-serum/anchor";
 import { Keypair } from "@solana/web3.js";
 import { readFileSync } from "fs";
@@ -31,9 +30,6 @@ const Store = types
       if (key) {
         return [key.slice(0, 4), key.slice(-4)].join("...");
       }
-    },
-    get identicon(): HTMLImageElement {
-      return jazzicon(100, Math.round(Math.random() * 10000000));
     },
   }))
   .actions((self) => ({
