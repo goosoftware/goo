@@ -80,7 +80,7 @@ const profile = {
   },
 };
 const directory = {
-  A: [
+  Solana: [
     {
       id: 1,
       name: "Leslie Abbott",
@@ -110,7 +110,7 @@ const directory = {
         "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
     },
   ],
-  B: [
+  Serum: [
     {
       id: 5,
       name: "Angela Beaver",
@@ -127,6 +127,15 @@ const directory = {
     },
     {
       id: 7,
+      name: "Lawrence Brooks",
+      role: "Content Specialist",
+      imageUrl:
+        "https://images.unsplash.com/photo-1513910367299-bce8d8a0ebf6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+    },
+  ],
+  Utils: [
+    {
+      id: 9,
       name: "Lawrence Brooks",
       role: "Content Specialist",
       imageUrl:
@@ -173,7 +182,7 @@ export default function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="h-screen flex overflow-hidden bg-white">
+    <div className="h-screen flex overflow-hidden bg-white dark:bg-gray-900">
       <Transition.Root show={sidebarOpen} as={Fragment}>
         <Dialog
           as="div"
