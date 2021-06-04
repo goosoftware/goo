@@ -27,8 +27,11 @@ const Store = types
     },
     get shortUserPublicKey() {
       const key = self.user?.publicKey?.toString();
+      const numChars = 10;
       if (key) {
-        return [key.slice(0, 4), key.slice(-4)].join("...");
+        return [key.slice(0, numChars / 2), key.slice(-numChars / 2)].join(
+          "..."
+        );
       }
     },
   }))

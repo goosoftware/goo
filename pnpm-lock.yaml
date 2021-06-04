@@ -9,7 +9,6 @@ specifiers:
   '@types/node': ~15.6.2
   '@types/react': ~17.0.9
   '@types/react-dom': ~17.0.6
-  '@ukstv/jazzicon-react': ^1.0.0
   autoprefixer: ^10.2.6
   camelcase: ^6.2.0
   electron: ^13.1.0
@@ -30,6 +29,7 @@ specifiers:
   react: ~17.0.2
   react-dom: ~17.0.2
   react-icons: ^4.2.0
+  react-jazzicon: ^0.1.3
   react-router: ^5.2.0
   react-router-dom: ^5.2.0
   react-toastify: ^7.0.4
@@ -44,7 +44,6 @@ dependencies:
   '@project-serum/common': 0.0.1-beta.3
   '@solana/spl-token': 0.1.5
   '@tailwindcss/forms': 0.3.3_tailwindcss@2.1.4
-  '@ukstv/jazzicon-react': 1.0.0_react@17.0.2
   camelcase: 6.2.0
   glob: 7.1.7
   litegraph.js: 0.7.9
@@ -57,6 +56,7 @@ dependencies:
   react: 17.0.2
   react-dom: 17.0.2_react@17.0.2
   react-icons: 4.2.0_react@17.0.2
+  react-jazzicon: 0.1.3_react@17.0.2
   react-router: 5.2.0_react@17.0.2
   react-router-dom: 5.2.0_react@17.0.2
   react-toastify: 7.0.4_react-dom@17.0.2+react@17.0.2
@@ -488,17 +488,6 @@ packages:
       '@typescript-eslint/types': 4.26.0
       eslint-visitor-keys: 2.1.0
     dev: true
-
-  /@ukstv/jazzicon-react/1.0.0_react@17.0.2:
-    resolution: {integrity: sha512-V0klHdrO8Mk+faTGhQRd4t2vR+1IUHJa9sLaP/vhed0klPrOblhEU/Mc+Utgxep6oUuyhcGigjvkEJUOVE1/sg==}
-    engines: {node: '>=10'}
-    peerDependencies:
-      react: '>=16'
-    dependencies:
-      color: 3.1.3
-      mersenne-twister: 1.1.0
-      react: 17.0.2
-    dev: false
 
   /JSONStream/1.3.5:
     resolution: {integrity: sha512-E+iruNOY8VV9s4JEbe1aNEm6MiszPRr/UfcHMz0TQh1BXSxHK+ASV1R6W4HpjBhSeS+54PIsAMCBmwD06LLsqQ==}
@@ -1084,11 +1073,25 @@ packages:
   /color-name/1.1.4:
     resolution: {integrity: sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==}
 
+  /color-string/0.3.0:
+    resolution: {integrity: sha1-J9RvtnAlxcL6JZk7+/V55HhBuZE=}
+    dependencies:
+      color-name: 1.1.4
+    dev: false
+
   /color-string/1.5.5:
     resolution: {integrity: sha512-jgIoum0OfQfq9Whcfc2z/VhCNcmQjWbey6qBX0vqt7YICflUmBCh9E9CiQD5GSJ+Uehixm3NUwHVhqUAWRivZg==}
     dependencies:
       color-name: 1.1.4
       simple-swizzle: 0.2.2
+
+  /color/0.11.4:
+    resolution: {integrity: sha1-bXtcdPtl6EHNSHkq0e1eB7kE12Q=}
+    dependencies:
+      clone: 1.0.4
+      color-convert: 1.9.3
+      color-string: 0.3.0
+    dev: false
 
   /color/3.1.3:
     resolution: {integrity: sha512-xgXAcTHa2HeFCGLE9Xs/R82hujGtu9Jd9x4NW3T34+OMs7VoPsjwzRczKHvTAHeJwWFwX5j15+MgAppE8ztObQ==}
@@ -1877,7 +1880,7 @@ packages:
       fs-extra: 9.1.0
       less: 4.1.1
       postcss: 8.3.0
-      postcss-modules: 4.1.0_postcss@8.3.0
+      postcss-modules: 4.1.1_postcss@8.3.0
       resolve-file: 0.3.0
       sass: 1.34.1
       stylus: 0.54.8
@@ -3780,8 +3783,8 @@ packages:
       postcss: 8.3.0
     dev: true
 
-  /postcss-modules/4.1.0_postcss@8.3.0:
-    resolution: {integrity: sha512-5Yzfpqji60PeydVTciWGwu6YarPCcH5QKD94I/FbV82B2Lc5meY+XqIw4T6WIU0g6TFKE8J37+K88D18ollyxg==}
+  /postcss-modules/4.1.1_postcss@8.3.0:
+    resolution: {integrity: sha512-5m6r1VeA2utIcqeyzrRwO3XDeVtqqnzMLwpddOrDFdGpieJ/NleYSTiM2UuKjFHmJqKtSq6bZRvEneQgwctpYw==}
     peerDependencies:
       postcss: ^8.0.0
     dependencies:
@@ -3977,6 +3980,17 @@ packages:
 
   /react-is/16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
+    dev: false
+
+  /react-jazzicon/0.1.3_react@17.0.2:
+    resolution: {integrity: sha512-9iJPMoPlNYg/GbAnHwdco1SUF4dM1HyOOJ9ouI27TKXXmRUeDq/ZaS4RFlHnOtcA6Yw/Uz1rUOu1bowThTCRCg==}
+    peerDependencies:
+      react: ^15.3.2
+    dependencies:
+      color: 0.11.4
+      mersenne-twister: 1.1.0
+      prop-types: 15.7.2
+      react: 17.0.2
     dev: false
 
   /react-router-dom/5.2.0_react@17.0.2:

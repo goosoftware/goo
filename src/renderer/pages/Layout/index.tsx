@@ -1,8 +1,11 @@
 import { FilterIcon, SearchIcon } from "@heroicons/react/solid";
+import { observer } from "mobx-react-lite";
 import React from "react";
 import { BiAnchor as Anchor } from "react-icons/bi";
 import { SiEthereum, SiNodeRed } from "react-icons/si";
+import Jazzicon from "react-jazzicon";
 import { Link } from "react-router-dom";
+import { store } from "src/renderer/models/Store";
 import { AkashIcon, ArweaveIcon, SolanaIcon } from "./CustomIcons";
 
 export function classNames(...classes) {
@@ -153,11 +156,11 @@ export function DirectoryList() {
   );
 }
 
-export function Sidebar() {
+export const Sidebar = observer(() => {
   const user = {
-    name: "Tom Cook",
+    name: store.shortUserPublicKey,
     imageUrl:
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+      "https://ph-files.imgix.net/3e6585ab-2e74-4223-a291-254a7df3cd6c?auto=format",
   };
 
   const navigation = [
@@ -194,7 +197,7 @@ export function Sidebar() {
 
   return (
     <div className="hidden lg:flex lg:flex-shrink-0">
-      <div className="flex flex-col w-64">
+      <div className="flex flex-col">
         {/* Sidebar component, swap this element with another sidebar if you like */}
         <div className="flex flex-col h-0 flex-1 border-r border-gray-200 bg-gray-100">
           <div className="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
@@ -276,13 +279,8 @@ export function Sidebar() {
           <div className="flex-shrink-0 flex border-t border-gray-200 p-4">
             <a href="#" className="flex-shrink-0 w-full group block">
               <div className="flex items-center">
-                <div>
-                  <img
-                    className="inline-block h-9 w-9 rounded-full"
-                    src={user.imageUrl}
-                    alt=""
-                  />
-                </div>
+                <Jazzicon diameter={40} seed={store.userPublicKey} />
+
                 <div className="ml-3">
                   <p className="text-sm font-medium text-gray-700 group-hover:text-gray-900">
                     {user.name}
@@ -298,4 +296,4 @@ export function Sidebar() {
       </div>
     </div>
   );
-}
+});
