@@ -32,6 +32,7 @@ const Header = observer(() => (
         padding: 0,
       }}
     >
+      <Jazzicon address={store.userPublicKey} />
     </div>
   </header>
 ));
