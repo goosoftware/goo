@@ -3,33 +3,13 @@ import React from "react";
 import { BiAnchor as Anchor } from "react-icons/bi";
 import { SiEthereum, SiNodeRed } from "react-icons/si";
 import { Link } from "react-router-dom";
-import Editor from "src/renderer/components/Editor";
 import { AkashIcon, ArweaveIcon, SolanaIcon } from "./CustomIcons";
 
-function classNames(...classes) {
+export function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Layout() {
-  return (
-    <div className="h-screen flex overflow-hidden bg-white dark:bg-gray-900">
-      <Sidebar />
-      <div className="flex flex-col min-w-0 flex-1 overflow-hidden">
-        <div className="flex-1 relative z-0 flex overflow-hidden">
-          {/* <main
-            className="flex-1 relative z-0 overflow-y-auto focus:outline-none xl:order-last"
-            style={{ background: "#222222" }}
-          >
-          </main> */}
-          <Editor />
-          <DirectoryList />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function DirectoryList() {
+export function DirectoryList() {
   const directory = {
     Solana: [
       {
@@ -173,7 +153,7 @@ function DirectoryList() {
   );
 }
 
-function Sidebar() {
+export function Sidebar() {
   const user = {
     name: "Tom Cook",
     imageUrl:
