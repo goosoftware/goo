@@ -1,9 +1,12 @@
 import React from "react";
 import { render } from "react-dom";
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
+import "./base.css";
 import Header from "./components/Header";
+import "./index.css";
 import { store } from "./models/Store";
 import Editor from "./pages/Editor";
+import Layout from "./pages/Layout";
 import Workspace from "./pages/Workspace";
 import WorkspaceMenu from "./pages/WorkspaceMenu";
 
@@ -33,11 +36,13 @@ const App = () => (
   <Router>
     <>
       <Header />
-      <WorkspaceMenu />
     </>
     <Switch>
       <Route exact path="/">
         <Editor />
+      </Route>
+      <Route exact path="/workspaces">
+        <WorkspaceMenu />
       </Route>
       <Route exact path="/workspaces/:id">
         <Workspace />
@@ -46,4 +51,4 @@ const App = () => (
   </Router>
 );
 
-render(<App />, document.getElementById("root"));
+render(<Layout />, document.getElementById("root"));

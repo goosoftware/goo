@@ -23,6 +23,7 @@ const reset = () => {
 const Header = observer(() => (
   <header style={{ color: store.connection.color }}>
     <Link to="/">home</Link>
+    <Link to="/workspaces">workspaces</Link>
     {store.connection.cluster} <ConnectionButton />
     <button onClick={reset}>reset</button>
     {store.shortUserPublicKey}
