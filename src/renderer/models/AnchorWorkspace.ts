@@ -1,3 +1,4 @@
+import { Idl } from "@project-serum/anchor";
 import camelCase from "camelcase";
 import fs from "fs";
 import glob from "glob";
@@ -5,11 +6,91 @@ import { types } from "mobx-state-tree";
 import path from "path";
 // import "./defaultNodes";
 
-const AnchorWorkspace = types.model({
-  id: types.identifier,
-  address: types.maybe(types.string),
-  path: types.string,
+interface IdlWithMetadata extends Idl {
+  metadata?: {
+    address: string;
+  };
+}
+
+// const IdlPrimitive = types.custom<string, IdlWithMetadata>({
+//   name: "Idl",
+//   fromSnapshot(value: any): IdlWithMetadata {
+//     return value;
+//   },
+//   toSnapshot(value: any): any {
+//     return JSON.parse(value);
+//   },
+//   isTargetType() {
+//     return true;
+//   },
+//   getValidationMessage(value: string) {
+//     return "";
+//   },
+// });
+
+const t = types;
+
+// https://transform.tools/json-to-mobx-state-tree
+const IDL = t.model({
+  version: t.string,
+  name: t.string,
+  instructions: t.array(
+    t.model({
+      name: t.string,
+      accounts: t.array(
+        t.model({
+          name: t.string,
+          isMut: t.boolean,
+          isSigner: t.boolean,
+        })
+      ),
+      args: t.array(
+        t.model({
+          name: t.string,
+          type: t.string,
+        })
+      ),
+    })
+  ),
+  accounts: t.array(
+    t.model({
+      name: t.string,
+      type: t.model({
+        kind: t.string,
+        fields: t.array(
+          t.model({
+            name: t.string,
+            type: t.string,
+          })
+        ),
+      }),
+    })
+  ),
+  metadata: t.maybe(
+    t.model({
+      address: t.string,
+    })
+  ),
 });
+
+const AnchorWorkspace = types
+  .model({
+    id: types.identifier,
+    idl: IDL,
+    // address: types.maybe(types.string),
+    path: types.string,
+  })
+  .views((self) => ({
+    get address(): string | undefined {
+      return self.idl.metadata?.address;
+    },
+    get version(): string {
+      return self.idl.version;
+    },
+    get name(): string {
+      return self.idl.name;
+    },
+  }));
 
 export default AnchorWorkspace;
 
@@ -21,18 +102,13 @@ export default AnchorWorkspace;
 // const workspace = AnchorWorkspace.create({});
 // console.log(workspace);
 
-const read = (path: string): Promise<[string, string?]> =>
+const read = (path: string): Promise<[string, object]> =>
   new Promise((res, rej) => {
     fs.readFile(path, (err, file) => {
       if (err) rej(err);
       const idl = JSON.parse(file.toString());
       const name = camelCase(idl.name, { pascalCase: true });
-      if (idl.metadata && idl.metadata.address) {
-        // app.addWorkspace(name);
-        res([name, idl.metadata.address]);
-      } else {
-        res([name]);
-      }
+      res([name, idl]);
     });
   });
 

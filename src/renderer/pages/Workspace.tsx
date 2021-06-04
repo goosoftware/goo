@@ -13,6 +13,8 @@ const Workspace = () => {
   return (
     <div>
       <h3>ID: {id}</h3>
+      {workspace.version}
+      {workspace.address}
       <pre>{JSON.stringify(workspace.toJSON(), null, 2)}</pre>
       {!workspace.address && <button disabled>deploy</button>}
     </div>

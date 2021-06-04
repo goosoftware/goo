@@ -1,5 +1,10 @@
+import jazzicon from "@metamask/jazzicon";
+import { web3 } from "@project-serum/anchor";
+import { Keypair } from "@solana/web3.js";
+import { readFileSync } from "fs";
 import { flow, onSnapshot, types } from "mobx-state-tree";
 import natsort from "natsort";
+import { homedir } from "os";
 import AnchorWorkspace, { findWorkspaces } from "./AnchorWorkspace";
 import Connection from "./Connection";
 
@@ -11,23 +16,50 @@ const Store = types
     connection: Connection,
     anchorWorkspaces: types.map(AnchorWorkspace),
   })
+  .volatile((): { user: Keypair } => ({
+    user: undefined,
+  }))
   .views((self) => ({
     get sortedWorkspaces() {
       return [...store.anchorWorkspaces.values()].sort(sortByName);
+    },
+    get userPublicKey() {
+      return self.user?.publicKey?.toString();
+    },
+    get shortUserPublicKey() {
+      const key = self.user?.publicKey?.toString();
+      if (key) {
+        return [key.slice(0, 4), key.slice(-4)].join("...");
+      }
+    },
+    get identicon(): HTMLImageElement {
+      return jazzicon(100, Math.round(Math.random() * 10000000));
     },
   }))
   .actions((self) => ({
     addFile: flow(function* (file: File) {
       if (file.type !== "") return;
       const workspaces = yield findWorkspaces(file.path);
-      workspaces.forEach(([id, address]) => {
+      workspaces.forEach(([id, idl]) => {
         self.anchorWorkspaces.put({
           id,
-          address,
+          idl,
           path: file.path,
         });
       });
     }),
+    afterCreate() {
+      self.user = web3.Keypair.fromSecretKey(
+        Buffer.from(
+          JSON.parse(
+            readFileSync(homedir() + "/.config/solana/id.json", {
+              encoding: "utf-8",
+            })
+          )
+        )
+      );
+      console.log(self.user);
+    },
   }));
 
 const KEY = "cache";

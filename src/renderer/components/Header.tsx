@@ -1,3 +1,4 @@
+import { Jazzicon } from "@ukstv/jazzicon-react";
 import { observer } from "mobx-react-lite";
 import React from "react";
 import { State } from "../models/Connection";
@@ -22,6 +23,16 @@ const Header = observer(() => (
   <header style={{ color: store.connection.color }}>
     {store.connection.cluster} <ConnectionButton />
     <button onClick={reset}>reset</button>
+    {store.shortUserPublicKey}
+    <div
+      style={{
+        width: 20,
+        height: 20,
+        margin: 0,
+        padding: 0,
+      }}
+    >
+    </div>
   </header>
 ));
 
