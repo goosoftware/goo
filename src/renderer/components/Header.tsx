@@ -1,6 +1,7 @@
 import { Jazzicon } from "@ukstv/jazzicon-react";
 import { observer } from "mobx-react-lite";
 import React from "react";
+import { Link } from "react-router-dom";
 import { State } from "../models/Connection";
 import { store } from "../models/Store";
 
@@ -21,6 +22,7 @@ const reset = () => {
 
 const Header = observer(() => (
   <header style={{ color: store.connection.color }}>
+    <Link to="/">home</Link>
     {store.connection.cluster} <ConnectionButton />
     <button onClick={reset}>reset</button>
     {store.shortUserPublicKey}
