@@ -2,7 +2,7 @@ import * as anchor from "@project-serum/anchor";
 import { spawn } from "child_process";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { check } from "tcp-port-used";
+// import { check } from "tcp-port-used";
 
 const useAnchor = () => {
   const [user, setUser] = useState<anchor.web3.Keypair>();
@@ -72,7 +72,7 @@ const useAnchor = () => {
       )
     );
 
-    check(8899, "127.0.0.1").then((inUse) => setSolanaRunningLocally(inUse));
+    // check(8899, "127.0.0.1").then((inUse) => setSolanaRunningLocally(inUse));
   }, []);
 
   return { user, solanaRunningLocally, deploy };
