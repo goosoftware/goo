@@ -168,10 +168,10 @@ export const Sidebar = observer(() => {
       current: pathname === "/",
     }, // ViewGridAddIcon
     {
-      name: "Anchor Workspaces",
-      href: "/workspaces",
+      name: "Anchor",
+      href: "/anchor",
       icon: Anchor,
-      current: pathname === "/workspaces",
+      current: pathname === "/anchor",
     },
   ];
 
