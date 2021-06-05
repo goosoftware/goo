@@ -2,6 +2,12 @@
   "name": "goo",
   "version": "0.0.1",
   "license": "MIT",
+  "private": true,
+  "description": "a visual development environment for solana",
+  "homepage": "https://goo.software",
+  "repository": {
+    "url": "https://github.com/goosoftware/goo"
+  },
   "scripts": {
     "dev": "electron-esbuild dev",
     "build": "electron-esbuild build",
