@@ -16,6 +16,7 @@ module.exports = {
       blue: colors.lightBlue,
       yellow: colors.amber,
       green: colors.lime,
+      solanaGreen: "#75FAAB",
     },
   },
   variants: {

@@ -14,6 +14,10 @@ const Store = types
   .model({
     connection: Connection,
     anchorWorkspaces: types.map(AnchorWorkspace),
+    cluster: types.optional(
+      types.enumeration(["local", "dev", "test", "main"]),
+      "local"
+    ),
   })
   .volatile((): { user: Keypair } => ({
     user: undefined,
@@ -36,6 +40,9 @@ const Store = types
     },
   }))
   .actions((self) => ({
+    changeCluster(cluster: typeof self.cluster) {
+      self.cluster = cluster;
+    },
     addFile: flow(function* (file: File) {
       if (file.type !== "") return;
       const workspaces = yield findWorkspaces(file.path);

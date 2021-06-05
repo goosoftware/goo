@@ -1,6 +1,8 @@
 import { RadioGroup } from "@headlessui/react";
-import React, { useState } from "react";
+import { observer } from "mobx-react-lite";
+import React from "react";
 import ExternalLink from "src/renderer/components/ExternalLink";
+import { store } from "src/renderer/models/Store";
 
 const Solana = () => {
   return (
@@ -33,24 +35,28 @@ const Solana = () => {
 
 const settings = [
   {
+    id: "main",
     name: "mainnet-beta",
     description:
       "The main, live cluster for Solana. Tokens issued on Mainnet Beta are real $SOL and SPL projects.",
   },
   {
+    id: "dev",
     name: "devnet",
     description:
       "A playground for anyone who wants to take Solana for a test drive, as a user, token holder, app developer, or validator.",
   },
   {
+    id: "test",
     name: "testnet",
     description:
       "Used to stress test recent release features on a live cluster, particularly focused on network performance, stability and validator behavior",
   },
   {
+    id: "local",
     name: "localnet",
     description:
-      "Run a test Solana cluster locally on your machine. A great choice for rapid, iterative testing.",
+      "Run a test Solana cluster locally on your machine. A great choice for rapid, iterative development and testing.",
   },
 ];
 
@@ -58,71 +64,67 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-function ClusterSelect() {
-  const [selected, setSelected] = useState(settings[0]);
-
-  return (
-    <RadioGroup value={selected} onChange={setSelected}>
-      <RadioGroup.Label className="sr-only">Privacy setting</RadioGroup.Label>
-      <div className="bg-white rounded-md -space-y-px py-4">
-        {settings.map((setting, settingIdx) => (
-          <RadioGroup.Option
-            key={setting.name}
-            value={setting}
-            className={({ checked }) =>
-              classNames(
-                settingIdx === 0 ? "rounded-tl-md rounded-tr-md" : "",
-                settingIdx === settings.length - 1
-                  ? "rounded-bl-md rounded-br-md"
-                  : "",
-                checked
-                  ? "dark:bg-green-400 dark:border-green-700 z-10"
-                  : "border-gray-200",
-                "relative border p-4 flex cursor-pointer focus:outline-none"
-              )
-            }
-          >
-            {({ active, checked }) => (
-              <>
-                <span
+const ClusterSelect = observer(() => (
+  <RadioGroup value={store.cluster} onChange={store.changeCluster}>
+    <RadioGroup.Label className="sr-only">Privacy setting</RadioGroup.Label>
+    <div className="bg-white rounded-md -space-y-px py-4">
+      {settings.map((setting, settingIdx) => (
+        <RadioGroup.Option
+          key={setting.id}
+          value={setting.id}
+          className={({ checked }) =>
+            classNames(
+              settingIdx === 0 ? "rounded-tl-md rounded-tr-md" : "",
+              settingIdx === settings.length - 1
+                ? "rounded-bl-md rounded-br-md"
+                : "",
+              checked
+                ? "dark:bg-solanaGreen dark:border-gray-900 z-10"
+                : "border-gray-200 hover:bg-gray-200",
+              "relative border p-4 flex cursor-pointer focus:outline-none dark:bg-gray-800"
+            )
+          }
+        >
+          {({ active, checked }) => (
+            <>
+              <span
+                className={classNames(
+                  checked
+                    ? "bg-indigo-600 border-transparent"
+                    : "bg-white border-gray-300",
+                  active ? "ring-2 ring-offset-2 ring-indigo-500" : "",
+                  "h-4 w-4 mt-0.5 cursor-pointer rounded-full border flex items-center justify-center"
+                )}
+                aria-hidden="true"
+              >
+                <span className="rounded-full bg-white w-1.5 h-1.5" />
+              </span>
+              <div className="ml-3 flex flex-col">
+                <RadioGroup.Label
+                  as="span"
                   className={classNames(
-                    checked
-                      ? "bg-indigo-600 border-transparent"
-                      : "bg-white border-gray-300",
-                    active ? "ring-2 ring-offset-2 ring-indigo-500" : "",
-                    "h-4 w-4 mt-0.5 cursor-pointer rounded-full border flex items-center justify-center"
+                    checked ? "text-indigo-900" : "text-gray-900",
+                    "block text-sm font-medium"
                   )}
-                  aria-hidden="true"
                 >
-                  <span className="rounded-full bg-white w-1.5 h-1.5" />
-                </span>
-                <div className="ml-3 flex flex-col">
-                  <RadioGroup.Label
-                    as="span"
-                    className={classNames(
-                      checked ? "text-indigo-900" : "text-gray-900",
-                      "block text-sm font-medium"
-                    )}
-                  >
-                    {setting.name}
-                  </RadioGroup.Label>
-                  <RadioGroup.Description
-                    as="span"
-                    className={classNames(
-                      checked ? "text-indigo-700" : "text-gray-500",
-                      "block text-sm"
-                    )}
-                  >
-                    {setting.description}
-                  </RadioGroup.Description>
-                </div>
-              </>
-            )}
-          </RadioGroup.Option>
-        ))}
-      </div>
-    </RadioGroup>
-  );
-}
+                  {setting.name}
+                </RadioGroup.Label>
+                <RadioGroup.Description
+                  as="span"
+                  className={classNames(
+                    checked ? "text-indigo-700" : "text-gray-500",
+                    "block text-sm"
+                  )}
+                >
+                  {setting.description}
+                </RadioGroup.Description>
+              </div>
+            </>
+          )}
+        </RadioGroup.Option>
+      ))}
+    </div>
+  </RadioGroup>
+));
 
 export default Solana;

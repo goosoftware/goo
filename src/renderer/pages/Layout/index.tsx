@@ -269,7 +269,7 @@ export const Sidebar = observer(() => {
                     {item.name}
 
                     {item.name === "Solana" && (
-                      <span className="ml-4 text-xs inline-flex items-center font-bold leading-sm uppercase px-3 py-1 text-green-200 text-orange-700 rounded-full">
+                      <span className="ml-4 text-xs inline-flex items-center font-bold leading-sm uppercase px-3 py-1 text-solanaGreen rounded-full">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="16"
@@ -284,7 +284,7 @@ export const Sidebar = observer(() => {
                         >
                           <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
                         </svg>
-                        local
+                        {store.cluster}
                       </span>
                     )}
                   </Link>
