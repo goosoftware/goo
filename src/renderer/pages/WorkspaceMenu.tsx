@@ -1,11 +1,47 @@
 import { observer } from "mobx-react-lite";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ExternalLink from "../components/ExternalLink";
 import useAnchor from "../lib/useAnchor";
 import { store } from "../models/Store";
 
 const WorkspaceMenu = () => {
   const { version } = useAnchor();
+
+  useEffect(() => {
+    const handleDrop = (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      for (const f of event.dataTransfer.files) {
+        store.addFile(f);
+      }
+    };
+
+    const handleOver = (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+    };
+
+    const handleEnter = () => {
+      console.log("File is in the Drop Space");
+    };
+
+    const handleLeave = () => {
+      console.log("File has left the Drop Space");
+    };
+
+    document.addEventListener("drop", handleDrop);
+    document.addEventListener("dragover", handleOver);
+    document.addEventListener("dragenter", handleEnter);
+    document.addEventListener("dragleave", handleLeave);
+
+    return () => {
+      document.removeEventListener("drop", handleDrop);
+      document.removeEventListener("dragover", handleOver);
+      document.removeEventListener("dragenter", handleEnter);
+      document.removeEventListener("dragleave", handleLeave);
+    };
+  });
 
   return (
     <div className="py-6">

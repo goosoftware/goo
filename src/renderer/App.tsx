@@ -5,33 +5,10 @@ import "./base.css";
 import Editor from "./components/Editor";
 import "./index.css";
 import "./lib/defaultNodes";
-import { store } from "./models/Store";
 import { Sidebar } from "./pages/Layout";
 import Solana from "./pages/Settings/Solana";
 import Workspace from "./pages/Workspace";
 import WorkspaceMenu from "./pages/WorkspaceMenu";
-
-document.addEventListener("drop", (event) => {
-  event.preventDefault();
-  event.stopPropagation();
-
-  for (const f of event.dataTransfer.files) {
-    store.addFile(f);
-  }
-});
-
-document.addEventListener("dragover", (e) => {
-  e.preventDefault();
-  e.stopPropagation();
-});
-
-document.addEventListener("dragenter", () => {
-  console.log("File is in the Drop Space");
-});
-
-document.addEventListener("dragleave", () => {
-  console.log("File has left the Drop Space");
-});
 
 const App = () => (
   <>
