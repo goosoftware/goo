@@ -4,7 +4,8 @@ import React from "react";
 import { BiAnchor as Anchor } from "react-icons/bi";
 import { SiEthereum, SiNodeRed } from "react-icons/si";
 import Jazzicon from "react-jazzicon";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import ExternalLink from "src/renderer/components/ExternalLink";
 import { store } from "src/renderer/models/Store";
 import { AkashIcon, ArweaveIcon, SolanaIcon } from "./CustomIcons";
 
@@ -157,18 +158,20 @@ export function DirectoryList() {
 }
 
 export const Sidebar = observer(() => {
-  const user = {
-    name: store.shortUserPublicKey,
-    imageUrl:
-      "https://ph-files.imgix.net/3e6585ab-2e74-4223-a291-254a7df3cd6c?auto=format",
-  };
+  const { pathname } = useLocation();
 
   const navigation = [
-    { name: "Flow Editor", href: "/", icon: SiNodeRed, current: true }, // ViewGridAddIcon
+    {
+      name: "Flow Editor",
+      href: "/",
+      icon: SiNodeRed,
+      current: pathname === "/",
+    }, // ViewGridAddIcon
     {
       name: "Anchor Workspaces",
       href: "/workspaces",
       icon: Anchor,
+      current: pathname === "/workspaces",
     },
   ];
 
@@ -282,12 +285,15 @@ export const Sidebar = observer(() => {
                 <Jazzicon diameter={40} seed={store.userPublicKey} />
 
                 <div className="ml-3">
-                  <p className="text-sm font-medium text-gray-700 group-hover:text-gray-900">
-                    {user.name}
+                  <p className="text-sm font-medium text-gray-700 group-hover:text-gray-100">
+                    {store.shortUserPublicKey}
                   </p>
-                  <p className="text-xs font-medium text-gray-500 group-hover:text-gray-700">
-                    View profile
-                  </p>
+                  <ExternalLink
+                    className="text-xs font-medium text-gray-500 group-hover:text-gray-200"
+                    href={`https://explorer.solana.com/address/${store.userPublicKey}?cluster=custom&customUrl=http://localhost:8899`}
+                  >
+                    View on explorer
+                  </ExternalLink>
                 </div>
               </div>
             </a>
