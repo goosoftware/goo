@@ -59,6 +59,9 @@ const Store = types
       );
       console.log(self.user);
     },
+    removeWorkspace(workspaceId: string) {
+      self.anchorWorkspaces.delete(workspaceId);
+    },
   }));
 
 const KEY = "cache";

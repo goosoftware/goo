@@ -1,32 +1,8 @@
-import { Idl } from "@project-serum/anchor";
 import camelCase from "camelcase";
 import fs from "fs";
 import glob from "glob";
-import { types } from "mobx-state-tree";
+import { flow, getRoot, types } from "mobx-state-tree";
 import path from "path";
-// import "./defaultNodes";
-
-interface IdlWithMetadata extends Idl {
-  metadata?: {
-    address: string;
-  };
-}
-
-// const IdlPrimitive = types.custom<string, IdlWithMetadata>({
-//   name: "Idl",
-//   fromSnapshot(value: any): IdlWithMetadata {
-//     return value;
-//   },
-//   toSnapshot(value: any): any {
-//     return JSON.parse(value);
-//   },
-//   isTargetType() {
-//     return true;
-//   },
-//   getValidationMessage(value: string) {
-//     return "";
-//   },
-// });
 
 const t = types;
 
@@ -90,17 +66,23 @@ const AnchorWorkspace = types
     get name(): string {
       return self.idl.name;
     },
+    get state(): string {
+      return "unbuilt";
+    },
+    get action() {
+      return "build";
+    },
+  }))
+  .actions((self) => ({
+    build: flow(function* () {
+      console.log("build!");
+    }),
+    remove() {
+      (getRoot(self) as any).removeWorkspace(self.id);
+    },
   }));
 
 export default AnchorWorkspace;
-
-// try {
-//   anchor.setProvider(anchor.Provider.env());
-// } catch (err) {}
-// Using the path attribute to get absolute file path
-// console.log(file.path);
-// const workspace = AnchorWorkspace.create({});
-// console.log(workspace);
 
 const read = (path: string): Promise<[string, object]> =>
   new Promise((res, rej) => {
