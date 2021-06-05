@@ -11,7 +11,7 @@ specifiers:
   '@types/react-dom': ~17.0.6
   autoprefixer: ^10.2.6
   camelcase: ^6.2.0
-  electron: ^13.1.0
+  electron: ^13.1.1
   electron-builder: ^22.10.5
   electron-esbuild: ^1.5.0
   electron-util: ~0.16.0
@@ -66,7 +66,7 @@ devDependencies:
   '@types/react': 17.0.9
   '@types/react-dom': 17.0.6
   autoprefixer: 10.2.6_postcss@8.3.0
-  electron: 13.1.0
+  electron: 13.1.1
   electron-builder: 22.10.5
   electron-esbuild: 1.5.0_esbuild@0.10.2
   electron-util: 0.16.0
@@ -821,7 +821,7 @@ packages:
     dependencies:
       caniuse-lite: 1.0.30001234
       colorette: 1.2.2
-      electron-to-chromium: 1.3.748
+      electron-to-chromium: 1.3.749
       escalade: 3.1.1
       node-releases: 1.1.72
     dev: true
@@ -1220,8 +1220,8 @@ packages:
       is-what: 3.14.1
     dev: true
 
-  /core-js/3.13.1:
-    resolution: {integrity: sha512-JqveUc4igkqwStL2RTRn/EPFGBOfEZHxJl/8ej1mXJR75V3go2mFF4bmUYkEIT1rveHKnkUlcJX/c+f1TyIovQ==}
+  /core-js/3.14.0:
+    resolution: {integrity: sha512-3s+ed8er9ahK+zJpp9ZtuVcDoFzHNiZsPbNAAE4KXgrRHbjSqqNN6xGSXq6bq7TZIbKj4NLrLb6bJ5i+vSVjHA==}
     requiresBuild: true
     dev: true
     optional: true
@@ -1761,8 +1761,8 @@ packages:
       - supports-color
     dev: true
 
-  /electron-to-chromium/1.3.748:
-    resolution: {integrity: sha512-fmIKfYALVeEybk/L2ucdgt7jN3JsbGtg3K9pmF/MRWgkeADBI1VSAa5IzdG2gZwTxsnsrFtdMpOTSM5mrBRKVQ==}
+  /electron-to-chromium/1.3.749:
+    resolution: {integrity: sha512-F+v2zxZgw/fMwPz/VUGIggG4ZndDsYy0vlpthi3tjmDZlcfbhN5mYW0evXUsBr2sUtuDANFtle410A9u/sd/4A==}
     dev: true
 
   /electron-util/0.16.0:
@@ -1772,8 +1772,8 @@ packages:
       new-github-issue-url: 0.2.1
     dev: true
 
-  /electron/13.1.0:
-    resolution: {integrity: sha512-ykRAaPWrVQkm2Lju4O4rMQzahNcxWLeLMrhBw8WnmIiugkvUH0MhZ85jsOTrAoQ2Zl1FC542bloKFWGSkeVjkg==}
+  /electron/13.1.1:
+    resolution: {integrity: sha512-kySSb5CbIkWU2Kd9mf2rpGZC9p1nWhVVNl+CJjuOUGeVPXHbojHvTkDU1iC8AvV28eik3gqHisSJss40Caprog==}
     engines: {node: '>= 8.6'}
     hasBin: true
     requiresBuild: true
@@ -2297,7 +2297,7 @@ packages:
     engines: {node: '>=10.0'}
     dependencies:
       boolean: 3.1.0
-      core-js: 3.13.1
+      core-js: 3.14.0
       es6-error: 4.1.1
       matcher: 3.0.0
       roarr: 2.15.4
