@@ -7,8 +7,8 @@ let win: BrowserWindow | null = null;
 
 async function createWindow() {
   win = new BrowserWindow({
-    width: 1500,
-    height: 1000,
+    width: 1050,
+    height: 700,
     minHeight: 600,
     minWidth: 650,
     webPreferences: {
