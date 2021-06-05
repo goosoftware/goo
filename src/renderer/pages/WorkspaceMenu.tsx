@@ -22,42 +22,19 @@ const WorkspaceMenu = () => {
             <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
               <div className="shadow overflow-hidden sm:rounded-lg">
                 <table className="min-w-full">
-                  <thead className="bg-gray-50">
-                    <tr>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                      >
-                        Name
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                      >
-                        Path
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                      >
-                        State
-                      </th>
-                      <th scope="col" className="relative px-6 py-3">
-                        <span className="sr-only">Edit</span>
-                      </th>
-                    </tr>
-                  </thead>
                   <tbody>
                     {store.sortedWorkspaces.map((workspace, idx) => (
                       <tr
                         key={workspace.name}
-                        className={idx % 2 === 0 ? "bg-white" : "bg-gray-50"}
+                        className={
+                          idx % 2 === 0 ? "bg-white" : "dark:bg-gray-800"
+                        }
                       >
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                          {workspace.name}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {workspace.path.replace(/\/Users\/[^/]+/, "~")}
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                          <h4 className="font-bold">{workspace.name}</h4>
+                          <span className="dark:text-gray-400">
+                            {workspace.path.replace(/\/Users\/[^/]+/, "~")}
+                          </span>
                           <div>
                             {workspace.address && (
                               <ExternalLink
@@ -76,14 +53,14 @@ const WorkspaceMenu = () => {
                           <button
                             onClick={workspace[workspace.action]}
                             type="button"
-                            className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white dark:bg-green-600"
+                            className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm dark:text-white dark:bg-gray-700 hover:text-solanaGreen"
                           >
                             {workspace.action}
                           </button>
                           <button
                             onClick={workspace[workspace.action]}
                             type="button"
-                            className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white dark:bg-green-600"
+                            className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm dark:text-white dark:bg-gray-700 hover:text-solanaGreen"
                             disabled
                           >
                             deploy
@@ -91,7 +68,7 @@ const WorkspaceMenu = () => {
                           <button
                             onClick={workspace.remove}
                             type="button"
-                            className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white dark:bg-red-600"
+                            className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white hover:bg-red-200 dark:text-red-500 hover:text-white"
                           >
                             x
                           </button>
