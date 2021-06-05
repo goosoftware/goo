@@ -7,6 +7,7 @@ import "./index.css";
 import "./lib/defaultNodes";
 import { store } from "./models/Store";
 import { Sidebar } from "./pages/Layout";
+import Solana from "./pages/Settings/Solana";
 import Workspace from "./pages/Workspace";
 import WorkspaceMenu from "./pages/WorkspaceMenu";
 
@@ -48,6 +49,9 @@ const App = () => (
             </Route>
             <Route exact path="/anchor/:id">
               <Workspace />
+            </Route>
+            <Route exact path="/settings/solana">
+              <Solana />
             </Route>
           </Switch>
         </div>

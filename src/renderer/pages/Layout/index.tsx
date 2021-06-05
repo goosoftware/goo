@@ -178,8 +178,9 @@ export const Sidebar = observer(() => {
   const secondaryNavigation = [
     {
       name: "Solana",
-      href: "#",
+      href: "/settings/solana",
       icon: SolanaIcon,
+      current: pathname === "/settings/solana",
     },
     {
       name: "Akash",
@@ -244,13 +245,25 @@ export const Sidebar = observer(() => {
               />
               <div className="flex-1 px-2 space-y-1">
                 {secondaryNavigation.map((item) => (
-                  <a
+                  <Link
                     key={item.name}
-                    href={item.href}
-                    className="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center px-2 py-2 text-sm font-medium rounded-md"
+                    to={item.href}
+                    // className="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center px-2 py-2 text-sm font-medium rounded-md"
+                    className={classNames(
+                      item.current
+                        ? "bg-gray-200 text-gray-900"
+                        : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
+                      "group flex items-center px-2 py-2 text-sm font-medium rounded-md"
+                    )}
                   >
                     <item.icon
-                      className="text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6"
+                      // className="text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6"
+                      className={classNames(
+                        item.current
+                          ? "text-gray-500"
+                          : "text-gray-400 group-hover:text-gray-500",
+                        "mr-3 flex-shrink-0 h-6 w-6"
+                      )}
                       aria-hidden="true"
                     />
                     {item.name}
@@ -274,7 +287,7 @@ export const Sidebar = observer(() => {
                         local
                       </span>
                     )}
-                  </a>
+                  </Link>
                 ))}
               </div>
             </nav>
