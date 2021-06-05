@@ -3,6 +3,7 @@ import { createMintAndVault, createTokenAccount } from "@project-serum/common";
 import { LGraphNode, LiteGraph } from "litegraph.js";
 import get from "lodash/get";
 import util from "tweetnacl-util";
+import { getAssetCostToStore } from "../packages/metaplex/getAssetCostToStore";
 
 LiteGraph.clearRegisteredTypes();
 
@@ -17,7 +18,7 @@ class SolanaNode extends LGraphNode {
 }
 
 class UtilNode extends LGraphNode {
-  static title_color = "#000";
+  static title_color = "#333";
 }
 
 class AnchorNode extends LGraphNode {
@@ -34,6 +35,10 @@ class ArweaveNode extends LGraphNode {
 
 class CoinGeckoNode extends LGraphNode {
   static title_color = "#97C255";
+}
+
+class MetaplexNode extends LGraphNode {
+  static title_color = "#000";
 }
 
 class FileNode extends UtilNode {
@@ -390,6 +395,8 @@ class ImageNode extends UtilNode {
   constructor() {
     super();
 
+    this.addOutput("file", 0 as any);
+
     this.keys.forEach((key) => {
       this.addOutput(key, 0 as any);
     });
@@ -408,8 +415,10 @@ class ImageNode extends UtilNode {
 
   onExecute() {
     if (!this.file) return;
+
+    this.setOutputData(0, this.file);
     this.keys.forEach((key, i) => {
-      this.setOutputData(i, this.file[key]);
+      this.setOutputData(i + 1, this.file[key]);
     });
   }
 
@@ -473,3 +482,63 @@ class Watch extends UtilNode {
   }
 }
 LiteGraph.registerNodeType(`utils/watch`, Watch);
+
+class MintNFT extends MetaplexNode {
+  title = "metaplex / mint nft";
+
+  constructor() {
+    super();
+
+    this.addInput("connection", 0 as any);
+    this.addInput("wallet", 0 as any);
+    this.addInput("files[]", 0 as any);
+    this.addInput("metadata.name", 0 as any);
+    this.addInput("metadata.symbol", 0 as any);
+    this.addInput("metadata.description", 0 as any);
+    this.addInput("metadata.image", 0 as any);
+    this.addInput("metadata.external_url", 0 as any);
+    this.addInput("metadata.properties", 0 as any);
+    this.addInput("metadata.creators[]", 0 as any);
+    this.addInput("metadata.sellerFeeBasisPoints", 0 as any);
+    this.addInput("maxSupply", 0 as any);
+
+    this.addOutput("tx", 0 as any);
+  }
+
+  onExecute() {
+    // if (this.inputs[0]) {
+    //   this.value = this.getInputData(0);
+    // }
+  }
+}
+LiteGraph.registerNodeType(`metaplex/mintNFT`, MintNFT);
+
+class CostToStore extends MetaplexNode {
+  title = "metaplex / cost to store";
+  private bytes: number;
+  private cost: number;
+
+  constructor() {
+    super();
+
+    this.addInput("file", 0 as any);
+    this.addOutput("lamports", 0 as any);
+  }
+
+  onExecute() {
+    this.setOutputData(0, this.cost);
+
+    const file = this.getInputData(0);
+    if (file?.size && file.size !== this.bytes) {
+      this.bytes = file.size;
+      console.log("getting cost");
+
+      getAssetCostToStore([file])
+        .then((cost) => {
+          this.cost = cost;
+        })
+        .catch(console.error);
+    }
+  }
+}
+LiteGraph.registerNodeType(`metaplex/costToStore`, CostToStore);
