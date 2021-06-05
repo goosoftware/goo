@@ -1,5 +1,6 @@
 import "../packages/anchor";
 import "../packages/arweave";
+import "../packages/charts";
 import "../packages/coingecko";
 import "../packages/crypto";
 import "../packages/mangomarkets";

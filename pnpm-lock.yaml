@@ -17,6 +17,7 @@ specifiers:
   '@types/react-router-dom': ^5.1.7
   autoprefixer: ^10.2.6
   camelcase: ^6.2.0
+  chart.js: ^3.3.2
   ed2curve: ^0.3.0
   electron: ^13.1.1
   electron-builder: ^22.10.5
@@ -59,6 +60,7 @@ dependencies:
   '@solana/web3.js': 1.17.0
   '@switchboard-xyz/switchboard-api': 0.2.87_typescript@4.3.2
   camelcase: 6.2.0
+  chart.js: 3.3.2
   ed2curve: 0.3.0
   glob: 7.1.7
   json-circular-stringify: 1.0.1
@@ -2026,6 +2028,10 @@ packages:
     resolution: {integrity: sha512-kWWXztvZ5SBQV+eRgKFeh8q5sLuZY2+8WUIzlxWVTg+oGwY14qylx1KbKzHd8P6ZYkAg0xyIDU9JMHhyJMZ1jw==}
     engines: {node: '>=10'}
     dev: true
+
+  /chart.js/3.3.2:
+    resolution: {integrity: sha512-H0hSO7xqTIrwxoACqnSoNromEMfXvfuVnrbuSt2TuXfBDDofbnto4zuZlRtRvC73/b37q3wGAWZyUU41QPvNbA==}
+    dev: false
 
   /cheerio/0.22.0:
     resolution: {integrity: sha1-qbqoYKP5tZWmuBsahocxIe06Jp4=}

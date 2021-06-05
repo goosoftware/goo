@@ -23,6 +23,7 @@
     "@solana/web3.js": "^1.17.0",
     "@switchboard-xyz/switchboard-api": "^0.2.87",
     "camelcase": "^6.2.0",
+    "chart.js": "^3.3.2",
     "ed2curve": "^0.3.0",
     "glob": "^7.1.7",
     "json-circular-stringify": "^1.0.1",
