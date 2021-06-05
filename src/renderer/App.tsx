@@ -43,10 +43,10 @@ const App = () => (
               <Editor />
               {/* <DirectoryList /> */}
             </Route>
-            <Route exact path="/workspaces">
+            <Route exact path="/anchor">
               <WorkspaceMenu />
             </Route>
-            <Route exact path="/workspaces/:id">
+            <Route exact path="/anchor/:id">
               <Workspace />
             </Route>
           </Switch>
