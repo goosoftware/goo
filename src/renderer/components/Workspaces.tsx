@@ -2,7 +2,7 @@ import { observer } from "mobx-react-lite";
 import React from "react";
 import useAnchor from "../lib/useAnchor";
 import { app } from "../models/App";
-import Link from "./Link";
+import Link from "./ExternalLink";
 
 const Workspaces = () => {
   const { deploy } = useAnchor();

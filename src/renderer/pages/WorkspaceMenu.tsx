@@ -1,5 +1,6 @@
 import { observer } from "mobx-react-lite";
 import React from "react";
+import ExternalLink from "../components/ExternalLink";
 import useAnchor from "../lib/useAnchor";
 import { store } from "../models/Store";
 
@@ -57,6 +58,16 @@ const WorkspaceMenu = () => {
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                           {workspace.path.replace(/\/Users\/[^/]+/, "~")}
+                          <div>
+                            {workspace.address && (
+                              <ExternalLink
+                                href={workspace.url}
+                                className="dark:text-gray-600"
+                              >
+                                {workspace.address}
+                              </ExternalLink>
+                            )}
+                          </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                           {workspace.state}
@@ -68,6 +79,14 @@ const WorkspaceMenu = () => {
                             className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white dark:bg-green-600"
                           >
                             {workspace.action}
+                          </button>
+                          <button
+                            onClick={workspace[workspace.action]}
+                            type="button"
+                            className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white dark:bg-green-600"
+                            disabled
+                          >
+                            deploy
                           </button>
                           <button
                             onClick={workspace.remove}

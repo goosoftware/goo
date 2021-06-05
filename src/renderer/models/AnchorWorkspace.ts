@@ -67,10 +67,16 @@ const AnchorWorkspace = types
       return self.idl.name;
     },
     get state(): string {
-      return "unbuilt";
+      return (self as any).address ? "deployed" : "unbuilt";
     },
     get action() {
       return "build";
+    },
+    get url(): string | undefined {
+      const { address } = self as any;
+      return address
+        ? `https://explorer.solana.com/address/${address}?cluster=custom&customUrl=http://localhost:8899`
+        : undefined;
     },
   }))
   .actions((self) => ({

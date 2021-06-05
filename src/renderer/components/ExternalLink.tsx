@@ -1,14 +1,11 @@
 import { shell } from "electron";
-import React, { ReactNode } from "react";
+import React from "react";
 
-const Link = ({
+const ExternalLink: React.FC<React.LinkHTMLAttributes<HTMLAnchorElement>> = ({
   href,
   title,
   children,
-}: {
-  href: string;
-  title?: string;
-  children: ReactNode;
+  ...props
 }) => (
   <a
     href={href}
@@ -17,9 +14,10 @@ const Link = ({
       e.preventDefault();
       shell.openExternal(href);
     }}
+    {...props}
   >
     {children}
   </a>
 );
 
-export default Link;
+export default ExternalLink;
