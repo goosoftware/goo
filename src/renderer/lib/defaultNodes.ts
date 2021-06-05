@@ -28,6 +28,146 @@ class SerumNode extends LGraphNode {
   static title_color = "#007775";
 }
 
+class ArweaveNode extends LGraphNode {
+  static title_color = "#BBB";
+}
+
+class CoinGeckoNode extends LGraphNode {
+  static title_color = "#97C255";
+}
+
+class FileNode extends UtilNode {
+  title = "utils / file";
+  constructor() {
+    super();
+    this.addOutput("file", 0 as any);
+  }
+}
+LiteGraph.registerNodeType(`utils/file`, FileNode);
+
+class StoragePrice extends ArweaveNode {
+  title = "arweave / storage price";
+  private bytes: Number;
+  private price: Number;
+
+  constructor() {
+    super();
+    this.addInput("bytes", "number");
+    // this.addInput("quoteAsset?", 0 as any);
+    this.addOutput("price", 0 as any);
+
+    this.onExecute = this.onExecute.bind(this);
+  }
+
+  onExecute() {
+    const bytes = this.getInputData(0);
+    if (bytes && this.bytes !== bytes) {
+      this.bytes = bytes;
+      fetch(`https://arweave.net/price/${parseInt(bytes, 10)}`)
+        .then((res) => res.text())
+        .then((text) => {
+          this.price = Number(text) / 10 ** 12;
+        });
+    }
+    this.setOutputData(0, this.price);
+  }
+}
+LiteGraph.registerNodeType(`arweave/storagePrice`, StoragePrice);
+
+class ConvertPrice extends CoinGeckoNode {
+  title = "coingecko / convert price";
+
+  private fromPrice: number;
+  private toPrice: number;
+
+  private tokens = ["solana", "usd-coin", "arweave", "ethereum"];
+
+  private fromToken;
+  private toToken;
+
+  constructor() {
+    super();
+    this.addInput("fromPrice", 0 as any);
+    this.addOutput("toPrice", 0 as any);
+    // this.addInput("from", 0 as any);
+    // this.addInput("to", 0 as any);
+
+    this.fromToken ??= this.tokens[0];
+    this.toToken ??= this.tokens[1];
+
+    this.onExecute = this.onExecute.bind(this);
+    this.calculate = this.calculate.bind(this);
+
+    this.addWidget(
+      "combo",
+      "from",
+      this.fromToken,
+      (v) => {
+        this.fromToken = v;
+        this.calculate(true);
+      },
+      { values: this.tokens }
+    );
+
+    this.addWidget(
+      "combo",
+      "to",
+      this.toToken,
+      (v) => {
+        this.toToken = v;
+        this.calculate(true);
+      },
+      { values: this.tokens }
+    );
+  }
+
+  private calculate(force = false) {
+    const fromPrice = this.getInputData(0);
+    if (fromPrice && (this.fromPrice !== fromPrice || force)) {
+      this.fromPrice = fromPrice;
+      const { fromToken, toToken } = this;
+      const url = `https://api.coingecko.com/api/v3/simple/price?ids=${fromToken},${toToken}&vs_currencies=usd`;
+      fetch(url)
+        .then((res) => res.json())
+        .then((json) => {
+          const fromToUsd = json[fromToken].usd;
+          const toToUsd = json[toToken].usd;
+
+          const usdOfFromPrice = fromPrice * fromToUsd;
+          const usdOfToPrice = usdOfFromPrice / toToUsd;
+
+          console.log({
+            fromToken,
+            toToken,
+            fromPrice,
+            fromToUsd,
+            toToUsd,
+            usdOfFromPrice,
+            usdOfToPrice,
+          });
+
+          this.toPrice = usdOfToPrice;
+        });
+    }
+  }
+
+  onExecute() {
+    this.calculate();
+    this.setOutputData(0, this.toPrice);
+
+    // const bytes = this.getInputData(0);
+    // if (bytes && this.bytes !== bytes) {
+    //   this.bytes = bytes;
+    //   fetch(`https://arweave.net/price/${parseInt(bytes, 10)}`)
+    //     .then((res) => res.text())
+    //     .then((text) => {
+    //       this.setOutputData(0, Number(text));
+    //     });
+    // }
+  }
+}
+LiteGraph.registerNodeType(`coinGecko/convertPrice`, ConvertPrice);
+
 class ProviderWallet extends AnchorNode {
   title = "anchor / provider wallet";
   constructor() {
@@ -49,7 +189,9 @@ class Logger extends UtilNode {
     this.addInput("data", 0 as any);
   }
   onExecute() {
-    console.log(this.getInputData(0));
+    if (this.getInputData(0) !== undefined) {
+      console.log(this.getInputData(0));
+    }
   }
 }
 LiteGraph.registerNodeType(`utils/logger`, Logger);
@@ -235,3 +377,99 @@ class CreateTokenAccount extends SerumNode {
 }
 
 LiteGraph.registerNodeType("serum/createTokenAccount", CreateTokenAccount);
+
+class ImageNode extends UtilNode {
+  title = "utils / image";
+  // desc = "image loader"
+  // private supported_extensions = ["jpg", "jpeg", "png", "gif"];
+  private img;
+  private file;
+
+  private keys = ["name", "size"];
+
+  constructor() {
+    super();
+
+    this.keys.forEach((key) => {
+      this.addOutput(key, 0 as any);
+    });
+
+    this.onDrawBackground = this.onDrawBackground.bind(this);
+    this.onDropFile = this.onDropFile.bind(this);
+    this.onExecute = this.onExecute.bind(this);
+  }
+
+  onDrawBackground(ctx) {
+    if (this.flags.collapsed) return;
+    if (this.size[0] > 5 && this.size[1] > 5 && this.img?.width) {
+      ctx.drawImage(this.img, 0, 0, this.size[0], this.size[1]);
+    }
+  }
+
+  onExecute() {
+    if (!this.file) return;
+    this.keys.forEach((key, i) => {
+      this.setOutputData(i, this.file[key]);
+    });
+  }
+
+  private loadImg(url, callback) {
+    if (!url) return;
+    this.img = document.createElement("img");
+    this.img.src = url;
+    this.img.onload = () => {
+      callback?.();
+      this.setDirtyCanvas(true, true);
+    };
+    this.img.onerror = function () {
+      console.log("error loading the image:" + url);
+    };
+  }
+
+  onDropFile(file: File) {
+    this.file = file;
+    const url = URL.createObjectURL(file);
+    this.properties.url = url;
+    this.loadImg(url, () => {
+      this.size[1] = (this.img.height / this.img.width) * this.size[0];
+    });
+  }
+
+  // GraphicsImage.prototype.onPropertyChanged = function(name, value) {
+  //     this.properties[name] = value;
+  //     if (name == "url" && value != "") {
+  //         this.loadImage(value);
+  //     }
+}
+LiteGraph.registerNodeType("utils/image", ImageNode);
+
+class Watch extends UtilNode {
+  title = "utils / watch";
+  desc = "Show value of input";
+
+  private value;
+
+  constructor() {
+    super();
+    this.addInput("value", 0 as any, { label: "" });
+  }
+
+  onExecute() {
+    if (this.inputs[0]) {
+      this.value = this.getInputData(0);
+    }
+  }
+
+  onDrawBackground() {
+    this.inputs[0].label = Watch.toString(this.value);
+  }
+
+  private static toString(o) {
+    try {
+      return JSON.stringify(o, null, 2);
+    } catch (err) {
+      return String(o);
+    }
+  }
+}
+LiteGraph.registerNodeType(`utils/watch`, Watch);
