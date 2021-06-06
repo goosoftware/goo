@@ -1,5 +1,7 @@
+import { spawn } from "child_process";
+import { remote } from "electron";
 import { observer } from "mobx-react-lite";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import ExternalLink from "../components/ExternalLink";
 import useAnchor from "../lib/useAnchor";
 import { store } from "../models/Store";
@@ -48,9 +50,37 @@ const WorkspaceMenu = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
         <h4 className="text-lg font-semibold text-gray-300">{version}</h4>
 
-        <h1 className="py-4 text-2xl font-semibold text-gray-900">
-          Workspaces
-        </h1>
+        <div>
+          <h1 className="py-4 text-2xl font-semibold text-gray-900">
+            Workspaces
+          </h1>
+          <button>import</button>
+          <button
+            onClick={async () => {
+              try {
+                const { filePaths } = await remote.dialog.showOpenDialog(
+                  remote.getCurrentWindow(),
+                  {
+                    properties: ["openDirectory", "createDirectory"],
+                    title: "directory",
+                    buttonLabel: "do it",
+                  }
+                );
+
+                spawn(`anchor init test`, {
+                  cwd: filePaths[0],
+                  shell: true,
+                });
+
+                // console.log(filePaths[0]);
+              } catch (err) {
+                console.error(err);
+              }
+            }}
+          >
+            add file
+          </button>
+        </div>
       </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
         <div className="flex flex-col">

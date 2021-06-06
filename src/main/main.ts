@@ -14,7 +14,7 @@ async function createWindow() {
     webPreferences: {
       nodeIntegration: true,
       devTools: true,
-      enableRemoteModule: false,
+      enableRemoteModule: true,
       contextIsolation: false,
     },
     show: false,
