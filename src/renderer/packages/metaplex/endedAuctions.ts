@@ -7,12 +7,12 @@ import {
   processVaultData,
   queryExtendedMetadata,
 } from "./web/contexts/meta";
+import { useArtWithoutReact } from "./web/hooks/useArt";
 import {
   AuctionViewState,
   processAccountsIntoAuctionView,
 } from "./web/hooks/useAuctions";
-import { useArt } from "./web/vanillaHooks/useArt";
-import { useBidsForAuction } from "./web/vanillaHooks/useBidsForAuction";
+import { useBidsForAuctionWithoutReact } from "./web/hooks/useBidsForAuction";
 
 let STORE: PublicKey;
 
@@ -218,20 +218,16 @@ const getAccounts = async (state = AuctionViewState.Live, env = "devnet") => {
 };
 
 getAccounts(AuctionViewState.Live, "devnet").then((data) => {
-  // require("fs").writeFileSync("data.json", JSON.stringify(data));
-
   Object.values(data).forEach(({ nextAuctionView: auctionView }: any) => {
-    // console.log(auctionView.auction.info.timeToEnd());
-    // console.log();
-
-    const bids = useBidsForAuction(auctionView.auction.pubkey);
+    const bids = useBidsForAuctionWithoutReact(auctionView.auction.pubkey);
     console.log({
       bids,
       timeToEnd: auctionView.auction.info.timeToEnd(),
       winningBid: formatTokenAmount(bids?.[0]?.info.lastBid) || undefined,
-      art: useArt(auctionView.thumbnail.metadata.pubkey, tempCache as any),
+      art: useArtWithoutReact(
+        auctionView.thumbnail.metadata.pubkey,
+        tempCache as any
+      ),
     });
   });
 });
-
-// const data = JSON.parse(require("fs").readFileSync("data.json").toString());

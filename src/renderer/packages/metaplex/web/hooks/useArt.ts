@@ -191,3 +191,18 @@ export const useArt = (id?: PublicKey | string) => {
 
   return art;
 };
+
+export const useArtWithoutReact = (
+  id: PublicKey | string,
+  { unfilteredMetadata, editions, masterEditions, whitelistedCreatorsByCreator }
+) => {
+  const key = typeof id === "string" ? id : id?.toBase58() || "";
+  const account = unfilteredMetadata.find((a) => a.pubkey.toBase58() === key);
+
+  return metadataToArt(
+    account?.info,
+    editions,
+    masterEditions,
+    whitelistedCreatorsByCreator
+  );
+};
