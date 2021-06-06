@@ -5,6 +5,7 @@ import "../packages/coingecko";
 import "../packages/crypto";
 import "../packages/mangomarkets";
 import "../packages/metaplex";
+import "../packages/psyoptions";
 import "../packages/serum";
 import "../packages/solana";
 import "../packages/switchboard";

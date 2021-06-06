@@ -3,6 +3,8 @@ lockfileVersion: 5.3
 specifiers:
   '@headlessui/react': ^1.2.0
   '@heroicons/react': ^1.0.1
+  '@mithraic-labs/psyoptions': ^0.3.0
+  '@mithraic-labs/serum': ^0.0.3
   '@project-serum/common': ^0.0.1-beta.3
   '@solana/spl-token': ^0.1.5
   '@solana/spl-token-registry': ^0.2.121
@@ -53,6 +55,8 @@ specifiers:
 dependencies:
   '@headlessui/react': 1.2.0_react@17.0.2
   '@heroicons/react': 1.0.1_react@17.0.2
+  '@mithraic-labs/psyoptions': 0.3.0_@solana+web3.js@1.17.0
+  '@mithraic-labs/serum': 0.0.3_@solana+web3.js@1.17.0
   '@project-serum/common': 0.0.1-beta.3_@solana+web3.js@1.17.0
   '@solana/spl-token': 0.1.5
   '@solana/spl-token-registry': 0.2.121
@@ -774,6 +778,30 @@ packages:
     dependencies:
       cross-spawn: 7.0.3
     dev: true
+
+  /@mithraic-labs/psyoptions/0.3.0_@solana+web3.js@1.17.0:
+    resolution: {integrity: sha512-AwAF0tyogjlaI8+YepIKmiCWY4nppspgdXfuW8mdV9MwG0YrvvHhrtJpuUgmsEsEXmtuBjLU9z0m88ya0taL6w==}
+    peerDependencies:
+      '@solana/web3.js': ^1.2.5
+    dependencies:
+      '@solana/spl-token': 0.1.5
+      '@solana/web3.js': 1.17.0
+      bignumber.js: 9.0.1
+      bn.js: 5.2.0
+      buffer-layout: 1.2.1
+      rollup: 2.50.6
+    dev: false
+
+  /@mithraic-labs/serum/0.0.3_@solana+web3.js@1.17.0:
+    resolution: {integrity: sha512-YClkZEpcq9MhHqb5c0B+QvYGl4Dsbmdi8t98/FMEsNEmDa8MFYB8rFpVAIrFF+ufJc5i+V23Sx4U/Ez0+MFY1w==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      '@solana/web3.js': ^1.2.6
+    dependencies:
+      '@solana/web3.js': 1.17.0
+      bn.js: 5.2.0
+      buffer-layout: 1.2.1
+    dev: false
 
   /@nodelib/fs.scandir/2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -1726,6 +1754,10 @@ packages:
   /big.js/5.2.2:
     resolution: {integrity: sha512-vyL2OymJxmarO8gxMr0mhChsO9QGwhynfuu4+MHTAW6czfq9humCB7rKpUjDd9YUiDPU4mzpyupFSvOClAwbmQ==}
     dev: true
+
+  /bignumber.js/9.0.1:
+    resolution: {integrity: sha512-IdZR9mh6ahOBv/hYGiXyVuyCetmGJhtYkqLBpTStdhEGjegpPlUawydyaF3pbIOFynJTpllEs+NP+CS9jKFLjA==}
+    dev: false
 
   /binary-extensions/2.2.0:
     resolution: {integrity: sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA==}
@@ -3559,7 +3591,6 @@ packages:
     resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==}
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     os: [darwin]
-    dev: true
     optional: true
 
   /function-bind/1.1.1:
@@ -6841,6 +6872,14 @@ packages:
       sprintf-js: 1.1.2
     dev: true
     optional: true
+
+  /rollup/2.50.6:
+    resolution: {integrity: sha512-6c5CJPLVgo0iNaZWWliNu1Kl43tjP9LZcp6D/tkf2eLH2a9/WeHxg9vfTFl8QV/2SOyaJX37CEm9XuGM0rviUg==}
+    engines: {node: '>=10.0.0'}
+    hasBin: true
+    optionalDependencies:
+      fsevents: 2.3.2
+    dev: false
 
   /rpc-websockets/7.4.12:
     resolution: {integrity: sha512-WxZRM4443SiYbJhsLwVJc6P/VAQJIkeDS89CQAuHqyMt/GX8GEplWZezcLw6MMGemzA6Kp32kz7CbQppMTLQxA==}
