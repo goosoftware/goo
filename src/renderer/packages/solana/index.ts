@@ -20,7 +20,7 @@ class GenerateKeypair extends SolanaNode {
 
   onExecute() {
     this.setOutputData(0, this.keypair);
-    this.setOutputData(1, this.keypair.publicKey);
+    this.setOutputData(1, this.keypair.publicKey.toString());
     this.setOutputData(2, this.keypair.secretKey);
   }
 }
