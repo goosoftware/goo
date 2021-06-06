@@ -1,15 +1,18 @@
 import { Connection, PublicKey } from "@solana/web3.js";
-import { setProgramIds } from "./common";
+import { formatTokenAmount, setProgramIds } from "./common";
 import {
   processAuctions,
   processMetaData,
   processMetaplexAccounts,
   processVaultData,
+  queryExtendedMetadata,
 } from "./web/contexts/meta";
 import {
   AuctionViewState,
   processAccountsIntoAuctionView,
 } from "./web/hooks/useAuctions";
+import { useArt } from "./web/vanillaHooks/useArt";
+import { useBidsForAuction } from "./web/vanillaHooks/useBidsForAuction";
 
 let STORE: PublicKey;
 
@@ -66,6 +69,26 @@ const programIds = () => {
   };
 };
 
+const tempCache = {
+  metadata: {},
+  metadataByMint: {},
+  masterEditions: {},
+  masterEditionsByPrintingMint: {},
+  masterEditionsByOneTimeAuthMint: {},
+  metadataByMasterEdition: {},
+  editions: {},
+  auctionManagersByAuction: {},
+  bidRedemptions: {},
+  auctions: {},
+  vaults: {},
+  payoutTickets: {},
+  store: {},
+  whitelistedCreatorsByCreator: {},
+  bidderMetadataByAuctionAndBidder: {},
+  bidderPotsByAuctionAndBidder: {},
+  safetyDepositBoxesByVaultAndIndex: {},
+};
+
 const getAccounts = async (state = AuctionViewState.Live, env = "devnet") => {
   const accounts = (
     await Promise.all([
@@ -77,26 +100,6 @@ const getAccounts = async (state = AuctionViewState.Live, env = "devnet") => {
   ).flat();
 
   await setProgramIds(env);
-
-  const tempCache = {
-    metadata: {},
-    metadataByMint: {},
-    masterEditions: {},
-    masterEditionsByPrintingMint: {},
-    masterEditionsByOneTimeAuthMint: {},
-    metadataByMasterEdition: {},
-    editions: {},
-    auctionManagersByAuction: {},
-    bidRedemptions: {},
-    auctions: {},
-    vaults: {},
-    payoutTickets: {},
-    store: {},
-    whitelistedCreatorsByCreator: {},
-    bidderMetadataByAuctionAndBidder: {},
-    bidderPotsByAuctionAndBidder: {},
-    safetyDepositBoxesByVaultAndIndex: {},
-  };
 
   for (let i = 0; i < accounts.length; i++) {
     processVaultData(
@@ -156,6 +159,15 @@ const getAccounts = async (state = AuctionViewState.Live, env = "devnet") => {
     );
   }
 
+  try {
+    const m = await queryExtendedMetadata(connection, tempCache.metadataByMint);
+    tempCache.metadata = m.metadata;
+    tempCache.metadataByMint = m.mintToMetadata;
+    (tempCache as any).unfilteredMetadata = m.metadata;
+  } catch (er) {
+    console.error(er);
+  }
+
   const {
     auctions,
     auctionManagersByAuction,
@@ -195,11 +207,31 @@ const getAccounts = async (state = AuctionViewState.Live, env = "devnet") => {
       existingAuctionView
     );
     if (nextAuctionView) {
-      auctionViews[a] = nextAuctionView;
+      auctionViews[a] = {
+        nextAuctionView,
+        id: nextAuctionView.auction.pubkey.toBase58(), // a
+      };
     }
   });
 
   return auctionViews;
 };
 
-getAccounts().then(console.log);
+getAccounts(AuctionViewState.Live, "devnet").then((data) => {
+  // require("fs").writeFileSync("data.json", JSON.stringify(data));
+
+  Object.values(data).forEach(({ nextAuctionView: auctionView }: any) => {
+    // console.log(auctionView.auction.info.timeToEnd());
+    // console.log();
+
+    const bids = useBidsForAuction(auctionView.auction.pubkey);
+    console.log({
+      bids,
+      timeToEnd: auctionView.auction.info.timeToEnd(),
+      winningBid: formatTokenAmount(bids?.[0]?.info.lastBid) || undefined,
+      art: useArt(auctionView.thumbnail.metadata.pubkey, tempCache as any),
+    });
+  });
+});
+
+// const data = JSON.parse(require("fs").readFileSync("data.json").toString());

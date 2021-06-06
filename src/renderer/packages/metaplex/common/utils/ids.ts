@@ -1,12 +1,11 @@
 import { PublicKey } from "@solana/web3.js";
-import { TokenSwapLayout, TokenSwapLayoutV1 } from "../models/tokenSwap";
 
 export const STORE_OWNER_ADDRESS = process.env
   .REACT_APP_STORE_OWNER_ADDRESS_ADDRESS
   ? new PublicKey(`${process.env.REACT_APP_STORE_OWNER_ADDRESS_ADDRESS}`)
   : // DEFAULT STORE FRONT OWNER FOR METAPLEX
     undefined;
-console.debug(`Store owner address: ${STORE_OWNER_ADDRESS?.toBase58()}`);
+// console.debug(`Store owner address: ${STORE_OWNER_ADDRESS?.toBase58()}`);
 
 export const WRAPPED_SOL_MINT = new PublicKey(
   "So11111111111111111111111111111111111111112"
@@ -64,7 +63,7 @@ export const PROGRAM_IDS = [
 ];
 
 const getStoreID = async () => {
-  console.log(`STORE_OWNER_ADDRESS: ${STORE_OWNER_ADDRESS}`);
+  // console.log(`STORE_OWNER_ADDRESS: ${STORE_OWNER_ADDRESS}`);
   if (!STORE_OWNER_ADDRESS) {
     return DEFAULT_STORE;
   }

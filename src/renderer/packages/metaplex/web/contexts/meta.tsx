@@ -519,7 +519,7 @@ export function MetaProvider({ children = null as any }) {
   );
 }
 
-const queryExtendedMetadata = async (
+export const queryExtendedMetadata = async (
   connection: Connection,
   mintToMeta: Record<string, ParsedAccount<Metadata>>
 ) => {
