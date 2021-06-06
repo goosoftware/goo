@@ -1,5 +1,5 @@
-import { PublicKey } from '@solana/web3.js';
-import { TokenSwapLayout, TokenSwapLayoutV1 } from '../models/tokenSwap';
+import { PublicKey } from "@solana/web3.js";
+import { TokenSwapLayout, TokenSwapLayoutV1 } from "../models/tokenSwap";
 
 export const STORE_OWNER_ADDRESS = process.env
   .REACT_APP_STORE_OWNER_ADDRESS_ADDRESS
@@ -9,57 +9,57 @@ export const STORE_OWNER_ADDRESS = process.env
 console.debug(`Store owner address: ${STORE_OWNER_ADDRESS?.toBase58()}`);
 
 export const WRAPPED_SOL_MINT = new PublicKey(
-  'So11111111111111111111111111111111111111112',
+  "So11111111111111111111111111111111111111112"
 );
 export let TOKEN_PROGRAM_ID = new PublicKey(
-  'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA',
+  "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
 );
 
 export let SPL_ASSOCIATED_TOKEN_ACCOUNT_PROGRAM_ID = new PublicKey(
-  'ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL',
+  "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
 );
 export let BPF_UPGRADE_LOADER_ID = new PublicKey(
-  'BPFLoaderUpgradeab1e11111111111111111111111',
+  "BPFLoaderUpgradeab1e11111111111111111111111"
 );
 
 export const METADATA_PROGRAM_ID = new PublicKey(
-  'metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s',
+  "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s"
 );
 
 export const MEMO_ID = new PublicKey(
-  'MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr',
+  "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr"
 );
 
 export const VAULT_ID = new PublicKey(
-  'vau1zxA2LbssAUEF7Gpw91zMM1LvXrvpzJtmZ58rPsn',
+  "vau1zxA2LbssAUEF7Gpw91zMM1LvXrvpzJtmZ58rPsn"
 );
 
 export const AUCTION_ID = new PublicKey(
-  'auctxRXPeJoc4817jDhf4HbjnhEcr1cCXenosMhK5R8',
+  "auctxRXPeJoc4817jDhf4HbjnhEcr1cCXenosMhK5R8"
 );
 
 export const METAPLEX_ID = new PublicKey(
-  'p1exdMJcjVao65QdewkaZRUnU6VPSXhus9n2GzWfh98',
+  "p1exdMJcjVao65QdewkaZRUnU6VPSXhus9n2GzWfh98"
 );
 
-export let SYSTEM = new PublicKey('11111111111111111111111111111111');
+export let SYSTEM = new PublicKey("11111111111111111111111111111111");
 
 export const ENABLE_FEES_INPUT = false;
 
 // legacy pools are used to show users contributions in those pools to allow for withdrawals of funds
 export const PROGRAM_IDS = [
   {
-    name: 'mainnet-beta',
+    name: "mainnet-beta",
   },
   {
-    name: 'testnet',
+    name: "testnet",
   },
 
   {
-    name: 'devnet',
+    name: "devnet",
   },
   {
-    name: 'localnet',
+    name: "localnet",
   },
 ];
 
@@ -73,11 +73,11 @@ const getStoreID = async () => {
     STORE = (
       await PublicKey.findProgramAddress(
         [
-          Buffer.from('metaplex'),
+          Buffer.from("metaplex"),
           METAPLEX_ID.toBuffer(),
           STORE_OWNER_ADDRESS.toBuffer(),
         ],
-        METAPLEX_ID,
+        METAPLEX_ID
       )
     )[0];
   }
@@ -86,7 +86,7 @@ const getStoreID = async () => {
 };
 
 export const setProgramIds = async (envName: string) => {
-  let instance = PROGRAM_IDS.find(env => envName.indexOf(env.name) >= 0);
+  let instance = PROGRAM_IDS.find((env) => envName.indexOf(env.name) >= 0);
   if (!instance) {
     return;
   }
@@ -95,7 +95,7 @@ export const setProgramIds = async (envName: string) => {
 };
 
 const DEFAULT_STORE = new PublicKey(
-  '7KwpjEy7KBpZTBErE3niBUNxWGAQTPo9kZzkgEoP6dfR',
+  "7KwpjEy7KBpZTBErE3niBUNxWGAQTPo9kZzkgEoP6dfR"
 );
 
 let STORE: PublicKey;

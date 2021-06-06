@@ -1,19 +1,19 @@
-import { AccountLayout, MintLayout, Token } from '@solana/spl-token';
+import { AccountLayout, MintLayout, Token } from "@solana/spl-token";
 import {
   Keypair,
   PublicKey,
   SystemProgram,
   SYSVAR_RENT_PUBKEY,
   TransactionInstruction,
-} from '@solana/web3.js';
+} from "@solana/web3.js";
 import {
   programIds,
   SPL_ASSOCIATED_TOKEN_ACCOUNT_PROGRAM_ID,
   TOKEN_PROGRAM_ID,
   WRAPPED_SOL_MINT,
-} from '../utils/ids';
-import { TokenAccount } from '../models/account';
-import { cache, TokenAccountParser } from '../contexts/accounts';
+} from "../utils/ids";
+import { TokenAccount } from "../models/account";
+import { cache, TokenAccountParser } from "../contexts/accounts";
 
 export function ensureSplAccount(
   instructions: TransactionInstruction[],
@@ -21,7 +21,7 @@ export function ensureSplAccount(
   toCheck: TokenAccount,
   payer: PublicKey,
   amount: number,
-  signers: Keypair[],
+  signers: Keypair[]
 ) {
   if (!toCheck.info.isNative) {
     return toCheck.pubkey;
@@ -31,7 +31,7 @@ export function ensureSplAccount(
     instructions,
     payer,
     amount,
-    signers,
+    signers
   );
 
   instructions.push(
@@ -39,8 +39,8 @@ export function ensureSplAccount(
       TOKEN_PROGRAM_ID,
       WRAPPED_SOL_MINT,
       account,
-      payer,
-    ),
+      payer
+    )
   );
 
   cleanupInstructions.push(
@@ -49,8 +49,8 @@ export function ensureSplAccount(
       account,
       payer,
       payer,
-      [],
-    ),
+      []
+    )
   );
 
   return account;
@@ -63,7 +63,7 @@ export function createTempMemoryAccount(
   payer: PublicKey,
   signers: Keypair[],
   owner: PublicKey,
-  space = DEFAULT_TEMP_MEM_SPACE,
+  space = DEFAULT_TEMP_MEM_SPACE
 ) {
   const account = Keypair.generate();
   instructions.push(
@@ -74,7 +74,7 @@ export function createTempMemoryAccount(
       lamports: 0,
       space: space,
       programId: owner,
-    }),
+    })
   );
 
   signers.push(account);
@@ -86,7 +86,7 @@ export function createUninitializedMint(
   instructions: TransactionInstruction[],
   payer: PublicKey,
   amount: number,
-  signers: Keypair[],
+  signers: Keypair[]
 ) {
   const account = Keypair.generate();
   instructions.push(
@@ -96,7 +96,7 @@ export function createUninitializedMint(
       lamports: amount,
       space: MintLayout.span,
       programId: TOKEN_PROGRAM_ID,
-    }),
+    })
   );
 
   signers.push(account);
@@ -108,7 +108,7 @@ export function createUninitializedAccount(
   instructions: TransactionInstruction[],
   payer: PublicKey,
   amount: number,
-  signers: Keypair[],
+  signers: Keypair[]
 ) {
   const account = Keypair.generate();
   instructions.push(
@@ -118,7 +118,7 @@ export function createUninitializedAccount(
       lamports: amount,
       space: AccountLayout.span,
       programId: TOKEN_PROGRAM_ID,
-    }),
+    })
   );
 
   signers.push(account);
@@ -131,7 +131,7 @@ export function createAssociatedTokenAccountInstruction(
   associatedTokenAddress: PublicKey,
   payer: PublicKey,
   walletAddress: PublicKey,
-  splTokenMintAddress: PublicKey,
+  splTokenMintAddress: PublicKey
 ) {
   const keys = [
     {
@@ -175,7 +175,7 @@ export function createAssociatedTokenAccountInstruction(
       keys,
       programId: SPL_ASSOCIATED_TOKEN_ACCOUNT_PROGRAM_ID,
       data: Buffer.from([]),
-    }),
+    })
   );
 }
 
@@ -186,13 +186,13 @@ export function createMint(
   decimals: number,
   owner: PublicKey,
   freezeAuthority: PublicKey,
-  signers: Keypair[],
+  signers: Keypair[]
 ) {
   const account = createUninitializedMint(
     instructions,
     payer,
     mintRentExempt,
-    signers,
+    signers
   );
 
   instructions.push(
@@ -201,8 +201,8 @@ export function createMint(
       account,
       decimals,
       owner,
-      freezeAuthority,
-    ),
+      freezeAuthority
+    )
   );
 
   return account;
@@ -214,17 +214,17 @@ export function createTokenAccount(
   accountRentExempt: number,
   mint: PublicKey,
   owner: PublicKey,
-  signers: Keypair[],
+  signers: Keypair[]
 ) {
   const account = createUninitializedAccount(
     instructions,
     payer,
     accountRentExempt,
-    signers,
+    signers
   );
 
   instructions.push(
-    Token.createInitAccountInstruction(TOKEN_PROGRAM_ID, mint, account, owner),
+    Token.createInitAccountInstruction(TOKEN_PROGRAM_ID, mint, account, owner)
   );
 
   return account;
@@ -236,7 +236,7 @@ export function ensureWrappedAccount(
   toCheck: TokenAccount | undefined,
   payer: PublicKey,
   amount: number,
-  signers: Keypair[],
+  signers: Keypair[]
 ) {
   if (toCheck && !toCheck.info.isNative) {
     return toCheck.pubkey;
@@ -251,7 +251,7 @@ export function ensureWrappedAccount(
       lamports: amount,
       space: AccountLayout.span,
       programId: TOKEN_PROGRAM_ID,
-    }),
+    })
   );
 
   instructions.push(
@@ -259,8 +259,8 @@ export function ensureWrappedAccount(
       TOKEN_PROGRAM_ID,
       WRAPPED_SOL_MINT,
       account.publicKey,
-      payer,
-    ),
+      payer
+    )
   );
 
   cleanupInstructions.push(
@@ -269,8 +269,8 @@ export function ensureWrappedAccount(
       account.publicKey,
       payer,
       payer,
-      [],
-    ),
+      []
+    )
   );
 
   signers.push(account);
@@ -287,18 +287,18 @@ export function findOrCreateAccountByMint(
   accountRentExempt: number,
   mint: PublicKey, // use to identify same type
   signers: Keypair[],
-  excluded?: Set<string>,
+  excluded?: Set<string>
 ): PublicKey {
   const accountToFind = mint.toBase58();
   const account = cache
     .byParser(TokenAccountParser)
-    .map(id => cache.get(id))
+    .map((id) => cache.get(id))
     .find(
-      acc =>
+      (acc) =>
         acc !== undefined &&
         acc.info.mint.toBase58() === accountToFind &&
         acc.info.owner.toBase58() === owner.toBase58() &&
-        (excluded === undefined || !excluded.has(acc.pubkey.toBase58())),
+        (excluded === undefined || !excluded.has(acc.pubkey.toBase58()))
     );
   const isWrappedSol = accountToFind === WRAPPED_SOL_MINT.toBase58();
 
@@ -313,7 +313,7 @@ export function findOrCreateAccountByMint(
       accountRentExempt,
       mint,
       owner,
-      signers,
+      signers
     );
 
     if (isWrappedSol) {
@@ -323,8 +323,8 @@ export function findOrCreateAccountByMint(
           toAccount,
           payer,
           payer,
-          [],
-        ),
+          []
+        )
       );
     }
   }

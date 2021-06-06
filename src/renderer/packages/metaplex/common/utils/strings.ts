@@ -10,7 +10,7 @@ export function toUTF8Array(str: string) {
       utf8.push(
         0xe0 | (charcode >> 12),
         0x80 | ((charcode >> 6) & 0x3f),
-        0x80 | (charcode & 0x3f),
+        0x80 | (charcode & 0x3f)
       );
     }
     // surrogate pair
@@ -25,7 +25,7 @@ export function toUTF8Array(str: string) {
         0xf0 | (charcode >> 18),
         0x80 | ((charcode >> 12) & 0x3f),
         0x80 | ((charcode >> 6) & 0x3f),
-        0x80 | (charcode & 0x3f),
+        0x80 | (charcode & 0x3f)
       );
     }
   }
@@ -35,7 +35,7 @@ export function toUTF8Array(str: string) {
 //courtesy https://gist.github.com/joni/3760795
 export function fromUTF8Array(data: number[]) {
   // array of bytes
-  let str = '',
+  let str = "",
     i;
 
   for (i = 0; i < data.length; i++) {
@@ -50,7 +50,7 @@ export function fromUTF8Array(data: number[]) {
       str += String.fromCharCode(
         ((value & 0x0f) << 12) |
           ((data[i + 1] & 0x3f) << 6) |
-          (data[i + 2] & 0x3f),
+          (data[i + 2] & 0x3f)
       );
       i += 2;
     } else {
@@ -64,7 +64,7 @@ export function fromUTF8Array(data: number[]) {
 
       str += String.fromCharCode(
         (charCode >> 10) | 0xd800,
-        (charCode & 0x03ff) | 0xdc00,
+        (charCode & 0x03ff) | 0xdc00
       );
       i += 3;
     }

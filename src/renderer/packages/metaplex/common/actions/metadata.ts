@@ -3,13 +3,13 @@ import {
   SystemProgram,
   SYSVAR_RENT_PUBKEY,
   TransactionInstruction,
-} from '@solana/web3.js';
-import { programIds, PROGRAM_IDS } from '../utils/ids';
-import { deserializeUnchecked, serialize } from 'borsh';
-import BN from 'bn.js';
-export const METADATA_PREFIX = 'metadata';
-export const EDITION = 'edition';
-export const RESERVATION = 'reservation';
+} from "@solana/web3.js";
+import { programIds, PROGRAM_IDS } from "../utils/ids";
+import { deserializeUnchecked, serialize } from "borsh";
+import BN from "bn.js";
+export const METADATA_PREFIX = "metadata";
+export const EDITION = "edition";
+export const RESERVATION = "reservation";
 
 export const MAX_NAME_LENGTH = 32;
 
@@ -43,10 +43,10 @@ export enum MetadataKey {
 }
 
 export enum MetadataCategory {
-  Audio = 'audio',
-  Video = 'video',
-  Image = 'image',
-  VR = 'vr',
+  Audio = "audio",
+  Video = "video",
+  Image = "image",
+  VR = "vr",
 }
 
 type FileOrString = File | string;
@@ -270,23 +270,23 @@ export const METADATA_SCHEMA = new Map<any, any>([
   [
     CreateMetadataArgs,
     {
-      kind: 'struct',
+      kind: "struct",
       fields: [
-        ['instruction', 'u8'],
-        ['data', Data],
-        ['isMutable', 'u8'], // bool
+        ["instruction", "u8"],
+        ["data", Data],
+        ["isMutable", "u8"], // bool
       ],
     },
   ],
   [
     UpdateMetadataArgs,
     {
-      kind: 'struct',
+      kind: "struct",
       fields: [
-        ['instruction', 'u8'],
-        ['data', { kind: 'option', type: Data }],
-        ['updateAuthority', { kind: 'option', type: 'pubkey' }],
-        ['primarySaleHappened', { kind: 'option', type: 'u8' }],
+        ["instruction", "u8"],
+        ["data", { kind: "option", type: Data }],
+        ["updateAuthority", { kind: "option", type: "pubkey" }],
+        ["primarySaleHappened", { kind: "option", type: "u8" }],
       ],
     },
   ],
@@ -294,105 +294,105 @@ export const METADATA_SCHEMA = new Map<any, any>([
   [
     CreateMasterEditionArgs,
     {
-      kind: 'struct',
+      kind: "struct",
       fields: [
-        ['instruction', 'u8'],
-        ['maxSupply', { kind: 'option', type: 'u64' }],
+        ["instruction", "u8"],
+        ["maxSupply", { kind: "option", type: "u64" }],
       ],
     },
   ],
   [
     MintPrintingTokensArgs,
     {
-      kind: 'struct',
+      kind: "struct",
       fields: [
-        ['instruction', 'u8'],
-        ['supply', 'u64'],
+        ["instruction", "u8"],
+        ["supply", "u64"],
       ],
     },
   ],
   [
     MasterEdition,
     {
-      kind: 'struct',
+      kind: "struct",
       fields: [
-        ['key', 'u8'],
-        ['supply', 'u64'],
-        ['maxSupply', { kind: 'option', type: 'u64' }],
-        ['printingMint', 'pubkey'],
-        ['oneTimePrintingAuthorizationMint', 'pubkey'],
+        ["key", "u8"],
+        ["supply", "u64"],
+        ["maxSupply", { kind: "option", type: "u64" }],
+        ["printingMint", "pubkey"],
+        ["oneTimePrintingAuthorizationMint", "pubkey"],
       ],
     },
   ],
   [
     Edition,
     {
-      kind: 'struct',
+      kind: "struct",
       fields: [
-        ['key', 'u8'],
-        ['parent', 'pubkey'],
-        ['edition', 'u64'],
+        ["key", "u8"],
+        ["parent", "pubkey"],
+        ["edition", "u64"],
       ],
     },
   ],
   [
     Data,
     {
-      kind: 'struct',
+      kind: "struct",
       fields: [
-        ['name', 'string'],
-        ['symbol', 'string'],
-        ['uri', 'string'],
-        ['sellerFeeBasisPoints', 'u16'],
-        ['creators', { kind: 'option', type: [Creator] }],
+        ["name", "string"],
+        ["symbol", "string"],
+        ["uri", "string"],
+        ["sellerFeeBasisPoints", "u16"],
+        ["creators", { kind: "option", type: [Creator] }],
       ],
     },
   ],
   [
     Creator,
     {
-      kind: 'struct',
+      kind: "struct",
       fields: [
-        ['address', 'pubkey'],
-        ['verified', 'u8'],
-        ['share', 'u8'],
+        ["address", "pubkey"],
+        ["verified", "u8"],
+        ["share", "u8"],
       ],
     },
   ],
   [
     Metadata,
     {
-      kind: 'struct',
+      kind: "struct",
       fields: [
-        ['key', 'u8'],
-        ['updateAuthority', 'pubkey'],
-        ['mint', 'pubkey'],
-        ['data', Data],
-        ['primarySaleHappened', 'u8'], // bool
-        ['isMutable', 'u8'], // bool
+        ["key", "u8"],
+        ["updateAuthority", "pubkey"],
+        ["mint", "pubkey"],
+        ["data", Data],
+        ["primarySaleHappened", "u8"], // bool
+        ["isMutable", "u8"], // bool
       ],
     },
   ],
   [
     Reservation,
     {
-      kind: 'struct',
+      kind: "struct",
       fields: [
-        ['address', 'pubkey'],
-        ['spotsRemaining', 'u8'],
-        ['totalSpots', 'u8'],
+        ["address", "pubkey"],
+        ["spotsRemaining", "u8"],
+        ["totalSpots", "u8"],
       ],
     },
   ],
   [
     ReservationList,
     {
-      kind: 'struct',
+      kind: "struct",
       fields: [
-        ['key', 'u8'],
-        ['masterEdition', 'pubkey'],
-        ['supplySnapshot', { kind: 'option', type: 'u64' }],
-        ['reservations', [Reservation]],
+        ["key", "u8"],
+        ["masterEdition", "pubkey"],
+        ["supplySnapshot", { kind: "option", type: "u64" }],
+        ["reservations", [Reservation]],
       ],
     },
   ],
@@ -402,7 +402,7 @@ export const decodeMetadata = async (buffer: Buffer): Promise<Metadata> => {
   const metadata = deserializeUnchecked(
     METADATA_SCHEMA,
     Metadata,
-    buffer,
+    buffer
   ) as Metadata;
   metadata.edition = await getEdition(metadata.mint);
   metadata.masterEdition = await getEdition(metadata.mint);
@@ -417,7 +417,7 @@ export const decodeMasterEdition = (buffer: Buffer) => {
   return deserializeUnchecked(
     METADATA_SCHEMA,
     MasterEdition,
-    buffer,
+    buffer
   ) as MasterEdition;
 };
 
@@ -428,7 +428,7 @@ export async function updateMetadata(
   mintKey: PublicKey,
   updateAuthority: PublicKey,
   instructions: TransactionInstruction[],
-  metadataAccount?: PublicKey,
+  metadataAccount?: PublicKey
 ) {
   const metadataProgramId = programIds().metadata;
 
@@ -437,11 +437,11 @@ export async function updateMetadata(
     (
       await PublicKey.findProgramAddress(
         [
-          Buffer.from('metadata'),
+          Buffer.from("metadata"),
           metadataProgramId.toBuffer(),
           mintKey.toBuffer(),
         ],
-        metadataProgramId,
+        metadataProgramId
       )
     )[0];
 
@@ -471,7 +471,7 @@ export async function updateMetadata(
       keys,
       programId: metadataProgramId,
       data: txnData,
-    }),
+    })
   );
 
   return metadataAccount;
@@ -483,21 +483,21 @@ export async function createMetadata(
   mintKey: PublicKey,
   mintAuthorityKey: PublicKey,
   instructions: TransactionInstruction[],
-  payer: PublicKey,
+  payer: PublicKey
 ) {
   const metadataProgramId = programIds().metadata;
 
   const metadataAccount = (
     await PublicKey.findProgramAddress(
       [
-        Buffer.from('metadata'),
+        Buffer.from("metadata"),
         metadataProgramId.toBuffer(),
         mintKey.toBuffer(),
       ],
-      metadataProgramId,
+      metadataProgramId
     )
   )[0];
-  console.log('Data', data);
+  console.log("Data", data);
   const value = new CreateMetadataArgs({ data, isMutable: true });
   const txnData = Buffer.from(serialize(METADATA_SCHEMA, value));
 
@@ -543,7 +543,7 @@ export async function createMetadata(
       keys,
       programId: metadataProgramId,
       data: txnData,
-    }),
+    })
   );
 
   return metadataAccount;
@@ -559,7 +559,7 @@ export async function createMasterEdition(
   instructions: TransactionInstruction[],
   payer: PublicKey,
   printingMintAuthority: PublicKey,
-  oneTimePrintingAuthorizationMintAuthority?: PublicKey,
+  oneTimePrintingAuthorizationMintAuthority?: PublicKey
 ) {
   const metadataProgramId = programIds().metadata;
 
@@ -570,7 +570,7 @@ export async function createMasterEdition(
         metadataProgramId.toBuffer(),
         mintKey.toBuffer(),
       ],
-      metadataProgramId,
+      metadataProgramId
     )
   )[0];
 
@@ -582,7 +582,7 @@ export async function createMasterEdition(
         mintKey.toBuffer(),
         Buffer.from(EDITION),
       ],
-      metadataProgramId,
+      metadataProgramId
     )
   )[0];
 
@@ -664,7 +664,7 @@ export async function createMasterEdition(
       keys,
       programId: metadataProgramId,
       data,
-    }),
+    })
   );
 }
 
@@ -678,7 +678,7 @@ export async function mintNewEditionFromMasterEditionViaToken(
   updateAuthorityOfMaster: PublicKey,
   reservationList: PublicKey | undefined,
   instructions: TransactionInstruction[],
-  payer: PublicKey,
+  payer: PublicKey
 ) {
   const metadataProgramId = programIds().metadata;
 
@@ -774,7 +774,7 @@ export async function mintNewEditionFromMasterEditionViaToken(
       keys,
       programId: metadataProgramId,
       data,
-    }),
+    })
   );
 }
 
@@ -782,7 +782,7 @@ export async function updatePrimarySaleHappenedViaToken(
   metadata: PublicKey,
   owner: PublicKey,
   tokenAccount: PublicKey,
-  instructions: TransactionInstruction[],
+  instructions: TransactionInstruction[]
 ) {
   const metadataProgramId = programIds().metadata;
 
@@ -810,7 +810,7 @@ export async function updatePrimarySaleHappenedViaToken(
       keys,
       programId: metadataProgramId,
       data,
-    }),
+    })
   );
 }
 
@@ -820,7 +820,7 @@ export async function createReservationList(
   resource: PublicKey,
   updateAuthority: PublicKey,
   payer: PublicKey,
-  instructions: TransactionInstruction[],
+  instructions: TransactionInstruction[]
 ) {
   const metadataProgramId = programIds().metadata;
 
@@ -875,14 +875,14 @@ export async function createReservationList(
       keys,
       programId: metadataProgramId,
       data,
-    }),
+    })
   );
 }
 
 export async function signMetadata(
   metadata: PublicKey,
   creator: PublicKey,
-  instructions: TransactionInstruction[],
+  instructions: TransactionInstruction[]
 ) {
   const metadataProgramId = programIds().metadata;
 
@@ -905,7 +905,7 @@ export async function signMetadata(
       keys,
       programId: metadataProgramId,
       data,
-    }),
+    })
   );
 }
 
@@ -916,7 +916,7 @@ export async function mintPrintingTokens(
   metadata: PublicKey,
   masterEdition: PublicKey,
   supply: BN,
-  instructions: TransactionInstruction[],
+  instructions: TransactionInstruction[]
 ) {
   const PROGRAM_IDS = programIds();
   const metadataProgramId = PROGRAM_IDS.metadata;
@@ -966,7 +966,7 @@ export async function mintPrintingTokens(
       keys,
       programId: metadataProgramId,
       data,
-    }),
+    })
   );
 }
 
@@ -981,7 +981,7 @@ export async function getEdition(tokenMint: PublicKey): Promise<PublicKey> {
         tokenMint.toBuffer(),
         Buffer.from(EDITION),
       ],
-      PROGRAM_IDS.metadata,
+      PROGRAM_IDS.metadata
     )
   )[0];
 }
@@ -996,14 +996,14 @@ export async function getMetadata(tokenMint: PublicKey): Promise<PublicKey> {
         PROGRAM_IDS.metadata.toBuffer(),
         tokenMint.toBuffer(),
       ],
-      PROGRAM_IDS.metadata,
+      PROGRAM_IDS.metadata
     )
   )[0];
 }
 
 export async function getReservationList(
   masterEdition: PublicKey,
-  resource: PublicKey,
+  resource: PublicKey
 ): Promise<PublicKey> {
   const PROGRAM_IDS = programIds();
 
@@ -1016,7 +1016,7 @@ export async function getReservationList(
         Buffer.from(RESERVATION),
         resource.toBuffer(),
       ],
-      PROGRAM_IDS.metadata,
+      PROGRAM_IDS.metadata
     )
   )[0];
 }

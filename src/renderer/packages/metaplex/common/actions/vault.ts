@@ -3,12 +3,12 @@ import {
   SystemProgram,
   SYSVAR_RENT_PUBKEY,
   TransactionInstruction,
-} from '@solana/web3.js';
-import { programIds } from '../utils/ids';
-import { deserializeUnchecked, serialize } from 'borsh';
-import BN from 'bn.js';
+} from "@solana/web3.js";
+import { programIds } from "../utils/ids";
+import { deserializeUnchecked, serialize } from "borsh";
+import BN from "bn.js";
 
-export const VAULT_PREFIX = 'vault';
+export const VAULT_PREFIX = "vault";
 export enum VaultKey {
   VaultV1 = 0,
   SafetyDepositBoxV1 = 1,
@@ -170,84 +170,84 @@ export const VAULT_SCHEMA = new Map<any, any>([
   [
     InitVaultArgs,
     {
-      kind: 'struct',
+      kind: "struct",
       fields: [
-        ['instruction', 'u8'],
-        ['allowFurtherShareCreation', 'u8'],
+        ["instruction", "u8"],
+        ["allowFurtherShareCreation", "u8"],
       ],
     },
   ],
   [
     AmountArgs,
     {
-      kind: 'struct',
+      kind: "struct",
       fields: [
-        ['instruction', 'u8'],
-        ['amount', 'u64'],
+        ["instruction", "u8"],
+        ["amount", "u64"],
       ],
     },
   ],
   [
     NumberOfShareArgs,
     {
-      kind: 'struct',
+      kind: "struct",
       fields: [
-        ['instruction', 'u8'],
-        ['numberOfShares', 'u64'],
+        ["instruction", "u8"],
+        ["numberOfShares", "u64"],
       ],
     },
   ],
   [
     UpdateExternalPriceAccountArgs,
     {
-      kind: 'struct',
+      kind: "struct",
       fields: [
-        ['instruction', 'u8'],
-        ['externalPriceAccount', ExternalPriceAccount],
+        ["instruction", "u8"],
+        ["externalPriceAccount", ExternalPriceAccount],
       ],
     },
   ],
   [
     Vault,
     {
-      kind: 'struct',
+      kind: "struct",
       fields: [
-        ['key', 'u8'],
-        ['tokenProgram', 'pubkey'],
-        ['fractionMint', 'pubkey'],
-        ['authority', 'pubkey'],
-        ['fractionTreasury', 'pubkey'],
-        ['redeemTreasury', 'pubkey'],
-        ['allowFurtherShareCreation', 'u8'],
-        ['pricingLookupAddress', 'u8'],
-        ['tokenTypeCount', 'u8'],
-        ['state', 'u8'],
-        ['lockedPricePerShare', 'u64'],
+        ["key", "u8"],
+        ["tokenProgram", "pubkey"],
+        ["fractionMint", "pubkey"],
+        ["authority", "pubkey"],
+        ["fractionTreasury", "pubkey"],
+        ["redeemTreasury", "pubkey"],
+        ["allowFurtherShareCreation", "u8"],
+        ["pricingLookupAddress", "u8"],
+        ["tokenTypeCount", "u8"],
+        ["state", "u8"],
+        ["lockedPricePerShare", "u64"],
       ],
     },
   ],
   [
     SafetyDepositBox,
     {
-      kind: 'struct',
+      kind: "struct",
       fields: [
-        ['key', 'u8'],
-        ['vault', 'pubkey'],
-        ['tokenMint', 'pubkey'],
-        ['store', 'pubkey'],
-        ['order', 'u8'],
+        ["key", "u8"],
+        ["vault", "pubkey"],
+        ["tokenMint", "pubkey"],
+        ["store", "pubkey"],
+        ["order", "u8"],
       ],
     },
   ],
   [
     ExternalPriceAccount,
     {
-      kind: 'struct',
+      kind: "struct",
       fields: [
-        ['key', 'u8'],
-        ['pricePerShare', 'u64'],
-        ['priceMint', 'pubkey'],
-        ['allowedToCombine', 'u8'],
+        ["key", "u8"],
+        ["pricePerShare", "u64"],
+        ["priceMint", "pubkey"],
+        ["allowedToCombine", "u8"],
       ],
     },
   ],
@@ -261,7 +261,7 @@ export const decodeSafetyDeposit = (buffer: Buffer) => {
   return deserializeUnchecked(
     VAULT_SCHEMA,
     SafetyDepositBox,
-    buffer,
+    buffer
   ) as SafetyDepositBox;
 };
 
@@ -273,12 +273,12 @@ export async function initVault(
   vault: PublicKey,
   vaultAuthority: PublicKey,
   pricingLookupAddress: PublicKey,
-  instructions: TransactionInstruction[],
+  instructions: TransactionInstruction[]
 ) {
   const vaultProgramId = programIds().vault;
 
   const data = Buffer.from(
-    serialize(VAULT_SCHEMA, new InitVaultArgs({ allowFurtherShareCreation })),
+    serialize(VAULT_SCHEMA, new InitVaultArgs({ allowFurtherShareCreation }))
   );
 
   const keys = [
@@ -329,20 +329,20 @@ export async function initVault(
       keys,
       programId: vaultProgramId,
       data: data,
-    }),
+    })
   );
 }
 
 export async function getSafetyDepositBox(
   vault: PublicKey,
-  tokenMint: PublicKey,
+  tokenMint: PublicKey
 ): Promise<PublicKey> {
   const vaultProgramId = programIds().vault;
 
   return (
     await PublicKey.findProgramAddress(
       [Buffer.from(VAULT_PREFIX), vault.toBuffer(), tokenMint.toBuffer()],
-      vaultProgramId,
+      vaultProgramId
     )
   )[0];
 }
@@ -356,13 +356,13 @@ export async function addTokenToInactiveVault(
   vaultAuthority: PublicKey,
   payer: PublicKey,
   transferAuthority: PublicKey,
-  instructions: TransactionInstruction[],
+  instructions: TransactionInstruction[]
 ) {
   const vaultProgramId = programIds().vault;
 
   const safetyDepositBox: PublicKey = await getSafetyDepositBox(
     vault,
-    tokenMint,
+    tokenMint
   );
 
   const value = new AmountArgs({
@@ -428,7 +428,7 @@ export async function addTokenToInactiveVault(
       keys,
       programId: vaultProgramId,
       data,
-    }),
+    })
   );
 }
 
@@ -438,14 +438,14 @@ export async function activateVault(
   fractionMint: PublicKey,
   fractionTreasury: PublicKey,
   vaultAuthority: PublicKey,
-  instructions: TransactionInstruction[],
+  instructions: TransactionInstruction[]
 ) {
   const vaultProgramId = programIds().vault;
 
   const fractionMintAuthority = (
     await PublicKey.findProgramAddress(
       [Buffer.from(VAULT_PREFIX), vaultProgramId.toBuffer(), vault.toBuffer()],
-      vaultProgramId,
+      vaultProgramId
     )
   )[0];
 
@@ -489,7 +489,7 @@ export async function activateVault(
       keys,
       programId: vaultProgramId,
       data,
-    }),
+    })
   );
 }
 
@@ -504,14 +504,14 @@ export async function combineVault(
   vaultAuthority: PublicKey,
   transferAuthority: PublicKey,
   externalPriceAccount: PublicKey,
-  instructions: TransactionInstruction[],
+  instructions: TransactionInstruction[]
 ) {
   const vaultProgramId = programIds().vault;
 
   const burnAuthority = (
     await PublicKey.findProgramAddress(
       [Buffer.from(VAULT_PREFIX), vaultProgramId.toBuffer(), vault.toBuffer()],
-      vaultProgramId,
+      vaultProgramId
     )
   )[0];
 
@@ -584,7 +584,7 @@ export async function combineVault(
       keys,
       programId: vaultProgramId,
       data,
-    }),
+    })
   );
 }
 
@@ -596,14 +596,14 @@ export async function withdrawTokenFromSafetyDepositBox(
   vault: PublicKey,
   fractionMint: PublicKey,
   vaultAuthority: PublicKey,
-  instructions: TransactionInstruction[],
+  instructions: TransactionInstruction[]
 ) {
   const vaultProgramId = programIds().vault;
 
   const transferAuthority = (
     await PublicKey.findProgramAddress(
       [Buffer.from(VAULT_PREFIX), vaultProgramId.toBuffer(), vault.toBuffer()],
-      vaultProgramId,
+      vaultProgramId
     )
   )[0];
 
@@ -662,20 +662,20 @@ export async function withdrawTokenFromSafetyDepositBox(
       keys,
       programId: vaultProgramId,
       data,
-    }),
+    })
   );
 }
 
 export async function updateExternalPriceAccount(
   externalPriceAccountKey: PublicKey,
   externalPriceAccount: ExternalPriceAccount,
-  instructions: TransactionInstruction[],
+  instructions: TransactionInstruction[]
 ) {
   const vaultProgramId = programIds().vault;
 
   const value = new UpdateExternalPriceAccountArgs({ externalPriceAccount });
   const data = Buffer.from(serialize(VAULT_SCHEMA, value));
-  console.log('Data', data);
+  console.log("Data", data);
 
   const keys = [
     {
@@ -689,19 +689,19 @@ export async function updateExternalPriceAccount(
       keys,
       programId: vaultProgramId,
       data,
-    }),
+    })
   );
 }
 
 export async function getSafetyDepositBoxAddress(
   vault: PublicKey,
-  tokenMint: PublicKey,
+  tokenMint: PublicKey
 ): Promise<PublicKey> {
   const PROGRAM_IDS = programIds();
   return (
     await PublicKey.findProgramAddress(
       [Buffer.from(VAULT_PREFIX), vault.toBuffer(), tokenMint.toBuffer()],
-      PROGRAM_IDS.vault,
+      PROGRAM_IDS.vault
     )
   )[0];
 }

@@ -3,14 +3,14 @@ import {
   AccountLayout,
   Token,
   AuthorityType,
-} from '@solana/spl-token';
+} from "@solana/spl-token";
 import {
   Connection,
   PublicKey,
   Transaction,
   Account,
   SystemProgram,
-} from '@solana/web3.js';
+} from "@solana/web3.js";
 
 export const mintNFT = async (
   connection: Connection,
@@ -19,30 +19,30 @@ export const mintNFT = async (
     signTransaction: (tx: Transaction) => Transaction;
   },
   // SOL account
-  owner: PublicKey,
+  owner: PublicKey
 ) => {
   const TOKEN_PROGRAM_ID = new PublicKey(
-    'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA',
+    "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
   );
   const SPL_ASSOCIATED_TOKEN_ACCOUNT_PROGRAM_ID = new PublicKey(
-    'ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL',
+    "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
   );
   const mintAccount = new Account();
   const tokenAccount = new Account();
 
   // Allocate memory for the account
   const mintRent = await connection.getMinimumBalanceForRentExemption(
-    MintLayout.span,
+    MintLayout.span
   );
 
   const accountRent = await connection.getMinimumBalanceForRentExemption(
-    MintLayout.span,
+    MintLayout.span
   );
 
   let transaction = new Transaction();
   const signers = [mintAccount, tokenAccount];
   transaction.recentBlockhash = (
-    await connection.getRecentBlockhash('max')
+    await connection.getRecentBlockhash("max")
   ).blockhash;
 
   transaction.add(
@@ -52,7 +52,7 @@ export const mintNFT = async (
       lamports: mintRent,
       space: MintLayout.span,
       programId: TOKEN_PROGRAM_ID,
-    }),
+    })
   );
 
   transaction.add(
@@ -62,7 +62,7 @@ export const mintNFT = async (
       lamports: accountRent,
       space: AccountLayout.span,
       programId: TOKEN_PROGRAM_ID,
-    }),
+    })
   );
 
   transaction.add(
@@ -71,16 +71,16 @@ export const mintNFT = async (
       mintAccount.publicKey,
       0,
       wallet.publicKey,
-      wallet.publicKey,
-    ),
+      wallet.publicKey
+    )
   );
   transaction.add(
     Token.createInitAccountInstruction(
       TOKEN_PROGRAM_ID,
       mintAccount.publicKey,
       tokenAccount.publicKey,
-      owner,
-    ),
+      owner
+    )
   );
   transaction.add(
     Token.createMintToInstruction(
@@ -89,21 +89,21 @@ export const mintNFT = async (
       tokenAccount.publicKey,
       wallet.publicKey,
       [],
-      1,
-    ),
+      1
+    )
   );
   transaction.add(
     Token.createSetAuthorityInstruction(
       TOKEN_PROGRAM_ID,
       mintAccount.publicKey,
       null,
-      'MintTokens',
+      "MintTokens",
       wallet.publicKey,
-      [],
-    ),
+      []
+    )
   );
 
-  transaction.setSigners(wallet.publicKey, ...signers.map(s => s.publicKey));
+  transaction.setSigners(wallet.publicKey, ...signers.map((s) => s.publicKey));
   if (signers.length > 0) {
     transaction.partialSign(...signers);
   }
@@ -111,7 +111,7 @@ export const mintNFT = async (
   const rawTransaction = transaction.serialize();
   let options = {
     skipPreflight: true,
-    commitment: 'singleGossip',
+    commitment: "singleGossip",
   };
 
   const txid = await connection.sendRawTransaction(rawTransaction, options);

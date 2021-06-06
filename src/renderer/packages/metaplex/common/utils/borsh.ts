@@ -1,5 +1,5 @@
-import { PublicKey } from '@solana/web3.js';
-import { BinaryReader, BinaryWriter } from 'borsh';
+import { PublicKey } from "@solana/web3.js";
+import { BinaryReader, BinaryWriter } from "borsh";
 
 export const extendBorsh = () => {
   (BinaryReader.prototype as any).readPubkey = function () {

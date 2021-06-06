@@ -1,4 +1,4 @@
-import BN from 'bn.js';
+import BN from "bn.js";
 
 export class u64 extends BN {
   toBuffer(): Buffer;

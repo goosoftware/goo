@@ -1,14 +1,14 @@
-import EventEmitter from 'eventemitter3';
-import { PublicKey, Transaction } from '@solana/web3.js';
-import { notify } from '../../utils/notifications';
-import { WalletAdapter } from '@solana/wallet-base';
+import EventEmitter from "eventemitter3";
+import { PublicKey, Transaction } from "@solana/web3.js";
+import { notify } from "../../utils/notifications";
+import { WalletAdapter } from "@solana/wallet-base";
 
-type PhantomEvent = 'disconnect' | 'connect';
+type PhantomEvent = "disconnect" | "connect";
 type PhantomRequestMethod =
-  | 'connect'
-  | 'disconnect'
-  | 'signTransaction'
-  | 'signAllTransactions';
+  | "connect"
+  | "disconnect"
+  | "signTransaction"
+  | "signAllTransactions";
 
 interface PhantomProvider {
   publicKey?: PublicKey;
@@ -24,7 +24,8 @@ interface PhantomProvider {
 
 export class PhantomWalletAdapter
   extends EventEmitter
-  implements WalletAdapter {
+  implements WalletAdapter
+{
   _provider: PhantomProvider | undefined;
   _cachedCorrectKey?: PublicKey;
   constructor() {
@@ -41,7 +42,7 @@ export class PhantomWalletAdapter
   }
 
   async signAllTransactions(
-    transactions: Transaction[],
+    transactions: Transaction[]
   ): Promise<Transaction[]> {
     if (!this._provider) {
       return transactions;
@@ -54,7 +55,7 @@ export class PhantomWalletAdapter
     // Due to weird phantom bug where their public key isnt quite like ours
     if (!this._cachedCorrectKey && this._provider?.publicKey)
       this._cachedCorrectKey = new PublicKey(
-        this._provider.publicKey.toBase58(),
+        this._provider.publicKey.toBase58()
       );
 
     return this._cachedCorrectKey || null;
@@ -77,17 +78,17 @@ export class PhantomWalletAdapter
     if ((window as any)?.solana?.isPhantom) {
       provider = (window as any).solana;
     } else {
-      window.open('https://phantom.app/', '_blank');
+      window.open("https://phantom.app/", "_blank");
       notify({
-        message: 'Phantom Error',
-        description: 'Please install Phantom wallet from Chrome ',
+        message: "Phantom Error",
+        description: "Please install Phantom wallet from Chrome ",
       });
       return;
     }
 
-    provider.on('connect', () => {
+    provider.on("connect", () => {
       this._provider = provider;
-      this.emit('connect');
+      this.emit("connect");
     });
 
     if (!provider.isConnected) {
@@ -95,14 +96,14 @@ export class PhantomWalletAdapter
     }
 
     this._provider = provider;
-    this.emit('connect');
+    this.emit("connect");
   };
 
   disconnect() {
     if (this._provider) {
       this._provider.disconnect();
       this._provider = undefined;
-      this.emit('disconnect');
+      this.emit("disconnect");
     }
   }
 }

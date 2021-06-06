@@ -1,5 +1,5 @@
-import { TokenAccount } from '../models';
-import { useAccountsContext } from '../contexts/accounts';
+import { TokenAccount } from "../models";
+import { useAccountsContext } from "../contexts/accounts";
 
 export function useUserAccounts(): {
   userAccounts: TokenAccount[];
@@ -12,7 +12,7 @@ export function useUserAccounts(): {
       prev.set(acc.info.mint.toBase58(), acc);
       return prev;
     },
-    new Map<string, TokenAccount>(),
+    new Map<string, TokenAccount>()
   );
   return {
     userAccounts: context.userAccounts as TokenAccount[],

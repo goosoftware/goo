@@ -1,1 +1,1 @@
-export * as solong_adapter from './solong_adapter';
+export * as solong_adapter from "./solong_adapter";
