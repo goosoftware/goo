@@ -1,4 +1,5 @@
 import * as anchor from "@project-serum/anchor";
+import { JSONPath } from "jsonpath-plus";
 import { LGraphNode, LiteGraph } from "litegraph.js";
 import get from "lodash/get";
 import util from "tweetnacl-util";
@@ -203,3 +204,50 @@ class Watch extends UtilNode {
   }
 }
 LiteGraph.registerNodeType(`utils/watch`, Watch);
+
+class Foo extends UtilNode {
+  title = "utils / json";
+
+  constructor() {
+    super();
+    this.addOutput("json", 0 as any);
+  }
+
+  onExecute() {
+    this.setOutputData(0, {
+      foo: "bar",
+    });
+    // if (this.inputs[0]) {
+    //   this.value = this.getInputData(0);
+    // }
+  }
+}
+LiteGraph.registerNodeType(`utils/json`, Foo);
+
+class JSONPathNode extends UtilNode {
+  title = "utils / json path";
+
+  private path;
+
+  constructor() {
+    super();
+    this.addInput("json", 0 as any);
+    this.addWidget("text", "jsonpath", "$", (newPath) => {
+      this.path = newPath;
+    });
+    this.addOutput("json", 0 as any, { label: "" });
+  }
+
+  onExecute() {
+    try {
+      this.setOutputData(
+        0,
+        JSONPath({
+          path: this.path ?? "",
+          json: this.getInputData(0),
+        })
+      );
+    } catch (err) {}
+  }
+}
+LiteGraph.registerNodeType(`utils/jsonPath`, JSONPathNode);
