@@ -217,17 +217,21 @@ const getAccounts = async (state = AuctionViewState.Live, env = "devnet") => {
   return auctionViews;
 };
 
-getAccounts(AuctionViewState.Live, "devnet").then((data) => {
-  Object.values(data).forEach(({ nextAuctionView: auctionView }: any) => {
-    const bids = useBidsForAuctionWithoutReact(auctionView.auction.pubkey);
-    console.log({
-      bids,
-      timeToEnd: auctionView.auction.info.timeToEnd(),
-      winningBid: formatTokenAmount(bids?.[0]?.info.lastBid) || undefined,
-      art: useArtWithoutReact(
-        auctionView.thumbnail.metadata.pubkey,
-        tempCache as any
-      ),
+const get = () =>
+  getAccounts(AuctionViewState.Live, "devnet").then((data) => {
+    Object.values(data).forEach(({ nextAuctionView: auctionView }: any) => {
+      const bids = useBidsForAuctionWithoutReact(auctionView.auction.pubkey);
+      console.log({
+        auctionView,
+        bids,
+        timeToEnd: auctionView.auction.info.timeToEnd(),
+        winningBid: formatTokenAmount(bids?.[0]?.info.lastBid) || undefined,
+        art: useArtWithoutReact(
+          auctionView.thumbnail.metadata.pubkey,
+          tempCache as any
+        ),
+      });
     });
   });
-});
+
+// get();
