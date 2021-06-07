@@ -24,7 +24,7 @@
     "@solana/spl-token-swap": "^0.1.0",
     "@solana/wallet-base": "^0.0.1",
     "@solana/web3.js": "^1.17.0",
-    "@switchboard-xyz/switchboard-api": "^0.2.87",
+    "@switchboard-xyz/switchboard-api": "^0.2.89",
     "bn.js": "^5.2.0",
     "borsh": "^0.4.0",
     "buffer-layout": "^1.2.1",
