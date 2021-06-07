@@ -58,6 +58,7 @@ function Editor() {
 
     canvas.node_title_color = "white";
     canvas.inner_text_font = `${LiteGraph.NODE_SUBTEXT_SIZE}px JetBrains Mono`;
+    canvas.background_image = undefined;
 
     // canvas.inner_text_font = `${LiteGraph.NODE_SUBTEXT_SIZE}px JetBrains Mono`;
     // canvas.inner_text_font = `${LiteGraph.NODE_SUBTEXT_SIZE}px IBMPlexSansCond`;
