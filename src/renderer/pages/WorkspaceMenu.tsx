@@ -1,3 +1,4 @@
+import { PlusCircleIcon } from "@heroicons/react/solid";
 import { spawn } from "child_process";
 import { remote } from "electron";
 import { observer } from "mobx-react-lite";
@@ -43,44 +44,43 @@ const WorkspaceMenu = () => {
   });
 
   return (
-    <div className="py-6">
+    <div className="py-6 flex-1">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
         <h4 className="text-lg font-semibold text-gray-300">
           {store.anchorCliVersion}
         </h4>
 
-        <div>
-          <h1 className="py-4 text-2xl font-semibold text-gray-900">
-            Workspaces
-          </h1>
-          <button>import</button>
-          <button
-            onClick={async () => {
-              try {
-                const { filePaths } = await remote.dialog.showOpenDialog(
-                  remote.getCurrentWindow(),
-                  {
-                    properties: ["openDirectory", "createDirectory"],
-                    title: "directory",
-                    buttonLabel: "do it",
-                  }
-                );
+        <h1 className="py-4 text-2xl font-semibold text-gray-900">
+          Workspaces
+        </h1>
 
-                spawn(`anchor init test`, {
-                  cwd: filePaths[0],
-                  shell: true,
-                });
+        <button
+          className="inline-flex justify-center px-4 py-2 shadow-sm text-sm font-medium rounded-md text-gray-700 dark:bg-gray-800 dark:hover:bg-solanaGreen dark:hover:text-gray-800"
+          onClick={async () => {
+            try {
+              const { filePaths } = await remote.dialog.showOpenDialog(
+                remote.getCurrentWindow(),
+                {
+                  properties: ["openDirectory", "createDirectory"],
+                  title: "directory",
+                  buttonLabel: "Use this directory",
+                }
+              );
 
-                // console.log(filePaths[0]);
-              } catch (err) {
-                console.error(err);
-              }
-            }}
-          >
-            add file
-          </button>
-        </div>
+              spawn(`anchor init newproject`, {
+                cwd: filePaths[0],
+                shell: true,
+              });
+            } catch (err) {
+              console.error(err);
+            }
+          }}
+        >
+          <PlusCircleIcon className="-ml-2 mr-2 h-4 w-4" aria-hidden="true" />
+          Create new project
+        </button>
       </div>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
         <div className="flex flex-col">
           <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
