@@ -1,14 +1,12 @@
 const colors = require("tailwindcss/colors");
 
 module.exports = {
-  // purge: ["./src/renderer/**/*.{html,js,ts,jsx,tsx}"],
-  purge: ["src/**/*.tsx", "src/**/*.css"],
-  darkMode: "class", // or 'media' or 'class'
+  mode: "jit",
+  purge: ["src/renderer/**/*.{ts,tsx,html,css}"],
   darkMode: "class",
   theme: {
     extend: {},
     colors: {
-      // Build your palette here
       transparent: "transparent",
       current: "currentColor",
       gray: colors.trueGray,
