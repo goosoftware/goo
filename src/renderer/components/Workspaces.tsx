@@ -2,7 +2,7 @@ import { observer } from "mobx-react-lite";
 import React from "react";
 import useAnchor from "../lib/useAnchor";
 import { app } from "../models/App";
-import Link from "./ExternalLink";
+import { ExplorerLink } from "./ExternalLink";
 
 const Workspaces = () => {
   const { deploy } = useAnchor();
@@ -14,11 +14,9 @@ const Workspaces = () => {
           <li key={workspace.id}>
             <h3>
               {workspace.address ? (
-                <Link
-                  href={`https://explorer.solana.com/address/${workspace.address}?cluster=custom&customUrl=http://localhost:8899`}
-                >
+                <ExplorerLink path={`address/${workspace.address}`}>
                   {workspace.name}
-                </Link>
+                </ExplorerLink>
               ) : (
                 workspace.name
               )}

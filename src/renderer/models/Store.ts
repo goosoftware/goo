@@ -38,6 +38,11 @@ const Store = types
         );
       }
     },
+    explorerUrl(path: string) {
+      return `https://explorer.solana.com/${path}?cluster=${clusterUrlName(
+        self.cluster
+      )}&customUrl=http://localhost:8899`;
+    },
   }))
   .actions((self) => ({
     changeCluster(cluster: typeof self.cluster) {
@@ -70,6 +75,19 @@ const Store = types
       self.anchorWorkspaces.delete(workspaceId);
     },
   }));
+
+const clusterUrlName = (cluster): string => {
+  switch (cluster) {
+    case "test":
+      return "testnet";
+    case "dev":
+      return "devnet";
+    case "local":
+      return "custom";
+    default:
+      return "";
+  }
+};
 
 const KEY = "cache";
 

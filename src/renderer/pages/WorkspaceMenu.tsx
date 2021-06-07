@@ -2,7 +2,7 @@ import { spawn } from "child_process";
 import { remote } from "electron";
 import { observer } from "mobx-react-lite";
 import React, { useEffect } from "react";
-import ExternalLink from "../components/ExternalLink";
+import { ExplorerLink } from "../components/ExternalLink";
 import useAnchor from "../lib/useAnchor";
 import { store } from "../models/Store";
 
@@ -103,12 +103,12 @@ const WorkspaceMenu = () => {
                           </span>
                           <div>
                             {workspace.address && (
-                              <ExternalLink
-                                href={workspace.url}
+                              <ExplorerLink
+                                path={`address/${workspace.address}`}
                                 className="dark:text-gray-600"
                               >
                                 {workspace.address}
-                              </ExternalLink>
+                              </ExplorerLink>
                             )}
                           </div>
                         </td>

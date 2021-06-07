@@ -5,7 +5,7 @@ import { BiAnchor as Anchor } from "react-icons/bi";
 import { SiEthereum } from "react-icons/si";
 import Jazzicon from "react-jazzicon";
 import { Link, useLocation } from "react-router-dom";
-import ExternalLink from "src/renderer/components/ExternalLink";
+import { ExplorerLink } from "src/renderer/components/ExternalLink";
 import { store } from "src/renderer/models/Store";
 import { AkashIcon, ArweaveIcon, FlowIcon, SolanaIcon } from "./CustomIcons";
 
@@ -301,12 +301,12 @@ export const Sidebar = observer(() => {
                   <p className="text-sm font-medium text-gray-700 group-hover:text-gray-100">
                     {store.shortUserPublicKey}
                   </p>
-                  <ExternalLink
+                  <ExplorerLink
                     className="text-xs font-medium text-gray-500 group-hover:text-gray-200"
-                    href={`https://explorer.solana.com/address/${store.userPublicKey}?cluster=custom&customUrl=http://localhost:8899`}
+                    path={`address/${store.userPublicKey}`}
                   >
                     View on explorer
-                  </ExternalLink>
+                  </ExplorerLink>
                 </div>
               </div>
             </a>

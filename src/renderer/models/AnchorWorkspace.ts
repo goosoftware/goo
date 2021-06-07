@@ -72,12 +72,6 @@ const AnchorWorkspace = types
     get action() {
       return "build";
     },
-    get url(): string | undefined {
-      const { address } = self as any;
-      return address
-        ? `https://explorer.solana.com/address/${address}?cluster=custom&customUrl=http://localhost:8899`
-        : undefined;
-    },
   }))
   .actions((self) => ({
     build: flow(function* () {
