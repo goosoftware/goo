@@ -2,12 +2,12 @@ import { FilterIcon, SearchIcon } from "@heroicons/react/solid";
 import { observer } from "mobx-react-lite";
 import React from "react";
 import { BiAnchor as Anchor } from "react-icons/bi";
-import { SiEthereum, SiNodeRed } from "react-icons/si";
+import { SiEthereum } from "react-icons/si";
 import Jazzicon from "react-jazzicon";
 import { Link, useLocation } from "react-router-dom";
 import ExternalLink from "src/renderer/components/ExternalLink";
 import { store } from "src/renderer/models/Store";
-import { AkashIcon, ArweaveIcon, SolanaIcon } from "./CustomIcons";
+import { AkashIcon, ArweaveIcon, FlowIcon, SolanaIcon } from "./CustomIcons";
 
 export function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -164,7 +164,7 @@ export const Sidebar = observer(() => {
     {
       name: "Flow Editor",
       href: "/",
-      icon: SiNodeRed,
+      icon: FlowIcon,
       current: pathname === "/",
     }, // ViewGridAddIcon
     {
