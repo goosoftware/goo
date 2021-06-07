@@ -11,12 +11,13 @@ const DEX_PROGRAM_ID = new PublicKey(
   "DESVgJVGajEgKGXhb6XmqDHGz3VjdgP7rEVESBgxmroY"
 );
 
-(async () => {
+const getMarkets = async () => {
   const connection = new Connection("https://devnet.solana.com");
 
   const devnetBTCKey = new PublicKey(
     "C6kYXcaRUMqeBF5fhg165RWU7AnpT9z92fvKNoMqjmz6"
   );
+
   const devnetUSDCKey = new PublicKey(
     "E6Z6zLzk8MWY3TY8E87mr88FhGowEPJTeMWzkqtL6qkF"
   );
@@ -56,7 +57,9 @@ const DEX_PROGRAM_ID = new PublicKey(
         if (!serumMarketMeta[0]) return;
 
         marketMetaData.push({
-          expiration: market.marketData.expirationUnixTimestamp,
+          expiration: new Date(
+            market.marketData.expirationUnixTimestamp * 1000
+          ).toISOString(),
           optionMarketAddress: market.pubkey.toString(),
           optionContractMintAddress: market.marketData.optionMintKey.toString(),
           optionWriterTokenMintAddress:
@@ -77,8 +80,10 @@ const DEX_PROGRAM_ID = new PublicKey(
     })
   );
 
-  console.log(marketMetaData);
-})();
+  return marketMetaData;
+};
+
+getMarkets().then(console.log);
 
 class PsyoptionsNode extends LGraphNode {
   static title_color = "#D5396D";
@@ -86,15 +91,13 @@ class PsyoptionsNode extends LGraphNode {
 
 class GetMarkets extends PsyoptionsNode {
   title = "psyoptions / get markets";
-
   constructor() {
     super();
-    this.addInput("quoteMarket", 0 as any);
-    this.addInput("underlyingMarket", 0 as any);
+    this.addInput("quoteAsset", 0 as any);
+    this.addInput("underlyingAsset", 0 as any);
 
     this.addOutput("markets", 0 as any, { label: "" });
   }
-
   onExecute() {}
 }
 
