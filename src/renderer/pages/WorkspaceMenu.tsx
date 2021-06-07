@@ -3,12 +3,9 @@ import { remote } from "electron";
 import { observer } from "mobx-react-lite";
 import React, { useEffect } from "react";
 import { ExplorerLink } from "../components/ExternalLink";
-import useAnchor from "../lib/useAnchor";
 import { store } from "../models/Store";
 
 const WorkspaceMenu = () => {
-  const { version } = useAnchor();
-
   useEffect(() => {
     const handleDrop = (event) => {
       event.preventDefault();
@@ -48,7 +45,9 @@ const WorkspaceMenu = () => {
   return (
     <div className="py-6">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-        <h4 className="text-lg font-semibold text-gray-300">{version}</h4>
+        <h4 className="text-lg font-semibold text-gray-300">
+          {store.anchorCliVersion}
+        </h4>
 
         <div>
           <h1 className="py-4 text-2xl font-semibold text-gray-900">

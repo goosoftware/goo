@@ -9,7 +9,7 @@ const Solana = () => {
     <div className="py-6">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
         <h4 className="text-lg font-semibold text-gray-300">
-          solana-cli 1.6.9 (src:9e42883d; feat:2960423209)
+          {store.solanaCliVersion}
         </h4>
 
         <h1 className="py-4 text-2xl font-semibold text-gray-900">Solana</h1>
@@ -127,4 +127,4 @@ const ClusterSelect = observer(() => (
   </RadioGroup>
 ));
 
-export default Solana;
+export default observer(Solana);

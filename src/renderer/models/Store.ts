@@ -1,9 +1,11 @@
 import { web3 } from "@project-serum/anchor";
 import { Keypair } from "@solana/web3.js";
+import { exec } from "child_process";
 import { readFileSync } from "fs";
 import { flow, onSnapshot, types } from "mobx-state-tree";
 import natsort from "natsort";
 import { homedir } from "os";
+import { promisify } from "util";
 import AnchorWorkspace, { findWorkspaces } from "./AnchorWorkspace";
 import Connection from "./Connection";
 
@@ -19,9 +21,11 @@ const Store = types
       "local"
     ),
   })
-  .volatile((): { user: Keypair } => ({
-    user: undefined,
-  }))
+  .volatile((): {
+    user?: Keypair;
+    solanaCliVersion?: string;
+    anchorCliVersion?: string;
+  } => ({}))
   .views((self) => ({
     get sortedWorkspaces() {
       return [...store.anchorWorkspaces.values()].sort(sortByName);
@@ -70,9 +74,20 @@ const Store = types
         )
       );
       console.log(self.user);
+
+      promisify(exec)("solana --version").then(({ stdout }) => {
+        (self as any).set("solanaCliVersion", stdout.trim());
+      });
+
+      promisify(exec)("anchor --version").then(({ stdout }) => {
+        (self as any).set("anchorCliVersion", stdout.trim());
+      });
     },
     removeWorkspace(workspaceId: string) {
       self.anchorWorkspaces.delete(workspaceId);
+    },
+    set(key, value) {
+      self[key] = value;
     },
   }));
 

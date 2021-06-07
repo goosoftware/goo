@@ -75,7 +75,7 @@ const useAnchor = () => {
     // check(8899, "127.0.0.1").then((inUse) => setSolanaRunningLocally(inUse));
   }, []);
 
-  return { user, solanaRunningLocally, deploy, version: "anchor-cli 0.6.0" };
+  return { user, solanaRunningLocally, deploy };
 };
 
 export default useAnchor;
