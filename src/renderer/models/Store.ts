@@ -1,5 +1,5 @@
 import { web3 } from "@project-serum/anchor";
-import { Keypair } from "@solana/web3.js";
+import { clusterApiUrl, Keypair } from "@solana/web3.js";
 import { exec } from "child_process";
 import { readFileSync } from "fs";
 import { flow, onSnapshot, types } from "mobx-state-tree";
@@ -47,6 +47,18 @@ const Store = types
         self.cluster
       )}&customUrl=http://localhost:8899`;
     },
+    clusterUrl(cluster: string) {
+      switch (cluster) {
+        case "dev":
+          return clusterApiUrl("devnet");
+        case "test":
+          return clusterApiUrl("testnet");
+        case "main":
+          return clusterApiUrl("mainnet-beta");
+        default:
+          return "http://localhost:8899";
+      }
+    },
   }))
   .actions((self) => ({
     changeCluster(cluster: typeof self.cluster) {
@@ -85,6 +97,7 @@ const Store = types
     },
     removeWorkspace(workspaceId: string) {
       self.anchorWorkspaces.delete(workspaceId);
+      // remove nodes
     },
     set(key, value) {
       self[key] = value;
