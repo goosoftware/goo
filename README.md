@@ -1,6 +1,6 @@
 ![goo](https://user-images.githubusercontent.com/601961/120886954-5db29000-c5e8-11eb-8692-f17537b4f5de.png)
 
-A graphical user interface for Solana, built for the [solana szn hackathon](https://solana.com/solanaszn). Sticks stuff together.
+A graphical user interface for Solana. Sticks stuff together.
 
 ## Installation Notes
 
