@@ -7,7 +7,6 @@ import "./lib/defaultNodes";
 import Editor from "./pages/Editor";
 import { Sidebar } from "./pages/Layout";
 import Solana from "./pages/Settings/Solana";
-import Workspace from "./pages/Workspace";
 import WorkspaceMenu from "./pages/WorkspaceMenu";
 
 const App = () => (
@@ -22,9 +21,6 @@ const App = () => (
             </Route>
             <Route exact path="/anchor">
               <WorkspaceMenu />
-            </Route>
-            <Route exact path="/anchor/:id">
-              <Workspace />
             </Route>
             <Route exact path="/settings/solana">
               <Solana />
