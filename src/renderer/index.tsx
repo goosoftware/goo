@@ -1,5 +1,3 @@
-// TODO: this doesn't load when you'd expect because esbuild is strange
-// require("litegraph.js").LiteGraph.clearRegisteredTypes();
 require("json-circular-stringify");
 
 import React from "react";

@@ -1,13 +1,13 @@
+import "base.css";
+import "index.css";
+import "packages";
+import Anchor from "pages/Anchor";
+import Editor from "pages/Editor";
+import { Sidebar } from "pages/Layout";
+import Solana from "pages/Settings/Solana";
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import "./base.css";
-import "./index.css";
-import "./lib/defaultNodes";
-import Anchor from "./pages/Anchor";
-import Editor from "./pages/Editor";
-import { Sidebar } from "./pages/Layout";
-import Solana from "./pages/Settings/Solana";
 
 const App = () => (
   <>
