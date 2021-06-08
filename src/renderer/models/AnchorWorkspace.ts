@@ -64,7 +64,7 @@ const AnchorWorkspace = types
       return self.idl.version;
     },
     get name(): string {
-      return self.idl.name;
+      return camelCase(self.idl.name, { pascalCase: true });
     },
     get state(): string {
       return (self as any).address ? "deployed" : "unbuilt";
