@@ -6,7 +6,7 @@ import React, { useEffect } from "react";
 import { ExplorerLink } from "../components/ExternalLink";
 import { store } from "../models/Store";
 
-const WorkspaceMenu = () => {
+const Anchor = () => {
   useEffect(() => {
     const handleDrop = (event) => {
       event.preventDefault();
@@ -151,4 +151,4 @@ const WorkspaceMenu = () => {
   );
 };
 
-export default observer(WorkspaceMenu);
+export default observer(Anchor);

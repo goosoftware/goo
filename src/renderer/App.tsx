@@ -4,10 +4,10 @@ import { ToastContainer } from "react-toastify";
 import "./base.css";
 import "./index.css";
 import "./lib/defaultNodes";
+import Anchor from "./pages/Anchor";
 import Editor from "./pages/Editor";
 import { Sidebar } from "./pages/Layout";
 import Solana from "./pages/Settings/Solana";
-import WorkspaceMenu from "./pages/WorkspaceMenu";
 
 const App = () => (
   <>
@@ -20,7 +20,7 @@ const App = () => (
               <Editor />
             </Route>
             <Route exact path="/anchor">
-              <WorkspaceMenu />
+              <Anchor />
             </Route>
             <Route exact path="/settings/solana">
               <Solana />
