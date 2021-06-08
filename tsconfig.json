@@ -9,7 +9,7 @@
     "skipLibCheck": true,
     "baseUrl": "src/renderer",
     "paths": {
-      "@goosoftware/goo": ["packages/goo/index.ts"]
+      "@goosoftware/goo": ["lib/goo/index.ts"]
     }
   }
 }
