@@ -25,6 +25,7 @@ importers:
       esbuild-plugin-postcss2: ^0.0.9
       glob: ^7.1.7
       jest: ^27.0.4
+      json-circular-stringify: ^1.0.1
       litegraph.js: ^0.7.9
       mobx: ^6.3.2
       mobx-react-lite: ^3.2.0
@@ -48,6 +49,7 @@ importers:
       '@solana/web3.js': 1.17.0
       camelcase: 6.2.0
       glob: 7.1.7
+      json-circular-stringify: 1.0.1
       litegraph.js: 0.7.9
       mobx: 6.3.2
       mobx-react-lite: 3.2.0_7e8915efb8617305a7bfbed08f2cda09
@@ -88,6 +90,16 @@ importers:
       chart.js: ^3.3.2
     dependencies:
       chart.js: 3.3.2
+
+  src/renderer/packages/crypto:
+    specifiers:
+      ed2curve: ^0.3.0
+      tweetnacl: ^1.0.3
+      tweetnacl-util: ^0.15.1
+    dependencies:
+      ed2curve: 0.3.0
+      tweetnacl: 1.0.3
+      tweetnacl-util: 0.15.1
 
   src/renderer/packages/goo:
     specifiers:
@@ -137,15 +149,11 @@ importers:
 
   src/renderer/packages/utils:
     specifiers:
-      ed2curve: ^0.3.0
-      json-circular-stringify: ^1.0.1
       jsonpath-plus: ^5.0.7
       lodash: ^4.17.21
       tweetnacl: ^1.0.3
       tweetnacl-util: ^0.15.1
     dependencies:
-      ed2curve: 0.3.0
-      json-circular-stringify: 1.0.1
       jsonpath-plus: 5.0.7
       lodash: 4.17.21
       tweetnacl: 1.0.3

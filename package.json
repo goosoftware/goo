@@ -19,6 +19,7 @@
     "@solana/web3.js": "^1.17.0",
     "camelcase": "^6.2.0",
     "glob": "^7.1.7",
+    "json-circular-stringify": "^1.0.1",
     "litegraph.js": "^0.7.9",
     "mobx": "^6.3.2",
     "mobx-react-lite": "^3.2.0",
