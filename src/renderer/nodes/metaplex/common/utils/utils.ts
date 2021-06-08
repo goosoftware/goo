@@ -1,11 +1,10 @@
-import { useCallback, useState } from "react";
 import { MintInfo } from "@solana/spl-token";
-
-import { TokenAccount } from "./../models";
+import { TokenInfo } from "@solana/spl-token-registry";
 import { PublicKey } from "@solana/web3.js";
 import BN from "bn.js";
+import { useCallback, useState } from "react";
 import { WAD, ZERO } from "../constants";
-import { TokenInfo } from "@solana/spl-token-registry";
+import { TokenAccount } from "../models";
 
 export type KnownTokenMap = Map<string, TokenInfo>;
 

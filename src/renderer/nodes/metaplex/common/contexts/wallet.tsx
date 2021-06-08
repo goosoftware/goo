@@ -9,10 +9,10 @@ import React, {
   useState,
 } from "react";
 import { useLocation } from "react-router";
+import { notify } from "../utils/notifications";
 // import { MetaplexModal } from "../components/MetaplexModal";
 import { useLocalStorageState } from "../utils/utils";
 import { PhantomWalletAdapter } from "../wallet-adapters/phantom";
-import { notify } from "./../utils/notifications";
 import { useConnectionConfig } from "./connection";
 
 // import './wallet.css'

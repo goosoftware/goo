@@ -31,7 +31,7 @@ export default class Encrypt extends CryptoNode {
     this.addOutput("nonce", "string");
   }
 
-  onExecute() {
+  run() {
     let dirty = false;
     if (this.getInputData(0) && this.plainText !== this.getInputData(0)) {
       this.plainText = this.getInputData(0);

@@ -91,13 +91,13 @@ importers:
     dependencies:
       fast-deep-equal: 3.1.3
 
-  src/renderer/packages/charts:
+  src/renderer/nodes/charts:
     specifiers:
       chart.js: ^3.3.2
     dependencies:
       chart.js: 3.3.2
 
-  src/renderer/packages/crypto:
+  src/renderer/nodes/crypto:
     specifiers:
       ed2curve: ^0.3.0
       tweetnacl: ^1.0.3
@@ -107,7 +107,7 @@ importers:
       tweetnacl: 1.0.3
       tweetnacl-util: 0.15.1
 
-  src/renderer/packages/metaplex:
+  src/renderer/nodes/metaplex:
     specifiers:
       '@solana/spl-token': ^0.1.5
       '@solana/spl-token-registry': ^0.2.121
@@ -127,7 +127,7 @@ importers:
       buffer-layout: 1.2.1
       eventemitter3: 4.0.7
 
-  src/renderer/packages/psyoptions:
+  src/renderer/nodes/psyoptions:
     specifiers:
       '@mithraic-labs/psyoptions': ^0.3.0
       '@mithraic-labs/serum': ^0.0.3
@@ -135,19 +135,19 @@ importers:
       '@mithraic-labs/psyoptions': 0.3.0
       '@mithraic-labs/serum': 0.0.3
 
-  src/renderer/packages/serum:
+  src/renderer/nodes/serum:
     specifiers:
       '@project-serum/common': ^0.0.1-beta.3
     dependencies:
       '@project-serum/common': 0.0.1-beta.3
 
-  src/renderer/packages/switchboard:
+  src/renderer/nodes/switchboard:
     specifiers:
       '@switchboard-xyz/switchboard-api': ^0.2.89
     dependencies:
       '@switchboard-xyz/switchboard-api': 0.2.89
 
-  src/renderer/packages/utils:
+  src/renderer/nodes/utils:
     specifiers:
       jsonpath-plus: ^5.0.7
       lodash: ^4.17.21

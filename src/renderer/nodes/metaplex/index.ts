@@ -41,19 +41,17 @@ class CostToStore extends MetaplexNode {
     this.addOutput("lamports", 0 as any);
   }
 
-  onExecute() {
+  async run() {
     this.setOutputData(0, this.cost);
 
     const file = this.getInputData(0);
+
     if (file?.size && file.size !== this.bytes) {
       this.bytes = file.size;
       console.log("getting cost");
 
-      getAssetCostToStore([file])
-        .then((cost) => {
-          this.cost = cost;
-        })
-        .catch(console.error);
+      const cost = await getAssetCostToStore([file]);
+      this.cost = cost;
     }
   }
 }

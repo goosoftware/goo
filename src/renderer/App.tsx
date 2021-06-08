@@ -1,6 +1,6 @@
 import "base.css";
 import "index.css";
-import "packages";
+import "nodes";
 import Anchor from "pages/Anchor";
 import Editor from "pages/Editor";
 import { Sidebar } from "pages/Layout";

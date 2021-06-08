@@ -1,5 +1,5 @@
 import { PublicKey } from "@solana/web3.js";
-import { useUserAccounts } from "../hooks/useUserAccounts";
+import { useUserAccounts } from "./useUserAccounts";
 
 export const useAccountByMint = (mint?: string | PublicKey) => {
   const { userAccounts } = useUserAccounts();

@@ -1,3 +1,3 @@
 packages:
-  - "src/renderer/packages/**"
+  - "src/renderer/nodes/**"
   - "src/renderer/lib/goo"
