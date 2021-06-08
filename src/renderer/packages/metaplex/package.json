@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "@solana/spl-token": "^0.1.5",
+    "@solana/spl-token-registry": "^0.2.121",
+    "@solana/spl-token-swap": "^0.1.0",
+    "@solana/wallet-base": "^0.0.1",
+    "borsh": "^0.4.0",
+    "bn.js": "^5.2.0",
+    "buffer-layout": "^1.2.1",
+    "eventemitter3": "^4.0.7"
+  }
+}

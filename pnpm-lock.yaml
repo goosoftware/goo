@@ -1,124 +1,155 @@
 lockfileVersion: 5.3
 
-specifiers:
-  '@headlessui/react': ^1.2.0
-  '@heroicons/react': ^1.0.1
-  '@mithraic-labs/psyoptions': ^0.3.0
-  '@mithraic-labs/serum': ^0.0.3
-  '@project-serum/common': ^0.0.1-beta.3
-  '@solana/spl-token': ^0.1.5
-  '@solana/spl-token-registry': ^0.2.121
-  '@solana/spl-token-swap': ^0.1.0
-  '@solana/wallet-base': ^0.0.1
-  '@solana/web3.js': ^1.17.0
-  '@switchboard-xyz/switchboard-api': ^0.2.89
-  '@tailwindcss/forms': ^0.3.3
-  '@types/ed2curve': ^0.2.2
-  '@types/jest': ^26.0.23
-  '@types/node': ~15.6.2
-  '@types/react': ~17.0.9
-  '@types/react-dom': ~17.0.6
-  '@types/react-router-dom': ^5.1.7
-  autoprefixer: ^10.2.6
-  bn.js: ^5.2.0
-  borsh: ^0.4.0
-  buffer-layout: ^1.2.1
-  camelcase: ^6.2.0
-  chart.js: ^3.3.2
-  ed2curve: ^0.3.0
-  electron: ^13.1.1
-  electron-builder: ^22.10.5
-  electron-esbuild: ^1.5.0
-  electron-util: ~0.16.0
-  esbuild: ^0.10.2
-  esbuild-jest: ^0.5.0
-  esbuild-plugin-postcss2: ^0.0.9
-  eventemitter3: ^4.0.7
-  glob: ^7.1.7
-  jest: ^27.0.4
-  json-circular-stringify: ^1.0.1
-  jsonpath-plus: ^5.0.7
-  litegraph.js: ^0.7.9
-  lodash: ^4.17.21
-  mobx: ^6.3.2
-  mobx-react-lite: ^3.2.0
-  mobx-state-tree: ^5.0.1
-  natsort: ^2.0.2
-  nightwind: ^1.1.11
-  postcss: ^8.3.0
-  postcss-modules: 4.1.0
-  react: ~17.0.2
-  react-dom: ~17.0.2
-  react-icons: ^4.2.0
-  react-jazzicon: ^0.1.3
-  react-router: ^5.2.0
-  react-router-dom: ^5.2.0
-  react-toastify: ^7.0.4
-  tailwindcss: ^2.1.4
-  tweetnacl: ^1.0.3
-  tweetnacl-util: ^0.15.1
-  typescript: ^4.3.2
+importers:
 
-dependencies:
-  '@headlessui/react': 1.2.0_react@17.0.2
-  '@heroicons/react': 1.0.1_react@17.0.2
-  '@mithraic-labs/psyoptions': 0.3.0_@solana+web3.js@1.17.0
-  '@mithraic-labs/serum': 0.0.3_@solana+web3.js@1.17.0
-  '@project-serum/common': 0.0.1-beta.3_@solana+web3.js@1.17.0
-  '@solana/spl-token': 0.1.5
-  '@solana/spl-token-registry': 0.2.121
-  '@solana/spl-token-swap': 0.1.0
-  '@solana/wallet-base': 0.0.1
-  '@solana/web3.js': 1.17.0
-  '@switchboard-xyz/switchboard-api': 0.2.89_typescript@4.3.2
-  bn.js: 5.2.0
-  borsh: 0.4.0
-  buffer-layout: 1.2.1
-  camelcase: 6.2.0
-  chart.js: 3.3.2
-  ed2curve: 0.3.0
-  eventemitter3: 4.0.7
-  glob: 7.1.7
-  json-circular-stringify: 1.0.1
-  jsonpath-plus: 5.0.7
-  litegraph.js: 0.7.9
-  lodash: 4.17.21
-  mobx: 6.3.2
-  mobx-react-lite: 3.2.0_7e8915efb8617305a7bfbed08f2cda09
-  mobx-state-tree: 5.0.1_mobx@6.3.2
-  natsort: 2.0.2
-  react: 17.0.2
-  react-dom: 17.0.2_react@17.0.2
-  react-icons: 4.2.0_react@17.0.2
-  react-jazzicon: 0.1.3_react@17.0.2
-  react-router: 5.2.0_react@17.0.2
-  react-router-dom: 5.2.0_react@17.0.2
-  react-toastify: 7.0.4_react-dom@17.0.2+react@17.0.2
-  tweetnacl: 1.0.3
-  tweetnacl-util: 0.15.1
+  .:
+    specifiers:
+      '@headlessui/react': ^1.2.0
+      '@heroicons/react': ^1.0.1
+      '@solana/web3.js': ^1.17.0
+      '@tailwindcss/forms': ^0.3.3
+      '@types/ed2curve': ^0.2.2
+      '@types/jest': ^26.0.23
+      '@types/node': ~15.6.2
+      '@types/react': ~17.0.9
+      '@types/react-dom': ~17.0.6
+      '@types/react-router-dom': ^5.1.7
+      autoprefixer: ^10.2.6
+      camelcase: ^6.2.0
+      electron: ^13.1.1
+      electron-builder: ^22.10.5
+      electron-esbuild: ^1.5.0
+      electron-util: ~0.16.0
+      esbuild: ^0.10.2
+      esbuild-jest: ^0.5.0
+      esbuild-plugin-postcss2: ^0.0.9
+      glob: ^7.1.7
+      jest: ^27.0.4
+      litegraph.js: ^0.7.9
+      mobx: ^6.3.2
+      mobx-react-lite: ^3.2.0
+      mobx-state-tree: ^5.0.1
+      natsort: ^2.0.2
+      nightwind: ^1.1.11
+      postcss: ^8.3.0
+      postcss-modules: 4.1.0
+      react: ~17.0.2
+      react-dom: ~17.0.2
+      react-icons: ^4.2.0
+      react-jazzicon: ^0.1.3
+      react-router: ^5.2.0
+      react-router-dom: ^5.2.0
+      react-toastify: ^7.0.4
+      tailwindcss: ^2.1.4
+      typescript: ^4.3.2
+    dependencies:
+      '@headlessui/react': 1.2.0_react@17.0.2
+      '@heroicons/react': 1.0.1_react@17.0.2
+      '@solana/web3.js': 1.17.0
+      camelcase: 6.2.0
+      glob: 7.1.7
+      litegraph.js: 0.7.9
+      mobx: 6.3.2
+      mobx-react-lite: 3.2.0_7e8915efb8617305a7bfbed08f2cda09
+      mobx-state-tree: 5.0.1_mobx@6.3.2
+      natsort: 2.0.2
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+      react-icons: 4.2.0_react@17.0.2
+      react-jazzicon: 0.1.3_react@17.0.2
+      react-router: 5.2.0_react@17.0.2
+      react-router-dom: 5.2.0_react@17.0.2
+      react-toastify: 7.0.4_react-dom@17.0.2+react@17.0.2
+    devDependencies:
+      '@tailwindcss/forms': 0.3.3_tailwindcss@2.1.4
+      '@types/ed2curve': 0.2.2
+      '@types/jest': 26.0.23
+      '@types/node': 15.6.2
+      '@types/react': 17.0.9
+      '@types/react-dom': 17.0.6
+      '@types/react-router-dom': 5.1.7
+      autoprefixer: 10.2.6_postcss@8.3.0
+      electron: 13.1.1
+      electron-builder: 22.10.5
+      electron-esbuild: 1.5.0_esbuild@0.10.2
+      electron-util: 0.16.0
+      esbuild: 0.10.2
+      esbuild-jest: 0.5.0_esbuild@0.10.2
+      esbuild-plugin-postcss2: 0.0.9
+      jest: 27.0.4
+      nightwind: 1.1.11_6daa0ece57b4377652e73c9c66c3b94c
+      postcss: 8.3.0
+      postcss-modules: 4.1.0_postcss@8.3.0
+      tailwindcss: 2.1.4_6daa0ece57b4377652e73c9c66c3b94c
+      typescript: 4.3.2
 
-devDependencies:
-  '@tailwindcss/forms': 0.3.3_tailwindcss@2.1.4
-  '@types/ed2curve': 0.2.2
-  '@types/jest': 26.0.23
-  '@types/node': 15.6.2
-  '@types/react': 17.0.9
-  '@types/react-dom': 17.0.6
-  '@types/react-router-dom': 5.1.7
-  autoprefixer: 10.2.6_postcss@8.3.0
-  electron: 13.1.1
-  electron-builder: 22.10.5
-  electron-esbuild: 1.5.0_esbuild@0.10.2
-  electron-util: 0.16.0
-  esbuild: 0.10.2
-  esbuild-jest: 0.5.0_esbuild@0.10.2
-  esbuild-plugin-postcss2: 0.0.9
-  jest: 27.0.4
-  nightwind: 1.1.11_6daa0ece57b4377652e73c9c66c3b94c
-  postcss: 8.3.0
-  postcss-modules: 4.1.0_postcss@8.3.0
-  tailwindcss: 2.1.4_6daa0ece57b4377652e73c9c66c3b94c
-  typescript: 4.3.2
+  src/renderer/packages/charts:
+    specifiers:
+      chart.js: ^3.3.2
+    dependencies:
+      chart.js: 3.3.2
+
+  src/renderer/packages/goo:
+    specifiers:
+      fast-deep-equal: ^3.1.3
+    dependencies:
+      fast-deep-equal: 3.1.3
+
+  src/renderer/packages/metaplex:
+    specifiers:
+      '@solana/spl-token': ^0.1.5
+      '@solana/spl-token-registry': ^0.2.121
+      '@solana/spl-token-swap': ^0.1.0
+      '@solana/wallet-base': ^0.0.1
+      bn.js: ^5.2.0
+      borsh: ^0.4.0
+      buffer-layout: ^1.2.1
+      eventemitter3: ^4.0.7
+    dependencies:
+      '@solana/spl-token': 0.1.5
+      '@solana/spl-token-registry': 0.2.121
+      '@solana/spl-token-swap': 0.1.0
+      '@solana/wallet-base': 0.0.1
+      bn.js: 5.2.0
+      borsh: 0.4.0
+      buffer-layout: 1.2.1
+      eventemitter3: 4.0.7
+
+  src/renderer/packages/psyoptions:
+    specifiers:
+      '@mithraic-labs/psyoptions': ^0.3.0
+      '@mithraic-labs/serum': ^0.0.3
+    dependencies:
+      '@mithraic-labs/psyoptions': 0.3.0
+      '@mithraic-labs/serum': 0.0.3
+
+  src/renderer/packages/serum:
+    specifiers:
+      '@project-serum/common': ^0.0.1-beta.3
+    dependencies:
+      '@project-serum/common': 0.0.1-beta.3
+
+  src/renderer/packages/switchboard:
+    specifiers:
+      '@switchboard-xyz/switchboard-api': ^0.2.89
+    dependencies:
+      '@switchboard-xyz/switchboard-api': 0.2.89
+
+  src/renderer/packages/utils:
+    specifiers:
+      ed2curve: ^0.3.0
+      json-circular-stringify: ^1.0.1
+      jsonpath-plus: ^5.0.7
+      lodash: ^4.17.21
+      tweetnacl: ^1.0.3
+      tweetnacl-util: ^0.15.1
+    dependencies:
+      ed2curve: 0.3.0
+      json-circular-stringify: 1.0.1
+      jsonpath-plus: 5.0.7
+      lodash: 4.17.21
+      tweetnacl: 1.0.3
+      tweetnacl-util: 0.15.1
 
 packages:
 
@@ -793,26 +824,24 @@ packages:
       cross-spawn: 7.0.3
     dev: true
 
-  /@mithraic-labs/psyoptions/0.3.0_@solana+web3.js@1.17.0:
+  /@mithraic-labs/psyoptions/0.3.0:
     resolution: {integrity: sha512-AwAF0tyogjlaI8+YepIKmiCWY4nppspgdXfuW8mdV9MwG0YrvvHhrtJpuUgmsEsEXmtuBjLU9z0m88ya0taL6w==}
     peerDependencies:
       '@solana/web3.js': ^1.2.5
     dependencies:
       '@solana/spl-token': 0.1.5
-      '@solana/web3.js': 1.17.0
       bignumber.js: 9.0.1
       bn.js: 5.2.0
       buffer-layout: 1.2.1
       rollup: 2.51.0
     dev: false
 
-  /@mithraic-labs/serum/0.0.3_@solana+web3.js@1.17.0:
+  /@mithraic-labs/serum/0.0.3:
     resolution: {integrity: sha512-YClkZEpcq9MhHqb5c0B+QvYGl4Dsbmdi8t98/FMEsNEmDa8MFYB8rFpVAIrFF+ufJc5i+V23Sx4U/Ez0+MFY1w==}
     engines: {node: '>=10'}
     peerDependencies:
       '@solana/web3.js': ^1.2.6
     dependencies:
-      '@solana/web3.js': 1.17.0
       bn.js: 5.2.0
       buffer-layout: 1.2.1
     dev: false
@@ -838,14 +867,13 @@ packages:
       fastq: 1.11.0
     dev: true
 
-  /@project-serum/common/0.0.1-beta.3_@solana+web3.js@1.17.0:
+  /@project-serum/common/0.0.1-beta.3:
     resolution: {integrity: sha512-gnQE/eUydTtto5okCgLWj1M97R9RRPJqnhKklikYI7jP/pnNhDmngSXC/dmfzED2GXSJEIKNIlxVw1k+E2Aw3w==}
     engines: {node: '>=10'}
     peerDependencies:
       '@solana/web3.js': ^0.87.1
     dependencies:
       '@project-serum/serum': 0.13.38
-      '@solana/web3.js': 1.17.0
       bn.js: 5.2.0
       superstruct: 0.8.3
     transitivePeerDependencies:
@@ -1056,14 +1084,14 @@ packages:
       tweetnacl: 1.0.3
     dev: false
 
-  /@switchboard-xyz/switchboard-api/0.2.89_typescript@4.3.2:
+  /@switchboard-xyz/switchboard-api/0.2.89:
     resolution: {integrity: sha512-a7QF4lDX7Bfz0ot+q3bjCFlXAHsOS9hyjpILQpxPq252R44Xkpqh6BWNZ5IMGuZgONlafLySXlSxJcpIW9YcRA==}
     dependencies:
       '@solana/web3.js': 1.17.0
       form-data: 4.0.0
       protobufjs: 6.11.2
       rpc-websockets: 7.4.12
-      typedoc: 0.20.36_typescript@4.3.2
+      typedoc: 0.20.36
       ws: 7.4.6
     transitivePeerDependencies:
       - bufferutil
@@ -1215,12 +1243,12 @@ packages:
     resolution: {integrity: sha512-fZQQafSREFyuZcdWFAExYjBiCL7AUCdgsk80iO0q4yihYYdcIiH28CcuPTGFgLOCC8RlW49GSQxdHwZP+I7CNg==}
     dev: true
 
-  /@types/node/12.20.14:
-    resolution: {integrity: sha512-iFJOS5Q470FF+r4Ol2pSley7/wCNVqf+jgjhtxLLaJcDs+To2iCxlXIkJXrGLD9w9G/oJ9ibySu7z92DCwr7Pg==}
+  /@types/node/12.20.15:
+    resolution: {integrity: sha512-F6S4Chv4JicJmyrwlDkxUdGNSplsQdGwp1A0AJloEVDirWdZOAiRHhovDlsFkKUrquUXhz1imJhXHsf59auyAg==}
     dev: false
 
-  /@types/node/14.17.2:
-    resolution: {integrity: sha512-sld7b/xmFum66AAKuz/rp/CUO8+98fMpyQ3SBfzzBNGMd/1iHBTAg9oyAvcYlAj46bpc74r91jSw2iFdnx29nw==}
+  /@types/node/14.17.3:
+    resolution: {integrity: sha512-e6ZowgGJmTuXa3GyaPbTGxX17tnThl2aSSizrFthQ7m9uLGZBXiGhgE55cjRZTF5kjZvYn9EOPOMljdjwbflxw==}
     dev: true
 
   /@types/node/15.6.2:
@@ -1312,13 +1340,13 @@ packages:
       '@types/yargs-parser': 20.2.0
     dev: true
 
-  /@typescript-eslint/types/4.26.0:
-    resolution: {integrity: sha512-rADNgXl1kS/EKnDr3G+m7fB9yeJNnR9kF7xMiXL6mSIWpr3Wg5MhxyfEXy/IlYthsqwBqHOr22boFbf/u6O88A==}
+  /@typescript-eslint/types/4.26.1:
+    resolution: {integrity: sha512-STyMPxR3cS+LaNvS8yK15rb8Y0iL0tFXq0uyl6gY45glyI7w0CsyqyEXl/Fa0JlQy+pVANeK3sbwPneCbWE7yg==}
     engines: {node: ^8.10.0 || ^10.13.0 || >=11.10.1}
     dev: true
 
-  /@typescript-eslint/typescript-estree/4.26.0_typescript@3.9.9:
-    resolution: {integrity: sha512-GHUgahPcm9GfBuy3TzdsizCcPjKOAauG9xkz9TR8kOdssz2Iz9jRCSQm6+aVFa23d5NcSpo1GdHGSQKe0tlcbg==}
+  /@typescript-eslint/typescript-estree/4.26.1_typescript@3.9.9:
+    resolution: {integrity: sha512-l3ZXob+h0NQzz80lBGaykdScYaiEbFqznEs99uwzm8fPHhDjwaBFfQkjUC/slw6Sm7npFL8qrGEAMxcfBsBJUg==}
     engines: {node: ^10.12.0 || >=12.0.0}
     peerDependencies:
       typescript: '*'
@@ -1326,8 +1354,8 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@typescript-eslint/types': 4.26.0
-      '@typescript-eslint/visitor-keys': 4.26.0
+      '@typescript-eslint/types': 4.26.1
+      '@typescript-eslint/visitor-keys': 4.26.1
       debug: 4.3.1
       globby: 11.0.3
       is-glob: 4.0.1
@@ -1338,11 +1366,11 @@ packages:
       - supports-color
     dev: true
 
-  /@typescript-eslint/visitor-keys/4.26.0:
-    resolution: {integrity: sha512-cw4j8lH38V1ycGBbF+aFiLUls9Z0Bw8QschP3mkth50BbWzgFS33ISIgBzUMuQ2IdahoEv/rXstr8Zhlz4B1Zg==}
+  /@typescript-eslint/visitor-keys/4.26.1:
+    resolution: {integrity: sha512-IGouNSSd+6x/fHtYRyLOM6/C+QxMDzWlDtN41ea+flWuSF9g02iqcIlX8wM53JkfljoIjP0U+yp7SiTS1onEkw==}
     engines: {node: ^8.10.0 || ^10.13.0 || >=11.10.1}
     dependencies:
-      '@typescript-eslint/types': 4.26.0
+      '@typescript-eslint/types': 4.26.1
       eslint-visitor-keys: 2.1.0
     dev: true
 
@@ -2779,7 +2807,7 @@ packages:
     resolution: {integrity: sha512-M10QHfno2pMhqYzGoiVfpQtHC7o+sS3aVBFw41kM4QWdk9Uvt73QLA+jtTVTqbgPLx8olZjMEFazo5mUFWL0MA==}
     engines: {node: ^10.13 || >=12.0.0}
     dependencies:
-      '@typescript-eslint/typescript-estree': 4.26.0_typescript@3.9.9
+      '@typescript-eslint/typescript-estree': 4.26.1_typescript@3.9.9
       ast-module-types: 2.7.1
       node-source-walk: 4.2.0
       typescript: 3.9.9
@@ -3056,7 +3084,7 @@ packages:
     requiresBuild: true
     dependencies:
       '@electron/get': 1.12.4
-      '@types/node': 14.17.2
+      '@types/node': 14.17.3
       extract-zip: 1.7.0
     transitivePeerDependencies:
       - supports-color
@@ -3419,7 +3447,6 @@ packages:
 
   /fast-deep-equal/3.1.3:
     resolution: {integrity: sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==}
-    dev: true
 
   /fast-glob/3.2.5:
     resolution: {integrity: sha512-2DtFcgT68wiTTiwZ2hNdJfcHNke9XOfnwmBRWXhmeKM8rF0TGwmC/Qto3S7RoZKp5cilZbxzO5iTNTQsJ+EeDg==}
@@ -4544,7 +4571,7 @@ packages:
       '@types/connect': 3.4.34
       '@types/express-serve-static-core': 4.17.21
       '@types/lodash': 4.14.170
-      '@types/node': 12.20.14
+      '@types/node': 12.20.15
       commander: 2.20.3
       es6-promisify: 5.0.0
       eyes: 0.1.8
@@ -7809,7 +7836,7 @@ packages:
     engines: {node: '>= 8'}
     dev: false
 
-  /typedoc/0.20.36_typescript@4.3.2:
+  /typedoc/0.20.36:
     resolution: {integrity: sha512-qFU+DWMV/hifQ9ZAlTjdFO9wbUIHuUBpNXzv68ZyURAP9pInjZiO4+jCPeAzHVcaBCHER9WL/+YzzTt6ZlN/Nw==}
     engines: {node: '>= 10.8.0'}
     hasBin: true
@@ -7827,7 +7854,6 @@ packages:
       shelljs: 0.8.4
       shiki: 0.9.3
       typedoc-default-themes: 0.12.10
-      typescript: 4.3.2
     dev: false
 
   /typescript/3.9.9:
