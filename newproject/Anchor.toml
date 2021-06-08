@@ -1,3 +1,0 @@
-[provider]
-cluster = "localnet"
-wallet = "/Users/john/.config/solana/id.json"
