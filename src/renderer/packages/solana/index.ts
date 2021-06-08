@@ -1,7 +1,8 @@
+import { GooNode } from "@goosoftware/goo";
 import * as anchor from "@project-serum/anchor";
-import { LGraphNode, LiteGraph } from "litegraph.js";
+import { LiteGraph } from "litegraph.js";
 
-class SolanaNode extends LGraphNode {
+class SolanaNode extends GooNode {
   static title_color = "#905ea9";
 }
 

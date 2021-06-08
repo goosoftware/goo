@@ -1,7 +1,8 @@
-import { LGraphNode, LiteGraph } from "litegraph.js";
+import { GooNode } from "@goosoftware/goo";
+import { LiteGraph } from "litegraph.js";
 import { getAssetCostToStore } from "./getAssetCostToStore";
 
-class MetaplexNode extends LGraphNode {
+class MetaplexNode extends GooNode {
   static title_color = "#000";
 }
 
