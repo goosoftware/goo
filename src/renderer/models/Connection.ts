@@ -13,7 +13,7 @@ const Connection = types
   .model({
     cluster: "localnet",
   })
-  .volatile((self) => ({
+  .volatile(() => ({
     pid: undefined,
     state: State.checking,
   }))
