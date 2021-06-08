@@ -57,10 +57,10 @@
     "typescript": "^4.3.2"
   },
   "build": {
-    "appId": "io.comp.myapp",
-    "productName": "Graph Editor",
+    "appId": "software.goo.app",
+    "productName": "Goo",
     "extraMetadata": {
-      "name": "Graph Editor",
+      "name": "Goo",
       "main": "main.js"
     },
     "files": [
