@@ -19,7 +19,6 @@ const App = () => (
           <Switch>
             <Route exact path="/">
               <Editor />
-              {/* <DirectoryList /> */}
             </Route>
             <Route exact path="/anchor">
               <WorkspaceMenu />
