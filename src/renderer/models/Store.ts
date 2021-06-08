@@ -21,11 +21,13 @@ const Store = types
       "local"
     ),
   })
-  .volatile((): {
-    user?: Keypair;
-    solanaCliVersion?: string;
-    anchorCliVersion?: string;
-  } => ({}))
+  .volatile(
+    (): {
+      user?: Keypair;
+      solanaCliVersion?: string;
+      anchorCliVersion?: string;
+    } => ({})
+  )
   .views((self) => ({
     get sortedWorkspaces() {
       return [...store.anchorWorkspaces.values()].sort(sortByName);
