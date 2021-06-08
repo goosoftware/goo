@@ -13,7 +13,7 @@ const DEX_PROGRAM_ID = new PublicKey(
 );
 
 const getMarkets = async () => {
-  const connection = new Connection("https://devnet.solana.com");
+  const connection = new Connection("https://api.devnet.solana.com");
 
   const devnetBTCKey = new PublicKey(
     "C6kYXcaRUMqeBF5fhg165RWU7AnpT9z92fvKNoMqjmz6"
