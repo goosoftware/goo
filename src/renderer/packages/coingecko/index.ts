@@ -1,6 +1,6 @@
-import { LGraphNode, LiteGraph } from "litegraph.js";
-
-class CoinGeckoNode extends LGraphNode {
+import { GooNode } from "@goosoftware/goo";
+import { LiteGraph } from "litegraph.js";
+class CoinGeckoNode extends GooNode {
   static title_color = "#97C255";
 }
 

@@ -1,8 +1,8 @@
 import { RadioGroup } from "@headlessui/react";
+import ExternalLink from "components/ExternalLink";
 import { observer } from "mobx-react-lite";
+import { store } from "models/Store";
 import React from "react";
-import ExternalLink from "src/renderer/components/ExternalLink";
-import { store } from "src/renderer/models/Store";
 
 const Solana = () => {
   return (

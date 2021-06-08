@@ -1,6 +1,7 @@
-import { LGraphNode, LiteGraph } from "litegraph.js";
+import { GooNode } from "@goosoftware/goo";
+import { LiteGraph } from "litegraph.js";
 
-class MangoNode extends LGraphNode {
+class MangoNode extends GooNode {
   static title_color = "#DD6F3D";
 }
 

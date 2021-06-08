@@ -1,7 +1,8 @@
+import { GooNode } from "@goosoftware/goo";
 import { Market } from "@mithraic-labs/psyoptions";
 import { Market as SerumMarket } from "@mithraic-labs/serum";
 import { Connection, PublicKey } from "@solana/web3.js";
-import { LGraphNode, LiteGraph } from "litegraph.js";
+import { LiteGraph } from "litegraph.js";
 
 const OPTION_PROGRAM_ID = new PublicKey(
   "GDvqQy3FkDB2wyNwgZGp5YkmRMUmWbhNNWDMYKbLSZ5N"
@@ -85,7 +86,7 @@ const getMarkets = async () => {
 
 getMarkets().then(console.log);
 
-class PsyoptionsNode extends LGraphNode {
+class PsyoptionsNode extends GooNode {
   static title_color = "#D5396D";
 }
 

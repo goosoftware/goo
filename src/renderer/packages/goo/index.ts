@@ -8,7 +8,7 @@ const Colors = {
   ERROR: "red",
 };
 
-export default class GooNode extends LGraphNode {
+export class GooNode extends LGraphNode {
   version = "0.0.1";
   private previousInputs;
 

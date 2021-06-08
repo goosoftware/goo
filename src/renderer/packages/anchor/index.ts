@@ -1,9 +1,10 @@
+import { GooNode } from "@goosoftware/goo";
 import * as anchor from "@project-serum/anchor";
-import { LGraphNode, LiteGraph } from "litegraph.js";
+import { LiteGraph } from "litegraph.js";
 
 const provider = anchor.Provider.local();
 
-class AnchorNode extends LGraphNode {
+class AnchorNode extends GooNode {
   static title_color = "#3694E0";
 }
 

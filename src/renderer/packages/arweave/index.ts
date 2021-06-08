@@ -1,6 +1,6 @@
-import { LGraphNode, LiteGraph } from "litegraph.js";
-
-class ArweaveNode extends LGraphNode {
+import { GooNode } from "@goosoftware/goo";
+import { LiteGraph } from "litegraph.js";
+class ArweaveNode extends GooNode {
   static title_color = "#BBB";
 }
 

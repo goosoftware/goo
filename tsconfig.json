@@ -7,6 +7,9 @@
     "sourceMap": true,
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
-    "baseUrl": "./"
+    "baseUrl": "src/renderer",
+    "paths": {
+      "@goosoftware/goo": ["packages/goo/index.ts"]
+    }
   }
 }

@@ -1,6 +1,7 @@
-import { LGraphNode, LiteGraph } from "litegraph.js";
+import { GooNode } from "@goosoftware/goo";
+import { LiteGraph } from "litegraph.js";
 
-class SwitchboardNode extends LGraphNode {
+class SwitchboardNode extends GooNode {
   static title_color = "#030231";
 }
 

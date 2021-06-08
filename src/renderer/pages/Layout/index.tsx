@@ -1,10 +1,10 @@
+import { ExplorerLink } from "components/ExternalLink";
 import { observer } from "mobx-react-lite";
+import { store } from "models/Store";
 import React from "react";
 import { BiAnchor as Anchor } from "react-icons/bi";
 import Jazzicon from "react-jazzicon";
 import { Link, useLocation } from "react-router-dom";
-import { ExplorerLink } from "src/renderer/components/ExternalLink";
-import { store } from "src/renderer/models/Store";
 import { FlowIcon, SolanaIcon } from "./CustomIcons";
 
 export function classNames(...classes) {

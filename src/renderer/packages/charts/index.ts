@@ -1,5 +1,6 @@
+import { GooNode } from "@goosoftware/goo";
 import { Chart as ChartJS, registerables } from "chart.js";
-import { LGraphNode, LiteGraph } from "litegraph.js";
+import { LiteGraph } from "litegraph.js";
 
 ChartJS.register(...registerables);
 
@@ -44,7 +45,7 @@ new ChartJS(offscreen, {
 });
 
 module Chart {
-  export class Chart extends LGraphNode {
+  export class Chart extends GooNode {
     title = "chart";
     static title_color = "#C14B4F";
     private rendered = false;

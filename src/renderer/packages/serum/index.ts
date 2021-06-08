@@ -1,7 +1,8 @@
+import { GooNode } from "@goosoftware/goo";
 import { createMintAndVault, createTokenAccount } from "@project-serum/common";
-import { LGraphNode, LiteGraph } from "litegraph.js";
+import { LiteGraph } from "litegraph.js";
 
-class SerumNode extends LGraphNode {
+class SerumNode extends GooNode {
   static title_color = "#007775";
 }
 

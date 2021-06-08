@@ -1,10 +1,11 @@
+import { GooNode } from "@goosoftware/goo";
 import * as anchor from "@project-serum/anchor";
 import { JSONPath } from "jsonpath-plus";
-import { LGraphNode, LiteGraph } from "litegraph.js";
+import { LiteGraph } from "litegraph.js";
 import get from "lodash/get";
 import util from "tweetnacl-util";
 
-class UtilNode extends LGraphNode {
+class UtilNode extends GooNode {
   static title_color = "#333";
 }
 class FileNode extends UtilNode {
