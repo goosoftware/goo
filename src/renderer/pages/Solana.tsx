@@ -1,5 +1,6 @@
 import { RadioGroup } from "@headlessui/react";
 import ExternalLink from "components/ExternalLink";
+import { classNames } from "lib/utils";
 import { observer } from "mobx-react-lite";
 import { store } from "models/Store";
 import React from "react";
@@ -59,10 +60,6 @@ const settings = [
       "Run a test Solana cluster locally on your machine. A great choice for rapid, iterative development and testing.",
   },
 ];
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
 
 const ClusterSelect = observer(() => (
   <RadioGroup value={store.cluster} onChange={store.changeCluster}>

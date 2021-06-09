@@ -1,6 +1,9 @@
+import { GooNode } from "@goosoftware/goo";
+import * as anchor from "@project-serum/anchor";
 import camelCase from "camelcase";
 import fs from "fs";
 import glob from "glob";
+import { LiteGraph } from "litegraph.js";
 import { flow, getRoot, types } from "mobx-state-tree";
 import path from "path";
 
@@ -55,6 +58,7 @@ const AnchorWorkspace = types
     idl: IDL,
     // address: types.maybe(types.string),
     path: types.string,
+    nodes: types.optional(types.array(types.string), []),
   })
   .views((self) => ({
     get address(): string | undefined {
@@ -73,14 +77,28 @@ const AnchorWorkspace = types
       return "build";
     },
   }))
-  .actions((self) => ({
-    build: flow(function* () {
-      console.log("build!");
-    }),
-    remove() {
-      (getRoot(self) as any).removeWorkspace(self.id);
-    },
-  }));
+  .actions((self) => {
+    return {
+      build: flow(function* () {
+        console.log("build!");
+      }),
+      remove() {
+        (getRoot(self) as any).removeWorkspace(self.id);
+      },
+      beforeDestroy() {
+        self.nodes.forEach((node) => {
+          console.log("removing ", node);
+          LiteGraph.unregisterNodeType(node);
+        });
+      },
+      afterAttach() {
+        if (self.address && self.path && self.name) {
+          process.env.PROJECT_ROOT = self.path;
+          parseWorkspace(self.name);
+        }
+      },
+    };
+  });
 
 export default AnchorWorkspace;
 
@@ -118,4 +136,81 @@ export const findWorkspaces = async (projectRoot: string) => {
 
   const files = await aGlob(`${projectRoot}/target/idl/*.json`);
   return Promise.all(files.map((path) => read(path)));
+};
+
+class WorkspaceNode extends GooNode {
+  static title_color = "#0eaf9b";
+}
+
+export const parseWorkspace = (workspace: string) => {
+  const program = anchor.workspace[workspace];
+
+  if (!program) return;
+
+  const idl = program._idl as anchor.Idl;
+
+  idl.accounts?.forEach((account) => {
+    class Account extends WorkspaceNode {
+      title = `${workspace}.${account.name}`;
+      constructor() {
+        super();
+        this.addInput("publicKey", 0 as any);
+
+        account.type.fields.forEach((field) => {
+          this.addOutput(field.name, 0 as any);
+        });
+      }
+      onExecute() {}
+    }
+    LiteGraph.registerNodeType(account.name, Account);
+
+    class CreateInstruction extends WorkspaceNode {
+      title = `${workspace}.${account.name}.createInstruction`;
+      constructor() {
+        super();
+        this.addInput("signer", 0 as any);
+        this.addInput("sizeOverride", 0 as any);
+
+        this.addOutput("instruction", 0 as any);
+      }
+      onExecute() {}
+    }
+    LiteGraph.registerNodeType(
+      [account.name, "createInstruction"].join("/"),
+      CreateInstruction
+    );
+  });
+
+  const instructionOrMethodNodeFactory = (instruction) => {
+    class InstructionNode extends WorkspaceNode {
+      title = [workspace, instruction.name].join(".");
+
+      constructor() {
+        super();
+        instruction.args.forEach((arg) => {
+          this.addInput(arg.name, 0 as any);
+        });
+        instruction.accounts.forEach((acc) => {
+          this.addInput(acc.name, 0 as any, { shape: LiteGraph.ARROW_SHAPE });
+        });
+        this.addInput("signers", 0 as any);
+        this.addInput("instructions", 0 as any);
+      }
+
+      onExecute() {
+        // console.log(
+        //   this.inputs.map((input, i) => {
+        //     return i;
+        //   })
+        // );
+      }
+    }
+    LiteGraph.registerNodeType(
+      `anchor/${workspace}/${instruction.name}`,
+      InstructionNode
+    );
+  };
+
+  idl.instructions.forEach(instructionOrMethodNodeFactory);
+  idl.state?.methods.forEach(instructionOrMethodNodeFactory);
 };

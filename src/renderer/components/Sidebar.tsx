@@ -1,4 +1,5 @@
 import { ExplorerLink } from "components/ExternalLink";
+import { classNames } from "lib/utils";
 import { observer } from "mobx-react-lite";
 import { store } from "models/Store";
 import React from "react";
@@ -7,11 +8,7 @@ import Jazzicon from "react-jazzicon";
 import { Link, useLocation } from "react-router-dom";
 import { FlowIcon, SolanaIcon } from "./CustomIcons";
 
-export function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
-
-export const Sidebar = observer(() => {
+const Sidebar: React.FC = () => {
   const { pathname } = useLocation();
 
   const navigation = [
@@ -146,4 +143,6 @@ export const Sidebar = observer(() => {
       </div>
     </div>
   );
-});
+};
+
+export default observer(Sidebar);

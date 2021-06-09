@@ -1,10 +1,10 @@
 import "base.css";
+import Sidebar from "components/Sidebar";
 import "index.css";
 import "nodes";
 import Anchor from "pages/Anchor";
 import Editor from "pages/Editor";
-import { Sidebar } from "pages/Layout";
-import Solana from "pages/Settings/Solana";
+import Solana from "pages/Solana";
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
