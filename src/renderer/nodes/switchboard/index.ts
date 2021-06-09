@@ -33,7 +33,7 @@ class CreateDataFeed extends SwitchboardNode {
     this.addOutput("feed", 0 as any, { label: "" });
   }
 }
-LiteGraph.registerNodeType(`switchboard/addFeedJob`, CreateDataFeed);
+LiteGraph.registerNodeType(`switchboard/createDatafeed`, CreateDataFeed);
 
 class AddFeedJob extends SwitchboardNode {
   title = "switchboard / add feed job";
