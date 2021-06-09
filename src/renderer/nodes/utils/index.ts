@@ -186,7 +186,7 @@ class Watch extends UtilNode {
     this.addInput("value", 0 as any, { label: "" });
   }
 
-  onExecute() {
+  run() {
     if (this.inputs[0]) {
       this.value = this.getInputData(0);
     }
