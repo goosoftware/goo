@@ -162,7 +162,7 @@ export const parseWorkspace = (workspace: string) => {
       }
       onExecute() {}
     }
-    LiteGraph.registerNodeType(account.name, Account);
+    LiteGraph.registerNodeType(`anchor/${workspace}/${account.name}`, Account);
 
     class CreateInstruction extends WorkspaceNode {
       title = `${workspace}.${account.name}.createInstruction`;
@@ -171,12 +171,12 @@ export const parseWorkspace = (workspace: string) => {
         this.addInput("signer", 0 as any);
         this.addInput("sizeOverride", 0 as any);
 
-        this.addOutput("instruction", 0 as any);
+        this.addOutput("instruction", 0 as any, { label: "" });
       }
       onExecute() {}
     }
     LiteGraph.registerNodeType(
-      [account.name, "createInstruction"].join("/"),
+      `anchor/${workspace}/${account.name}/createInstruction`,
       CreateInstruction
     );
   });
@@ -195,6 +195,8 @@ export const parseWorkspace = (workspace: string) => {
         });
         this.addInput("signers", 0 as any);
         this.addInput("instructions", 0 as any);
+
+        this.addOutput("transaction", 0 as any, { label: "" });
       }
 
       onExecute() {
