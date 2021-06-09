@@ -22,7 +22,8 @@ export class GooNode extends LGraphNode {
   run(): Promise<void> | void {}
 
   onConnectionsChange() {
-    // TODO: be smarter than this
+    // TODO: only re-execute if it's changing an input
+    // TODO: set Colors.IDLE if there are no connected inputs
     this.onExecute(true);
   }
 
@@ -66,6 +67,7 @@ export class GooNode extends LGraphNode {
     this.bgcolor = Colors.SUCCESS;
     setTimeout(() => {
       this.bgcolor = Colors.IDLE;
+      this.setDirtyCanvas(true, false);
     }, 1000);
   }
 }
