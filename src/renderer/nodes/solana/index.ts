@@ -12,14 +12,12 @@ class GenerateKeypair extends SolanaNode {
 
   constructor() {
     super();
-    // this.addInput("keypair", 0 as any);
-
     this.addOutput("keypair", 0 as any);
     this.addOutput("publicKey", 0 as any);
     this.addOutput("secretKey", 0 as any);
   }
 
-  onExecute() {
+  run() {
     this.setOutputData(0, this.keypair);
     this.setOutputData(1, this.keypair.publicKey.toString());
     this.setOutputData(2, this.keypair.secretKey);
@@ -29,6 +27,7 @@ LiteGraph.registerNodeType(`solana/generateKeypair`, GenerateKeypair);
 
 class SYSVARS extends SolanaNode {
   title = "solana / SYSVARS";
+
   constructor() {
     super();
     this.addOutput("CLOCK", "publicKey");
@@ -38,7 +37,8 @@ class SYSVARS extends SolanaNode {
     this.addOutput("REWARDS", "publicKey");
     this.addOutput("STAKE_HISTORY", "publicKey");
   }
-  onExecute() {
+
+  run() {
     this.setOutputData(0, anchor.web3.SYSVAR_CLOCK_PUBKEY);
     this.setOutputData(1, anchor.web3.SYSVAR_INSTRUCTIONS_PUBKEY);
     this.setOutputData(2, anchor.web3.SYSVAR_RECENT_BLOCKHASHES_PUBKEY);
