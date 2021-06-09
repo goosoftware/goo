@@ -84,8 +84,6 @@ const getMarkets = async () => {
   return marketMetaData;
 };
 
-getMarkets().then(console.log);
-
 class PsyoptionsNode extends GooNode {
   static title_color = "#D5396D";
 }
