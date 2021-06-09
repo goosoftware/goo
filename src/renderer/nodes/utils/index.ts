@@ -8,14 +8,6 @@ import util from "tweetnacl-util";
 class UtilNode extends GooNode {
   static title_color = "#333";
 }
-class FileNode extends UtilNode {
-  title = "utils / file";
-  constructor() {
-    super();
-    this.addOutput("file", 0 as any);
-  }
-}
-LiteGraph.registerNodeType(`utils/file`, FileNode);
 
 class Logger extends UtilNode {
   title = "utils / logger";
