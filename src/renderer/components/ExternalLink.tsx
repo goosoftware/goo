@@ -5,6 +5,9 @@ import { store } from "../models/Store";
 
 type LinkProps = React.LinkHTMLAttributes<HTMLAnchorElement>;
 
+/**
+ * Creates an <a /> that opens in a separate web browser
+ */
 const ExternalLink: React.FC<LinkProps> = ({
   href,
   title,
@@ -24,6 +27,11 @@ const ExternalLink: React.FC<LinkProps> = ({
   </a>
 );
 
+/**
+ * Creates an <a /> to explorer.solana.com for the
+ * current cluster use a {path} param like
+ * "address/Stake11111111111111111111111111111111111111"
+ */
 export const ExplorerLink: React.FC<LinkProps & { path: string }> = observer(
   ({ path, ...props }) => (
     <ExternalLink {...props} href={store.explorerUrl(path)} />
