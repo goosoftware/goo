@@ -152,15 +152,50 @@ export const parseWorkspace = (workspace: string) => {
   idl.accounts?.forEach((account) => {
     class Account extends WorkspaceNode {
       title = `${workspace}.${account.name}`;
+      private ee: any;
+
       constructor() {
         super();
         this.addInput("publicKey", 0 as any);
+        // this.addInput("trigger", LiteGraph.ACTION);
 
         account.type.fields.forEach((field) => {
           this.addOutput(field.name, 0 as any);
         });
+
+        this.handleChange = this.handleChange.bind(this);
       }
-      onExecute() {}
+
+      run() {
+        const pk = this.getInputData(0);
+        this.ee?.removeListener("change", this.handleChange);
+        this.ee = program.account[camelCase(account.name)].subscribe(pk);
+        this.ee.on("change", this.handleChange);
+      }
+
+      // onAction() {
+      //   program.account
+      //     .counter(this.getInputData(0))
+      //     .then((data) => {
+      //       this.handleChange(data);
+      //     })
+      //     .catch((err) => {
+      //       this.bgcolor = "red";
+      //       console.error(err);
+      //     });
+      // }
+
+      private handleChange(data) {
+        Object.entries(data).forEach(([k, v]) => {
+          const i = this.outputs.findIndex((o) => o.name === k);
+          if (i >= 0) {
+            this.setOutputData(i, v);
+          } else {
+            console.log(`output not found: ${k}`);
+          }
+        });
+        this.onSuccess();
+      }
     }
     LiteGraph.registerNodeType(`anchor/${workspace}/${account.name}`, Account);
 
@@ -173,7 +208,16 @@ export const parseWorkspace = (workspace: string) => {
 
         this.addOutput("instruction", 0 as any, { label: "" });
       }
-      onExecute() {}
+
+      async run() {
+        const inputData = this.getInputData(0);
+
+        const data = await program.account[
+          camelCase(account.name)
+        ].createInstruction(inputData);
+
+        this.setOutputData(0, data);
+      }
     }
     LiteGraph.registerNodeType(
       `anchor/${workspace}/${account.name}/createInstruction`,
@@ -195,16 +239,52 @@ export const parseWorkspace = (workspace: string) => {
         });
         this.addInput("signers", 0 as any);
         this.addInput("instructions", 0 as any);
+        this.addInput("trigger", LiteGraph.ACTION);
 
         this.addOutput("transaction", 0 as any, { label: "" });
       }
 
-      onExecute() {
-        // console.log(
-        //   this.inputs.map((input, i) => {
-        //     return i;
-        //   })
-        // );
+      onAction() {
+        try {
+          const ob = [
+            ...Array(instruction.args.length).fill("args"),
+            ...Array(instruction.accounts.length).fill("accounts"),
+            "signers",
+            "instructions",
+          ].reduce((acc, curr, i) => {
+            const val = this.getInputData(i);
+            if (val === undefined) return acc;
+
+            if (curr === "accounts") {
+              acc[curr] ||= {};
+              acc[curr][this.inputs[i].name] = val;
+            } else {
+              acc[curr] ||= [];
+              acc[curr].push(val);
+            }
+            return acc;
+          }, {});
+
+          if (ob.args?.length > 0) {
+            program.rpc[instruction.name](...ob.args, {
+              accounts: ob.accounts,
+              signers: ob.signers,
+              instructions: ob.instructions,
+            })
+              .then(this.onSuccess)
+              .catch(this.onFailure);
+          } else {
+            program.rpc[instruction.name]({
+              accounts: ob.accounts,
+              signers: ob.signers,
+              instructions: ob.instructions,
+            })
+              .then(this.onSuccess)
+              .catch(this.onFailure);
+          }
+        } catch (err) {
+          this.onFailure(err);
+        }
       }
     }
     LiteGraph.registerNodeType(
