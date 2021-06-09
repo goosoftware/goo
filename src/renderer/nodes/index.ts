@@ -19,7 +19,6 @@ import "./arweave";
 import "./charts";
 import "./coingecko";
 import "./crypto";
-import "./index.ts";
 import "./mangomarkets";
 import "./metaplex";
 import "./psyoptions";
