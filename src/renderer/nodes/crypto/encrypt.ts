@@ -13,12 +13,6 @@ const convertPK = (inKey: string | Uint8Array) => {
 export default class Encrypt extends CryptoNode {
   title = "cryptography / encrypt";
 
-  private nonce; // = randomBytes(secretbox.nonceLength);
-  private plainText;
-  private pk;
-  private sk;
-  private cipherText;
-
   constructor() {
     super();
 
@@ -32,49 +26,22 @@ export default class Encrypt extends CryptoNode {
   }
 
   run() {
-    let dirty = false;
-    if (this.getInputData(0) && this.plainText !== this.getInputData(0)) {
-      this.plainText = this.getInputData(0);
-      dirty = true;
-    }
-    if (this.getInputData(1) && this.pk !== this.getInputData(1)) {
-      this.pk = this.getInputData(1);
-      dirty = true;
-    }
-    if (this.getInputData(2) && this.sk !== this.getInputData(2)) {
-      this.sk = this.getInputData(2);
-      dirty = true;
-    }
-    if (dirty && this.plainText && this.pk && this.sk) {
-      this.encrypt();
-    }
+    let plaintext = this.getInputData(0);
+    let pk = this.getInputData(1);
+    let sk = this.getInputData(2);
 
-    this.setOutputData(0, this.cipherText);
-    this.setOutputData(1, this.nonce);
-  }
+    const nonce = this.getInputData(3)
+      ? util.decodeBase64(this.getInputData(3))
+      : randomBytes(secretbox.nonceLength);
+    // const nonce = this.nonce;
 
-  private encrypt() {
-    try {
-      const nonce = this.getInputData(3)
-        ? util.decodeBase64(this.getInputData(3))
-        : randomBytes(secretbox.nonceLength);
-      // const nonce = this.nonce;
+    plaintext = util.decodeUTF8(plaintext);
+    pk = convertPK(pk).toBytes();
+    sk = convertSecretKey(sk);
 
-      const plaintext = util.decodeUTF8(this.plainText);
-      const pk = convertPK(this.pk).toBytes();
-      const sk = convertSecretKey(this.sk);
+    let ciphertext = nacl.box(plaintext, nonce, pk, sk);
 
-      const ciphertext = nacl.box(plaintext, nonce, pk, sk);
-
-      this.cipherText = util.encodeBase64(ciphertext!);
-      this.nonce = util.encodeBase64(nonce);
-
-      this.bgcolor = "";
-    } catch (err) {
-      this.cipherText = null;
-
-      this.bgcolor = "red";
-      console.error(err);
-    }
+    this.setOutputData(0, util.encodeBase64(ciphertext!));
+    this.setOutputData(1, util.encodeBase64(nonce));
   }
 }

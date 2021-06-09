@@ -3,9 +3,9 @@ import { LGraphNode } from "litegraph.js";
 
 const Colors = {
   IDLE: "",
-  ACTIVE: "yellow",
-  SUCCESS: "green",
-  ERROR: "red",
+  ACTIVE: "#F59E0B",
+  SUCCESS: "#059669",
+  ERROR: "#DC2626",
 };
 
 export class GooNode extends LGraphNode {
@@ -21,19 +21,25 @@ export class GooNode extends LGraphNode {
 
   run(): Promise<void> | void {}
 
-  onExecute() {
-    const currentInputs = this.inputs.map((_, i) => this.getInputData(i));
+  onConnectionsChange() {
+    // TODO: be smarter than this
+    this.onExecute(true);
+  }
 
-    // TODO: replace this with something like callbags
-    if (!this.run || isEqual(this.previousInputs, currentInputs)) {
-      return;
+  onExecute(force = false) {
+    if (!force) {
+      const currentInputs = this.inputs.map((_, i) => this.getInputData(i));
+
+      // TODO: replace this with something like callbags
+      if (!this.run || isEqual(this.previousInputs, currentInputs)) {
+        return;
+      }
+      this.previousInputs = currentInputs;
     }
-    this.previousInputs = currentInputs;
 
-    this.bgcolor = Colors.IDLE;
+    this.bgcolor = Colors.ACTIVE;
 
     try {
-      console.log(this.title);
       // https://davidwalsh.name/javascript-detect-async-function
       if (this.run.constructor.name === "AsyncFunction") {
         // @ts-expect-error
@@ -50,9 +56,16 @@ export class GooNode extends LGraphNode {
   onFailure(err: Error) {
     console.error(err);
     this.bgcolor = Colors.ERROR;
+
+    this.outputs.forEach((_, i) => {
+      this.setOutputData(i, undefined);
+    });
   }
 
   onSuccess() {
     this.bgcolor = Colors.SUCCESS;
+    setTimeout(() => {
+      this.bgcolor = Colors.IDLE;
+    }, 1000);
   }
 }
