@@ -3,7 +3,7 @@ import { LGraphNode } from "litegraph.js";
 
 const Colors = {
   IDLE: "",
-  ACTIVE: "#F59E0B",
+  ACTIVE: "#75FAAB",
   SUCCESS: "#059669",
   ERROR: "#DC2626",
 };
@@ -68,6 +68,6 @@ export class GooNode extends LGraphNode {
     setTimeout(() => {
       this.bgcolor = Colors.IDLE;
       this.setDirtyCanvas(true, false);
-    }, 1000);
+    }, 200);
   }
 }
