@@ -22,3 +22,7 @@ It requires linking a local custom build of [@project-serum/anchor](https://gith
 https://github.com/johnrees/anchor/tree/electron-0.6.0 I'm pushing it to the main anchor repo shortly so hopefully it'll be more straightforward to install soon.
 
 The interesting stuff is inside `src/renderer`. Actual docs coming soon.
+
+### Hackathon Notes
+
+There's some related work for Note (previously Ding) in https://github.com/goosoftware/note
