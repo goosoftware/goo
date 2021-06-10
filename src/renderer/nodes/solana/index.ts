@@ -13,13 +13,14 @@ class GenerateKeypair extends SolanaNode {
   constructor() {
     super();
     this.addOutput("keypair", 0 as any);
-    this.addOutput("publicKey", 0 as any);
+    this.addOutput("publicKey", "publicKey", { shape: LiteGraph.ARROW_SHAPE });
     this.addOutput("secretKey", 0 as any);
   }
 
   run() {
     this.setOutputData(0, this.keypair);
-    this.setOutputData(1, this.keypair.publicKey.toString());
+    // this.setOutputData(1, this.keypair.publicKey.toString());
+    this.setOutputData(1, this.keypair.publicKey);
     this.setOutputData(2, this.keypair.secretKey);
   }
 }
@@ -30,12 +31,18 @@ class SYSVARS extends SolanaNode {
 
   constructor() {
     super();
-    this.addOutput("CLOCK", "publicKey");
-    this.addOutput("INSTRUCTIONS", "publicKey");
-    this.addOutput("RECENT_BLOCKHASHES", "publicKey");
-    this.addOutput("RENT", "publicKey");
-    this.addOutput("REWARDS", "publicKey");
-    this.addOutput("STAKE_HISTORY", "publicKey");
+    this.addOutput("CLOCK", "publicKey", { shape: LiteGraph.ARROW_SHAPE });
+    this.addOutput("INSTRUCTIONS", "publicKey", {
+      shape: LiteGraph.ARROW_SHAPE,
+    });
+    this.addOutput("RECENT_BLOCKHASHES", "publicKey", {
+      shape: LiteGraph.ARROW_SHAPE,
+    });
+    this.addOutput("RENT", "publicKey", { shape: LiteGraph.ARROW_SHAPE });
+    this.addOutput("REWARDS", "publicKey", { shape: LiteGraph.ARROW_SHAPE });
+    this.addOutput("STAKE_HISTORY", "publicKey", {
+      shape: LiteGraph.ARROW_SHAPE,
+    });
   }
 
   run() {

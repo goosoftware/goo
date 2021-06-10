@@ -156,7 +156,9 @@ export const parseWorkspace = (workspace: string) => {
 
       constructor() {
         super();
-        this.addInput("publicKey", 0 as any);
+        this.addInput("publicKey", "publicKey", {
+          shape: LiteGraph.ARROW_SHAPE,
+        });
         // this.addInput("trigger", LiteGraph.ACTION);
 
         account.type.fields.forEach((field) => {
@@ -232,7 +234,13 @@ export const parseWorkspace = (workspace: string) => {
       constructor() {
         super();
         instruction.args.forEach((arg) => {
-          this.addInput(arg.name, 0 as any);
+          if (arg.type === "publicKey") {
+            this.addInput(arg.name, "publicKey", {
+              shape: LiteGraph.ARROW_SHAPE,
+            });
+          } else {
+            this.addInput(arg.name, 0 as any);
+          }
         });
         instruction.accounts.forEach((acc) => {
           this.addInput(acc.name, 0 as any, { shape: LiteGraph.ARROW_SHAPE });
@@ -264,6 +272,8 @@ export const parseWorkspace = (workspace: string) => {
             }
             return acc;
           }, {});
+
+          console.log({ ob });
 
           if (ob.args?.length > 0) {
             program.rpc[instruction.name](...ob.args, {
