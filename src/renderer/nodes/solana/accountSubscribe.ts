@@ -7,7 +7,6 @@ class AccountSubscribe extends SolanaNode {
     store.clusterUrl(store.cluster).replace("http", "ws")
   );
   title = "solana / watch account";
-  // static size = [230, 40];
 
   constructor() {
     super();
