@@ -1,5 +1,5 @@
 {
-  "dependencies": {
+  "devDependencies": {
     "@solana/spl-token": "^0.1.5",
     "@solana/spl-token-registry": "^0.2.121",
     "@solana/spl-token-swap": "^0.1.0",

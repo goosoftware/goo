@@ -1,5 +1,5 @@
 {
-  "dependencies": {
+  "devDependencies": {
     "@mithraic-labs/psyoptions": "^0.3.0",
     "@mithraic-labs/serum": "^0.0.3"
   }

@@ -1,5 +1,5 @@
 {
-  "dependencies": {
+  "devDependencies": {
     "lodash": "^4.17.21",
     "jsonpath-plus": "^5.0.7",
     "tweetnacl": "^1.0.3",

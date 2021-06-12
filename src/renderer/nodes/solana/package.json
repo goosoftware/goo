@@ -1,5 +1,5 @@
 {
-  "dependencies": {
+  "devDependencies": {
     "axios": "^0.21.1",
     "natsort": "^2.0.2"
   }

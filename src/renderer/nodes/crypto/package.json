@@ -1,5 +1,5 @@
 {
-  "dependencies": {
+  "devDependencies": {
     "ed2curve": "^0.3.0",
     "tweetnacl": "^1.0.3",
     "tweetnacl-util": "^0.15.1"
