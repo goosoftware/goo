@@ -147,6 +147,14 @@ importers:
     dependencies:
       '@project-serum/common': 0.0.1-beta.3
 
+  src/renderer/nodes/solana:
+    specifiers:
+      axios: ^0.21.1
+      natsort: ^2.0.2
+    dependencies:
+      axios: 0.21.1
+      natsort: 2.0.2
+
   src/renderer/nodes/switchboard:
     specifiers:
       '@switchboard-xyz/switchboard-api': ^0.2.89
@@ -1709,6 +1717,14 @@ packages:
       postcss: 8.3.0
       postcss-value-parser: 4.1.0
     dev: true
+
+  /axios/0.21.1:
+    resolution: {integrity: sha512-dKQiRHxGD9PPRIUNIWvZhPTPpl1rf/OxTYKsqKUDjBwYylTvV7SjSHJb9ratfyzM6wCdLCOYLzs73qpg5c4iGA==}
+    dependencies:
+      follow-redirects: 1.14.1
+    transitivePeerDependencies:
+      - debug
+    dev: false
 
   /babel-jest/26.6.3_@babel+core@7.14.3:
     resolution: {integrity: sha512-pl4Q+GAVOHwvjrck6jKjvmGhnO3jHX/xuB9d27f+EJZ/6k+6nMuPjorrYp7s++bKKdANwzElBWnLWaObvTnaZA==}
@@ -3658,7 +3674,6 @@ packages:
     peerDependenciesMeta:
       debug:
         optional: true
-    dev: true
 
   /for-in/1.0.2:
     resolution: {integrity: sha1-gQaNKVqBQuwKxybG4iAMMPttXoA=}
