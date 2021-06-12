@@ -47,6 +47,24 @@ async function createWindow() {
     win!.show();
     win!.focus();
   });
+
+  // TODO: reimplement this, it disables inspector atm
+  //
+  // Menu.setApplicationMenu(
+  //   Menu.buildFromTemplate([
+  //     {
+  //       label: "File",
+  //       submenu: [
+  //         {
+  //           label: "Exit",
+  //           click() {
+  //             app.quit();
+  //           },
+  //         },
+  //       ],
+  //     },
+  //   ])
+  // );
 }
 
 app.on("ready", createWindow);
